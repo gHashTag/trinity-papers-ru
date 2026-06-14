@@ -105,9 +105,24 @@ const PAGE_W = 9360; // letter usable
 // ============================ CONTENT ============================
 const children = [];
 
+const hr = () => new Paragraph({
+  spacing: { before: 120, after: 120 },
+  border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: '000000', space: 1 } },
+  children: [new TextRun({ text: '', size: 2 })],
+});
+
+// ---- Шапка для редакции (титульный лист рукописи) ----
+children.push(new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 40, line: LINE },
+  children: [it('В редакцию журнала «Искусственный интеллект и принятие решений»')] }));
+children.push(new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 40, line: LINE },
+  children: [t('ФИЦ «Информатика и управление» РАН · научная специальность 1.2.1', { size: 20 })] }));
+children.push(new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 40, line: LINE },
+  children: [t('УДК 004.222', { size: 20 })] }));
+children.push(hr());
+
 // ---- Title ----
 children.push(new Paragraph({ spacing: { after: 80, before: 200 }, alignment: AlignmentType.CENTER,
-  children: [new TextRun({ text: 'Каталог из 84 численных форматов с битоточными векторами соответствия:', font: FONT, size: 32, bold: true })] }));
+  children: [new TextRun({ text: 'Каталог из 83 численных форматов с битоточными векторами соответствия:', font: FONT, size: 32, bold: true })] }));
 children.push(new Paragraph({ spacing: { after: 240 }, alignment: AlignmentType.CENTER,
   children: [new TextRun({ text: 'вендор-нейтральный справочник для FP8, BF16, MXFP4 и микромасштабируемых форматов', font: FONT, size: 30, bold: true })] }));
 
@@ -119,7 +134,7 @@ children.push(new Paragraph({ spacing: { after: 40 }, alignment: AlignmentType.C
 children.push(new Paragraph({ spacing: { after: 40 }, alignment: AlignmentType.CENTER,
   children: [
     new TextRun({ text: 'Контакт: ', font: FONT, size: 22 }),
-    new TextRun({ text: 'dao999nft@gmail.com', font: 'Consolas', size: 20 }),
+    new TextRun({ text: 'admin@t27.ai', font: 'Consolas', size: 20 }),
     new TextRun({ text: '   ·   GitHub: ', font: FONT, size: 22 }),
     new TextRun({ text: 'github.com/gHashTag', font: 'Consolas', size: 20 }),
   ] }));
@@ -139,7 +154,7 @@ children.push(body([
   t('Распространение численных форматов в аппаратном обеспечении для машинного обучения — FP8 (E4M3 и E5M2), BF16, MXFP4, блочные микромасштабируемые форматы и десятки исследовательских вариантов — опередило доступность вендор-нейтральных битоточных справочных материалов. Инженеры, переносящие модели между ускорителями, сталкиваются с незаметными расхождениями, которые трудно диагностировать без общей измерительной линейки.'),
 ]));
 children.push(body([
-  t('В настоящей статье описаны: каталог из 84 численных форматов, охватывающий 13 семейств; набор из шести битоточных пакетов соответствия (conformance packs) для GF16, элемента MXFP4, BF16, FP8 E4M3, FP8 E5M2 и блочного масштаба E8M0; а также кросс-уолк к IEEE P3109 v3.2.0, сопоставляющий каждый пакет с соответствующей конфигурируемой формой стандарта. Каждый пакет представляет собой самодостаточный документ JSON с отпечатком SHA-256, общей схемой строк и якорным вектором, кодирующим значение 3,0 — тождество '),
+  t('В настоящей статье описаны: каталог из 83 численных форматов, охватывающий 13 семейств; набор из шести битоточных пакетов соответствия (conformance packs) для GF16, элемента MXFP4, BF16, FP8 E4M3, FP8 E5M2 и блочного масштаба E8M0; а также кросс-уолк к IEEE P3109 v3.2.0, сопоставляющий каждый пакет с соответствующей конфигурируемой формой стандарта. Каждый пакет представляет собой самодостаточный документ JSON с отпечатком SHA-256, общей схемой строк и якорным вектором, кодирующим значение 3,0 — тождество '),
   it('φ² + 1/φ² = 3'),
   t(' — в качестве межпакетной проверки корректности. Пакеты перекрёстно проверяются относительно '),
   mono('ml_dtypes'),
@@ -157,7 +172,7 @@ children.push(body([
 
 // === ENGLISH BLOCK (journal requirement: title/author/abstract/keywords in English) ===
 children.push(new Paragraph({ spacing: { before: 200, after: 80 }, alignment: AlignmentType.CENTER,
-  children: [new TextRun({ text: 'An 84-format numeric catalog with bit-exact conformance vectors:', font: FONT, size: 28, bold: true })] }));
+  children: [new TextRun({ text: 'An 83-format numeric catalog with bit-exact conformance vectors:', font: FONT, size: 28, bold: true })] }));
 children.push(new Paragraph({ spacing: { after: 160 }, alignment: AlignmentType.CENTER,
   children: [new TextRun({ text: 'a vendor-neutral reference for FP8, BF16, MXFP4 and microscaling formats', font: FONT, size: 26, bold: true })] }));
 children.push(new Paragraph({ spacing: { after: 40 }, alignment: AlignmentType.CENTER,
@@ -167,12 +182,17 @@ children.push(new Paragraph({ spacing: { after: 160 }, alignment: AlignmentType.
 children.push(new Paragraph({ spacing: { before: 80, after: 80 }, alignment: AlignmentType.CENTER,
   children: [new TextRun({ text: 'ABSTRACT', font: FONT, size: 22, bold: true })] }));
 children.push(body([
-  t('The proliferation of numeric formats in machine-learning hardware \u2014 FP8 (E4M3 and E5M2), BF16, MXFP4, block microscaling formats and dozens of research variants \u2014 has outpaced the availability of vendor-neutral, bit-exact reference material. This paper presents: a catalog of 84 numeric formats spanning 13 families; a set of six bit-exact conformance packs for GF16, the MXFP4 element, BF16, FP8 E4M3, FP8 E5M2 and the E8M0 block scale; and a crosswalk to IEEE P3109 v3.2.0 mapping each pack to its configurable form of the standard. Every pack is a self-contained JSON document with a SHA-256 fingerprint, a shared row schema and an anchor vector encoding the value 3.0 \u2014 the identity phi^2 + 1/phi^2 = 3 \u2014 as a cross-pack correctness check. Packs are cross-checked against ml_dtypes 0.5.4 (Google/JAX); any discrepancy is documented explicitly and interpreted as a specification-permitted interpretive gap rather than hidden. The work is positioned as registry-filling: it proposes no new formats, makes no model-accuracy claim and asserts no superiority over any vendor implementation. All artefacts are publicly available at github.com/gHashTag/t27 under an open license.'),
+  t('The proliferation of numeric formats in machine-learning hardware \u2014 FP8 (E4M3 and E5M2), BF16, MXFP4, block microscaling formats and dozens of research variants \u2014 has outpaced the availability of vendor-neutral, bit-exact reference material. This paper presents: a catalog of 83 numeric formats spanning 13 families; a set of six bit-exact conformance packs for GF16, the MXFP4 element, BF16, FP8 E4M3, FP8 E5M2 and the E8M0 block scale; and a crosswalk to IEEE P3109 v3.2.0 mapping each pack to its configurable form of the standard. Every pack is a self-contained JSON document with a SHA-256 fingerprint, a shared row schema and an anchor vector encoding the value 3.0 \u2014 the identity phi^2 + 1/phi^2 = 3 \u2014 as a cross-pack correctness check. Packs are cross-checked against ml_dtypes 0.5.4 (Google/JAX); any discrepancy is documented explicitly and interpreted as a specification-permitted interpretive gap rather than hidden. The work is positioned as registry-filling: it proposes no new formats, makes no model-accuracy claim and asserts no superiority over any vendor implementation. All artefacts are publicly available at github.com/gHashTag/t27 under an open license.'),
 ], { noindent: true }));
 children.push(body([
   b('Keywords: '),
   t('numeric formats, floating point, conformance, IEEE P3109, golden ratio, machine learning, bit-exact vectors, microscaling, FP8, BF16, MXFP4.'),
 ], { noindent: true }));
+
+// ---- Сведения для редакции (завершает титульный лист) ----
+children.push(hr());
+children.push(body([ b('Сведения для редакции. ', { size: 20 }),
+  t('Статья оригинальна, ранее не публиковалась и не подавалась в другие издания. Конфликт интересов отсутствует, внешнее финансирование не привлекалось. Рукопись оформлена единым файлом MS Word (.docx) и содержит русско- и англоязычные версии названия, сведений об авторе, аннотации и ключевых слов; текст чёрно-белый, формат А4. По требованию редакции автор готов предоставить лицензионный договор (скан) и экспертное заключение о возможности открытого опубликования. Тема письма при подаче: «ИИПР Васильев». Контактная эл. почта: admin@t27.ai.', { size: 20 }) ], { noindent: true }));
 
 // =================== 1. Introduction ===================
 children.push(H1('1. Введение'));
@@ -181,8 +201,8 @@ children.push(body([
 ]));
 children.push(body([ t('В настоящей статье описаны два артефакта, призванные служить такой общей линейкой.') ]));
 
-children.push(body([ b('Вклад 1: каталог из 84 численных форматов. '),
-  t('Каталог '), mono('t27'), t(' перечисляет 84 численных формата в 13 семействах (раздел 3). Каждая запись несёт единообразную схему: разрядную раскладку, смещение порядка (bias), политику бесконечности/NaN, политику насыщения, максимальное конечное значение, минимальное нормальное значение, минимальное субнормальное число и метку статуса утверждения (Verified / Empirical_fit / Open_conjecture / Risk / Retracted). Каталог хранится как единый источник истины и кросс-компилируется в Markdown, JSON, Python, Rust, C и TypeScript посредством шаблонного инструмента.') ]));
+children.push(body([ b('Вклад 1: каталог из 83 численных форматов. '),
+  t('Каталог '), mono('t27'), t(' перечисляет 83 численных формата в 13 семействах (раздел 3). Каждая запись несёт единообразную схему: разрядную раскладку, смещение порядка (bias), политику бесконечности/NaN, политику насыщения, максимальное конечное значение, минимальное нормальное значение, минимальное субнормальное число и метку статуса утверждения (Verified / Empirical_fit / Open_conjecture / Risk / Retracted). Каталог хранится как единый источник истины и кросс-компилируется в Markdown, JSON, Python, Rust, C и TypeScript посредством шаблонного инструмента.') ]));
 
 children.push(body([ b('Вклад 2: шесть битоточных пакетов соответствия. '),
   t('Пакеты (раздел 5) охватывают шесть форматов, наиболее часто встречающихся в современном промышленном аппаратном обеспечении и исследовательских конвейерах: GoldenFloat 16 (GF16), элемент MXFP4, BF16, FP8 E4M3, FP8 E5M2 и блочный масштаб E8M0. Два пакета (GF16 и MXFP4) уже доступны в PyPI-пакете '),
@@ -239,30 +259,30 @@ children.push(body([
 
 // =================== 3. Catalog Design ===================
 children.push(H1('3. Устройство каталога'));
-children.push(H2('3.1. 84 формата в 13 кластерах'));
+children.push(H2('3.1. 83 формата в 13 кластерах'));
 children.push(body([
-  t('Каталог '), mono('t27'), t(' содержит 84 формата, организованных в 13 именованных кластеров. Таблица 1 показывает названия кластеров и количество форматов. Сумма количеств равна ровно 84; это непрерывно контролируемый инвариант каталога (CI-01, раздел 3.4).'),
+  t('Каталог '), mono('t27'), t(' содержит 83 формата, организованных в 13 именованных кластеров. Таблица 1 показывает названия кластеров и количество форматов. Сумма количеств равна ровно 83; это непрерывно контролируемый инвариант каталога (CI-01, раздел 3.4).'),
 ]));
 
 children.push(makeTable([3000, 4760, 1600],
   ['Кластер', 'Представительные форматы', 'Кол-во'],
   [
-    ['IEEE754 binary', 'binary16, binary32, binary64, binary128, binary80', '5'],
+    ['IEEE754 binary', 'binary16, binary32, binary64, binary128, binary256', '5'],
     ['IEEE754 decimal', 'decimal32, decimal64, decimal128', '3'],
-    ['MLLowPrecision', 'BF16, TF32, FP8 E4M3, FP8 E5M2, FP8 E3M4, FP6, FP4, NF4', '8'],
-    ['GoldenFloat', 'GF4 … GF256 (варианты с привязкой к φ)', '16'],
-    ['Posit / Unum III', 'Posit8, Posit16, Posit32, takum8, takum16, …', '8'],
-    ['OCP MX', 'MXFP4, MXFP6_E2M3, MXFP6_E3M2, MXFP8_E4M3, E8M0_block', '5'],
-    ['LNS', 'варианты LNS8, LNS16', '4'],
-    ['IntegerFixed', 'INT2, INT4, INT8, INT16, UINT4, UINT8, UINT16, FXP16', '8'],
-    ['HistoricalVendor', 'IBM hex float, DEC VAX G, Cray single, NVIDIA TF32, …', '10'],
-    ['Theoretical', 'граничные случаи E0M7, E7M0, E1M6, E6M1', '4'],
-    ['Compression/scaling', 'NF4 block, E8M0 block, SF8, RFP8', '4'],
-    ['Extended', 'binary256, bfloat32, bfloat128', '3'],
-    ['QuantTuned', 'Q-BF16, adaptive-FP8', '2'],
-    [{ runs: [b('Итого', { size: 20 })] }, '', { runs: [b('84', { size: 20 })] }],
+    ['Extended', 'x87 FP80, double-double, quad-double', '3'],
+    ['ML low-precision', 'BF16, TF32, FP8 E4M3, FP8 E5M2, FP6 E3M2/E2M3, FP4 E2M1', '7'],
+    ['Microscaling (MX)', 'MXFP8, MXFP6, MXFP4', '3'],
+    ['Posit / Unum III', 'Posit8/16/32/64, takum8/16/32/64', '8'],
+    ['LNS', 'LNS-8, LNS-16, LNS-32, LNS-64', '4'],
+    ['GoldenFloat', 'GFTernary, GF4 … GF1024 (с привязкой к φ), MXGF6/MXGF4', '22'],
+    ['IntegerFixed', 'INT4/8/16/32/64/128, Q-format, BCD', '8'],
+    ['QuantTuned', 'NF4 (NormalFloat), AFP (Adaptive FP)', '2'],
+    ['Compression/scaling', 'block FP (BFP), shared-exponent, INT8 per-channel, stochastic rounding', '4'],
+    ['HistoricalVendor', 'IBM HFP, Microsoft MBF, VAX F/D/G/H-float, Cray float', '10'],
+    ['Theoretical', 'minifloat, Unum I, Unum II (SORN), tapered FP', '4'],
+    [{ runs: [b('Итого', { size: 20 })] }, '', { runs: [b('83', { size: 20 })] }],
   ]));
-children.push(caption('Таблица 1. 84 формата в 13 кластерах (T1).'));
+children.push(caption('Таблица 1. 83 формата в 13 кластерах (T1).'));
 
 children.push(H2('3.2. Схема «одна строка на формат»'));
 children.push(body([ t('Каждая запись каталога несёт следующие поля:') ]));
@@ -305,7 +325,7 @@ children.push(body([ t('Пятнадцать инвариантов провер
 children.push(makeTable([1100, 3500, 4760],
   ['ID', 'Инвариант', 'Проверка'],
   [
-    ['CI-01', 'Общее число форматов равно 84', { runs: [mono('sum(cluster_counts) == 84')] }],
+    ['CI-01', 'Общее число форматов равно 83', { runs: [mono('sum(cluster_counts) == 83')] }],
     ['CI-02', 'Нет коллизий имён', { runs: [mono('len(names) == len(set(names))')] }],
     ['CI-03', 'Согласованность разрядности', { runs: [mono('1 + exp + mant == bits'), t(' для стандартной раскладки', { size: 20 })] }],
     ['CI-04', 'Диапазон смещения порядка', { runs: [mono('bias <= 2**(exp-1) - 1')] }],
@@ -632,9 +652,9 @@ children.push(body([
 
 // =================== 9. Future Work ===================
 children.push(H1('9. Будущая работа'));
-children.push(H2('9.1. Трек 2: полный набор из 84 пакетов'));
+children.push(H2('9.1. Трек 2: полный набор из 83 пакетов'));
 children.push(body([
-  t('Шесть пакетов в этой статье охватывают форматы, наиболее немедленно релевантные промышленному ML-оборудованию. Трек 2 (целевой срок III кв. 2026) расширит охват на все 84 формата каталога, для которых доступны эталонные реализации, включая:'),
+  t('Шесть пакетов в этой статье охватывают форматы, наиболее немедленно релевантные промышленному ML-оборудованию. Трек 2 (целевой срок III кв. 2026) расширит охват на все 83 формата каталога, для которых доступны эталонные реализации, включая:'),
 ]));
 children.push(bullet([ t('NVIDIA NVFP4 (элемент S1E2M1, 16-элементный блок, блочный масштаб FP8 E4M3) — закрывая структурный разрыв, задокументированный в разделе 7.2.') ]));
 children.push(bullet([ t('Остальные записи MLLowPrecision (варианты FP6, FP4, NF4).') ]));
@@ -678,7 +698,7 @@ children.push(body([ b('Уровень элемента, а не уровень 
 children.push(body([ b('Единственный эталонный оракул. '),
   t('Пакеты уровня Tier-1 используют '), mono('ml_dtypes'), t(' как эталонную реализацию, с одним хорошо задокументированным расхождением по переполнению FP8 E4M3 (раздел 7.1). Независимо реализованный оракул — например, libtakum для Posit/Unum III или Pychop для уровня операций Трека 2 — пока не подключён к стенду верификации. Расхождения, прослеживаемые к смещению одного оракула, в настоящее время нельзя исключить для форматов вне подмножества BF16 / FP8 / MXFP4 / E8M0.') ]));
 children.push(body([ b('Покрытие каталога асимметрично. '),
-  t('Каталог из 84 строк (раздел 3) охватывает 13 кластеров форматов, но глубина покрытия неравномерна. IEEE 754 binary, BF16, FP8 (E4M3/E5M2), MXFP4 и семейство GoldenFloat GFN покрыты полными схемами строк, таксономией статусов утверждений и соответствующими пакетами Tier-1, где применимо. Строки Posit/Unum III, логарифмические системы счисления (LNS), NF4, BitNet, TF32 и FP6 присутствуют, но в настоящее время лишены пакетов Tier-1; их поля статуса утверждений заполнены, но ещё не проверены сквозным образом относительно оракула. Это сделано намеренно — каталог в первую очередь реестр, а во вторую — стенд верификации — но это означает, что отсутствие пакета соответствия не следует трактовать как утверждение о качестве.') ]));
+  t('Каталог из 83 строк (раздел 3) охватывает 13 кластеров форматов, но глубина покрытия неравномерна. IEEE 754 binary, BF16, FP8 (E4M3/E5M2), MXFP4 и семейство GoldenFloat GFN покрыты полными схемами строк, таксономией статусов утверждений и соответствующими пакетами Tier-1, где применимо. Строки Posit/Unum III, логарифмические системы счисления (LNS), NF4, BitNet, TF32 и FP6 присутствуют, но в настоящее время лишены пакетов Tier-1; их поля статуса утверждений заполнены, но ещё не проверены сквозным образом относительно оракула. Это сделано намеренно — каталог в первую очередь реестр, а во вторую — стенд верификации — но это означает, что отсутствие пакета соответствия не следует трактовать как утверждение о качестве.') ]));
 children.push(body([ b('NVFP4 задокументирован, но не упакован. '),
   t('Разрыв B (раздел 7.2) задокументирован на структурном уровне таблицей параметров, но соответствующий пакет NVFP4 уровня Tier-1 пока не включён в этот препринт. Количественные межпакетные векторы расхождений на представительных границах квантования масштаба перечислены как первый результат Трека 2 (раздел 9.1).') ]));
 children.push(body([ b('Никаких утверждений об оптимальности. '),
@@ -689,9 +709,9 @@ children.push(body([ b('Конверт воспроизводимости. '),
   t('Все якоря SHA-256, коммиты репозиториев и манифесты пакетов, приведённые в разделе 8, были проверены на момент написания. Долгосрочная воспроизводимость зависит от доступности вышестоящих источников '),
   mono('ml_dtypes'), t(', спецификации OCP MX и промежуточного документа IEEE P3109; если какой-либо из них станет недоступен, стенду верификации потребуется слой зеркалирования, который в настоящее время не реализован.') ]));
 children.push(body([ b('Отсутствие зависимости от неопубликованных работ. '),
-  t('Результаты этой статьи — каталог из 84 форматов, шесть пакетов соответствия, кросс-уолк к P3109 v3.2.0 и два задокументированных интерпретационных разрыва — зависят только от артефактов, процитированных в библиографии и публично доступных (репозитории с открытой лицензией, опубликованные стандарты и препринт arXiv GoldenFloat). Ни одно утверждение, таблица или теорема в этой статье не опирается на неопубликованные или находящиеся на рецензировании рукописи. Предстоящие последующие работы по смежным темам упоминаются только как направление будущей работы в разделе 9 и явно выходят за рамки настоящего изложения.') ]));
+  t('Результаты этой статьи — каталог из 83 форматов, шесть пакетов соответствия, кросс-уолк к P3109 v3.2.0 и два задокументированных интерпретационных разрыва — зависят только от артефактов, процитированных в библиографии и публично доступных (репозитории с открытой лицензией, опубликованные стандарты и препринт arXiv GoldenFloat). Ни одно утверждение, таблица или теорема в этой статье не опирается на неопубликованные или находящиеся на рецензировании рукописи. Предстоящие последующие работы по смежным темам упоминаются только как направление будущей работы в разделе 9 и явно выходят за рамки настоящего изложения.') ]));
 children.push(body([
-  t('Ни одно из этих ограничений не меняет центрального утверждения статьи: каталог из 84 форматов с шестью пакетами соответствия, кросс-уолком к IEEE P3109 и двумя задокументированными интерпретационными разрывами теперь является пригодным, воспроизводимым вендор-нейтральным справочником. Они очерчивают то, чем артефакт является, в отличие от того, чем он не является.'),
+  t('Ни одно из этих ограничений не меняет центрального утверждения статьи: каталог из 83 форматов с шестью пакетами соответствия, кросс-уолком к IEEE P3109 и двумя задокументированными интерпретационными разрывами теперь является пригодным, воспроизводимым вендор-нейтральным справочником. Они очерчивают то, чем артефакт является, в отличие от того, чем он не является.'),
 ]));
 
 // =================== Acknowledgments ===================
@@ -738,17 +758,17 @@ children.push(body([
 children.push(H1('Об авторе'));
 children.push(body([
   b('Васильев Дмитрий Владимирович '),
-  t('— независимый исследователь (Trinity S³AI), г. Ко Самуи, Королевство Таиланд. Область научных интересов: численные форматы, арифметика пониженной точности, нейросимвольный ИИ, верифицируемые вычисления. ORCID: 0009-0008-4294-6159. Эл. почта: dao999nft@gmail.com.'),
+  t('— независимый исследователь (Trinity S³AI), г. Ко Самуи, Королевство Таиланд. Область научных интересов: численные форматы, арифметика пониженной точности, нейросимвольный ИИ, верифицируемые вычисления. ORCID: 0009-0008-4294-6159. Эл. почта: admin@t27.ai.'),
 ], { noindent: true }));
 children.push(body([
   b('Vasilev Dmitrii Vladimirovich '),
-  t('— independent researcher (Trinity S³AI), Ko Samui, Kingdom of Thailand. Research interests: numeric formats, low-precision arithmetic, neurosymbolic AI, verifiable computing. ORCID: 0009-0008-4294-6159. E-mail: dao999nft@gmail.com.'),
+  t('— independent researcher (Trinity S³AI), Ko Samui, Kingdom of Thailand. Research interests: numeric formats, low-precision arithmetic, neurosymbolic AI, verifiable computing. ORCID: 0009-0008-4294-6159. E-mail: admin@t27.ai.'),
 ], { noindent: true }));
 
 // ============================ DOC ============================
 const doc = new Document({
   creator: 'Dmitrii Vasilev',
-  title: 'Каталог из 84 численных форматов с битоточными векторами соответствия',
+  title: 'Каталог из 83 численных форматов с битоточными векторами соответствия',
   styles: {
     default: {
       document: { run: { font: FONT, size: SIZE }, paragraph: { spacing: { line: LINE } } },
