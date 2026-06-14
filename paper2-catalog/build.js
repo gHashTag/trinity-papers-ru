@@ -7,27 +7,30 @@ const {
 } = docx;
 
 const FONT = 'Times New Roman';
-const SIZE = 24; // 12pt = 24 half-points
+const SIZE = 22; // 11pt = 22 half-points (требование «ИИ и принятие решений»)
+const LINE = 360;  // 1.5 интервал (240 = single, 360 = 1.5)
+const REDLINE = 283; // красная строка 0.5 см
 
 // ---------- helpers ----------
-const thin = { style: BorderStyle.SINGLE, size: 4, color: '808080' };
+const thin = { style: BorderStyle.SINGLE, size: 4, color: '000000' };
 const borders = { top: thin, bottom: thin, left: thin, right: thin };
 
 function P(text, opts = {}) {
   const runs = Array.isArray(text) ? text : [new TextRun({ text: String(text), font: FONT, size: SIZE, ...opts.run })];
   return new Paragraph({
-    spacing: { after: opts.after !== undefined ? opts.after : 120, line: 276, ...opts.spacing },
+    spacing: { after: opts.after !== undefined ? opts.after : 120, line: LINE, ...opts.spacing },
     alignment: opts.alignment,
     children: runs,
     ...opts.p,
   });
 }
 
-// body paragraph supporting inline runs (array of TextRun)
+// body paragraph supporting inline runs (array of TextRun) — красная строка 0.5см, 1.5 интервал
 function body(runs, opts = {}) {
   return new Paragraph({
-    spacing: { after: 140, line: 276 },
+    spacing: { after: 120, line: LINE },
     alignment: opts.alignment || AlignmentType.JUSTIFIED,
+    indent: opts.noindent ? undefined : { firstLine: REDLINE },
     children: runs,
   });
 }
@@ -64,7 +67,7 @@ function makeTable(colWidths, headers, rows, opts = {}) {
     tableHeader: true,
     children: headers.map((h, i) => new TableCell({
       borders, width: { size: colWidths[i], type: WidthType.DXA },
-      shading: { fill: 'D9E2EC', type: ShadingType.CLEAR },
+      shading: { fill: 'FFFFFF', type: ShadingType.CLEAR },
       margins: { top: 50, bottom: 50, left: 80, right: 80 },
       verticalAlign: VerticalAlign.CENTER,
       children: [new Paragraph({ spacing: { after: 0, line: 240 }, children: [new TextRun({ text: h, font: FONT, size: opts.fs || 20, bold: true })] })],
@@ -84,7 +87,7 @@ function makeTable(colWidths, headers, rows, opts = {}) {
         borders, width: { size: colWidths[i], type: WidthType.DXA },
         margins: { top: 40, bottom: 40, left: 80, right: 80 },
         verticalAlign: VerticalAlign.CENTER,
-        shading: ri % 2 === 1 ? { fill: 'F3F6F9', type: ShadingType.CLEAR } : undefined,
+        shading: undefined,
         children,
       });
     }),
@@ -150,6 +153,26 @@ children.push(body([
   b('Ключевые слова: '),
   t('численные форматы, форматы с плавающей точкой, conformance, IEEE P3109, золотое сечение, машинное обучение, битоточные векторы, микромасштабирование, FP8, BF16, MXFP4.'),
 ]));
+
+
+// === ENGLISH BLOCK (journal requirement: title/author/abstract/keywords in English) ===
+children.push(new Paragraph({ spacing: { before: 200, after: 80 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'An 84-format numeric catalog with bit-exact conformance vectors:', font: FONT, size: 28, bold: true })] }));
+children.push(new Paragraph({ spacing: { after: 160 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'a vendor-neutral reference for FP8, BF16, MXFP4 and microscaling formats', font: FONT, size: 26, bold: true })] }));
+children.push(new Paragraph({ spacing: { after: 40 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'Dmitrii Vasilev', font: FONT, size: 24, bold: true })] }));
+children.push(new Paragraph({ spacing: { after: 160 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'Independent researcher, Trinity S\u00b3AI \u00b7 ORCID 0009-0008-4294-6159', font: FONT, size: 20, italics: true })] }));
+children.push(new Paragraph({ spacing: { before: 80, after: 80 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'ABSTRACT', font: FONT, size: 22, bold: true })] }));
+children.push(body([
+  t('The proliferation of numeric formats in machine-learning hardware \u2014 FP8 (E4M3 and E5M2), BF16, MXFP4, block microscaling formats and dozens of research variants \u2014 has outpaced the availability of vendor-neutral, bit-exact reference material. This paper presents: a catalog of 84 numeric formats spanning 13 families; a set of six bit-exact conformance packs for GF16, the MXFP4 element, BF16, FP8 E4M3, FP8 E5M2 and the E8M0 block scale; and a crosswalk to IEEE P3109 v3.2.0 mapping each pack to its configurable form of the standard. Every pack is a self-contained JSON document with a SHA-256 fingerprint, a shared row schema and an anchor vector encoding the value 3.0 \u2014 the identity phi^2 + 1/phi^2 = 3 \u2014 as a cross-pack correctness check. Packs are cross-checked against ml_dtypes 0.5.4 (Google/JAX); any discrepancy is documented explicitly and interpreted as a specification-permitted interpretive gap rather than hidden. The work is positioned as registry-filling: it proposes no new formats, makes no model-accuracy claim and asserts no superiority over any vendor implementation. All artefacts are publicly available at github.com/gHashTag/t27 under an open license.'),
+], { noindent: true }));
+children.push(body([
+  b('Keywords: '),
+  t('numeric formats, floating point, conformance, IEEE P3109, golden ratio, machine learning, bit-exact vectors, microscaling, FP8, BF16, MXFP4.'),
+], { noindent: true }));
 
 // =================== 1. Introduction ===================
 children.push(H1('1. Введение'));
@@ -706,12 +729,30 @@ for (const [n, txt] of refs) {
     children: [new TextRun({ text: n, font: FONT, size: 21, bold: true }), new TextRun({ text: txt, font: FONT, size: 21 })] }));
 }
 
+// Пояснение о списке References (журнал публикует единый список латиницей)
+children.push(body([
+  it('References (English transliteration) is produced by the editorial office from the entries above; all sources are cited in Latin script.'),
+], { noindent: true }));
+
+// =================== ОБ АВТОРЕ / ABOUT THE AUTHOR (требование журнала) ===================
+children.push(H1('Об авторе'));
+children.push(body([
+  b('Васильев Дмитрий Владимирович '),
+  t('— независимый исследователь (Trinity S³AI), г. Ко Самуи, Королевство Таиланд. Область научных интересов: численные форматы, арифметика пониженной точности, нейросимвольный ИИ, верифицируемые вычисления. ORCID: 0009-0008-4294-6159. Эл. почта: dao999nft@gmail.com.'),
+], { noindent: true }));
+children.push(body([
+  b('Vasilev Dmitrii Vladimirovich '),
+  t('— independent researcher (Trinity S³AI), Ko Samui, Kingdom of Thailand. Research interests: numeric formats, low-precision arithmetic, neurosymbolic AI, verifiable computing. ORCID: 0009-0008-4294-6159. E-mail: dao999nft@gmail.com.'),
+], { noindent: true }));
+
 // ============================ DOC ============================
 const doc = new Document({
   creator: 'Dmitrii Vasilev',
   title: 'Каталог из 84 численных форматов с битоточными векторами соответствия',
   styles: {
-    default: { document: { run: { font: FONT, size: SIZE } } },
+    default: {
+      document: { run: { font: FONT, size: SIZE }, paragraph: { spacing: { line: LINE } } },
+    },
     paragraphStyles: [
       { id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true,
         run: { size: 30, bold: true, font: FONT, color: '000000' }, paragraph: { spacing: { before: 280, after: 140 }, outlineLevel: 0, keepNext: true } },
@@ -727,7 +768,8 @@ const doc = new Document({
     ],
   },
   sections: [{
-    properties: { page: { size: { width: 12240, height: 15840 }, margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } } },
+    // A4 (21×29.7см); поля: верх/низ 3.5см (1985 twips), лев/прав 2.5см (1417 twips)
+    properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 1985, right: 1417, bottom: 1985, left: 1417 } } },
     headers: { default: new Header({ children: [new Paragraph({ alignment: AlignmentType.RIGHT,
       children: [new TextRun({ text: 'Искусственный интеллект и принятие решений', italics: true, color: '888888', size: 16, font: FONT })] })] }) },
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER,
