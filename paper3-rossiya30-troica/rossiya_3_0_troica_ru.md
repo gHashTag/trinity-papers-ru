@@ -188,6 +188,20 @@
 
 ---
 
+### 3a.3. Обновление (июль 2026): ASIC-планка Platinum, метрика AUE и зрелость Lean/Rocq-верификации
+
+К июлю 2026 г. фон уплотнился ещё по трём осям. Ниже — честное соотнесение с источниками, не цитированными выше; статусные теги сохранены, превосходство по «голым» цифрам не заявляется (кремний TTSKY26b *отправлен на изготовление*, на кристалле не измерен).
+
+**ASIC-планка поднялась снова — Platinum как новая базовая линия.** На ASP-DAC 2026 принят *Platinum* ([arXiv:2511.21910](https://arxiv.org/abs/2511.21910), [DOI 10.1109/ASP-DAC66049.2026.11420289](https://doi.org/10.1109/ASP-DAC66049.2026.11420289), Duke University) — лёгкий LUT-ориентированный ASIC-ускоритель mpGEMM с офлайн-генерируемыми путями и адаптивным переключением между bit-serial и троичным режимами; на BitNet b1.58-3B авторы заявляют 73,6× ускорения и 32,4× снижения энергопотребления против SpikingEyeriss при площади 0,96 мм² **[доказано — у авторов]**. *PD-Swap* ([arXiv:2512.11550](https://arxiv.org/abs/2512.11550)) добавляет давление в FPGA-сегменте: дезагрегированный prefill/decode-ускоритель ternary-LLM на динамической частичной реконфигурации (27 ток/с, 1,3-2,1× против SOTA на длинных контекстах). **Разграничение Trinity без изменений и теперь с явным ASIC-репером:** все три (Platinum, PD-Swap, ранее TeLLMe/TENET) используют троичность как *квантизацию весов {−1,0,+1} поверх бинарной арифметики*; Trinity заявляет *балансную троичную логику в открытом кремнии (SKY130)* с битоточно верифицируемой арифметикой. Это разные уровни, а не сравнение «кто быстрее»; численное энергетическое сопоставление с Platinum остаётся **[открытой гипотезой/проекцией до замеров на кристалле]**.
+
+**Метрика энергоэффективности уточнилась — AUE поверх J/token.** Работа *AUE* ([DOI 10.1109/ICPADS67057.2025.11323149](https://doi.org/10.1109/ICPADS67057.2025.11323149), ICPADS 2025) показывает, что сырой J/token систематически искажает сравнение в пользу малых моделей, и предлагает нормированную метрику AUE = Дж / (KToken × GParam), нейтральную к масштабу модели. Это прямо релевантно линии § 4a.3: энергетические сравнения GF16-кодека Trinity с float-базовыми линиями следует приводить **в координатах AUE**, а не только J/token, чтобы сопоставление было честным относительно размера модели **[возможность цитирования]**. Эмпирическая работа группы Luccioni ([arXiv:2601.22362](https://arxiv.org/abs/2601.22362), январь 2026, NVIDIA H100) уточняет границу применимости: квантизация даёт реальную экономию энергии *только в compute-bound режиме*, а на системном уровне scheduling запросов может менять энергию на запрос до 100× **[подтверждает позицию]**. Вывод для Trinity: троичная арифметика выигрывает именно в compute-bound режиме — это совпадает с режимом, где квантизация реально снижает энергию; следовательно, заявку об энергоэффективности нужно формулировать как условную («в compute-bound нагрузке»), а не безусловную, и измерять в AUE.
+
+**Верификация арифметики и ISA — производственная зрелость Lean/Rocq.** Появились прямые инструментальные прецеденты для линии § 4a (Coq/Flocq-надстройка Trinity): *LeanBET* ([arXiv:2605.16169](https://arxiv.org/abs/2605.16169), май 2026) — исполняемый научный конвейер в Lean 4, который ведёт float-вычисление и одновременно доказывает корректность над вещественными числами, то есть демонстрирует ту же дуальную стратегию «исполнение + вещественное доказательство», что заявляет Trinity **[подтверждает позицию]**; *NumFuzz* ([arXiv:2501.14598](https://arxiv.org/abs/2501.14598), PACMPL) и *VCFloat2* ([DOI 10.1145/3636501.3636953](https://doi.org/10.1145/3636501.3636953), CPP 2024) дают тип-системные и Coq-инструменты автоматического вывода границ ошибок округления для *нестандартных* форматов (настраиваемая ширина мантиссы) — прямой прецедент для верификации форматов каталога Trinity **[возможность цитирования]**. Линию spec-first ISA расширяет *Interaction-Tree-семантика RISC-V на Rocq* ([arXiv:2605.04933](https://arxiv.org/abs/2605.04933), май 2026): сквозная bisimulation «LLVM IR → RTL» с case study корректности ALU — тот тип кросс-уровневой верификации, который Trinity позиционирует для TRI-27 **[подтверждает позиционирование]**.
+
+**ZKML — окно ниши продолжает сужаться.** *TeleSparse* ([arXiv:2504.19274](https://arxiv.org/abs/2504.19274)) снизил память доказателя ZK-верификации трансформеров на 67 % и время на 46 % (Halo2, проверено на ViT/ResNet/MobileNet) при потере точности ~1 % — то есть ZK-верификация инференса становится практичной без спецжелеза. **Позиция Trinity остаётся прежней и проверяемой:** битоточные conformance-векторы + Coq/Flocq дают *детерминированную воспроизводимость нижнего арифметического уровня* (лёгкую, аппаратно реализуемую), ZKP (TeleSparse, ранее ZK-DeepSeek/Jolt Atlas/NANOZK) дают *криптографическую приватность и корректность исполнения* — это складываемые слои, а не конкуренты **[доказано — существование conformance-векторов; открытая гипотеза — рыночное соотношение]**.
+
+---
+
 ## 3b. Отечественный ландшафт и конкурентный бенчмаркинг
 
 ![Триптих фиг. 3б — Отечественный ландшафт: Эльбрус, Байкал, нейроморфные ИС.](figures/canon/r30_sec3b_landscape.png)
@@ -932,6 +946,17 @@ GoldenFloat — семейство числовых форматов с плав
 84. Wu X. et al. QVU: A RISC-V Vector-Extended Quantization Vector Unit for IEEE 754 and Posit Formats. IEEE ISPA 2025. DOI: 10.1109/ISPA67752.2025.00020. URL: https://doi.org/10.1109/ISPA67752.2025.00020
 85. Li Q. et al. Lightweight and Precision-Scalable Posit/IEEE-754 Arithmetic in RISC-V Cores. arXiv:2505.19096 (2025). URL: https://arxiv.org/abs/2505.19096
 86. Gül F. Energy Efficiency of AI Hardware: A Systematic Review of GPU, TPU, and NPU Architectures in the LLM Era. Springer, 2026. DOI: 10.1007/s44443-026-00900-6. URL: https://doi.org/10.1007/s44443-026-00900-6
+
+**Обновление (июль 2026): ASIC-планка, AUE-метрика, Lean/Rocq-верификация (§ 3a.3):**
+87. Shan H. et al. Platinum: Path-Adaptable LUT-Based Accelerator for Low-Bit Weight Matrix Multiplication. arXiv:2511.21910 (ASP-DAC 2026). DOI: 10.1109/ASP-DAC66049.2026.11420289. URL: https://arxiv.org/abs/2511.21910
+88. Zhang Y. et al. PD-Swap: Prefill-Decode Logic Swapping for End-to-End LLM Inference on Edge FPGAs via Dynamic Partial Reconfiguration. arXiv:2512.11550 (2025). URL: https://arxiv.org/abs/2512.11550
+89. Zhang Y. et al. AUE: A Normalized Energy Efficiency Metric for AI Servers Under LLM Workloads. ICPADS 2025. DOI: 10.1109/ICPADS67057.2025.11323149. URL: https://doi.org/10.1109/ICPADS67057.2025.11323149
+90. Delavande J., Pierrard R., Luccioni S. Understanding Efficiency: Quantization, Batching, and Serving Strategies in LLM Energy Use. arXiv:2601.22362 (2026). URL: https://arxiv.org/abs/2601.22362
+91. Ugwuanyi E. D. et al. LeanBET: Formally-Verified Scientific Computing Pipeline in Lean 4. arXiv:2605.16169 (2026). URL: https://arxiv.org/abs/2605.16169
+92. Kellison A. E. NumFuzz / Type-Based Approaches to Rounding Error Analysis. arXiv:2501.14598 (PACMPL). URL: https://arxiv.org/abs/2501.14598
+93. Appel A., Kellison A. E. VCFloat2: Floating-Point Error Analysis in Coq. CPP 2024. DOI: 10.1145/3636501.3636953. URL: https://doi.org/10.1145/3636501.3636953
+94. Kan S., Ertel S. Interaction Tree Semantics for RISC-V: Bridging Compiler and Hardware Verification (Rocq). arXiv:2605.04933 (2026). URL: https://arxiv.org/abs/2605.04933
+95. Maheri M. M., Haddadi H., Davidson A. TeleSparse: Practical Privacy-Preserving Verification of Deep Neural Networks. arXiv:2504.19274 (2025). URL: https://arxiv.org/abs/2504.19274
 
 **Исторический контекст (троичность):**
 60. Брусенцов Н. П. ЭВМ «Сетунь» (МГУ, 1958). URL: https://www.computer-museum.ru/articles/galglory/3226/
