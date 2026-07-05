@@ -2,10 +2,13 @@
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
-%
 \documentclass[
+  russian,
 ]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -22,7 +25,7 @@
   \setmainfont[]{DejaVu Serif}
   \setsansfont[]{DejaVu Sans}
   \setmonofont[]{DejaVu Sans Mono}
-  \setmathfont[]{Latin Modern Math}
+  \setmathfont[]{DejaVu Math TeX Gyre}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -40,8 +43,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -52,31 +53,42 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
 \ifLuaTeX
-\usepackage[bidi=basic]{babel}
+\usepackage[bidi=basic,shorthands=off,,provide=*]{babel}
 \else
-\usepackage[bidi=default]{babel}
+\usepackage[bidi=default,shorthands=off,,provide=*]{babel}
 \fi
-\babelprovide[main,import]{russian}
 \ifPDFTeX
 \else
 \babelfont{rm}[]{DejaVu Serif}
 \fi
-% get rid of language-specific shorthands (see #6817):
-\let\LanguageShortHands\languageshorthands
-\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \usepackage{xurl}
 \PassOptionsToPackage{hyphens}{url}
 \Urlmuskip=0mu plus 1mu\relax
 \setlength{\parskip}{0pt plus 0.5pt}
 \sloppy
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
+\setlength{\emergencystretch}{3em}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -110,6 +122,12 @@
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{Аннотация}\label{ux430ux43dux43dux43eux442ux430ux446ux438ux44f}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Аннотация --- вызов, рамка, результат}]{figures/canon/r30_annotation.png}}
+\caption{Аннотация --- вызов, рамка, результат}
+\end{figure}
 
 В работе предлагается стратегическая рамка «Россия 3.0 --- Троица» ---
 согласованный с действующими государственными документами подход к
@@ -151,7 +169,7 @@ BitNet, ZKML/TEE), а также честно очерчена граница п
 (объединение спецификационной первичности, CPU-эталона и
 SHA-256-печатей), приведён реальный кейс errata 2026-05-31 (CPU-эталон
 поймал дефект до возврата кремния) и четырёхуровневая трассировка
-энергии \(J/\text{op}\) как основа «проверяемого Green AI» ---
+энергии (J/\text{op}) как основа «проверяемого Green AI» ---
 позиционирования через достоверность энергометрики, а не гонку за
 пиковыми TOPS/TOPS·Вт. Завершает работу открытое обращение к руководству
 страны с семью конкретными, реализуемыми предложениями и явной встречной
@@ -180,25 +198,81 @@ SHA-256-печатей), приведён реальный кейс errata 2026-
 открытые стандарты прозрачности (OpenSSF Scorecard, SLSA, Sigstore,
 SBOM) (§ 8b).
 
-\textbf{Ключевые слова:} искусственный интеллект; микроэлектроника РФ;
-фабрики; маршрут изготовления; Микрон; Ангстрем; ГК «Элемент»;
-Росэлектроника; дизайн-центры; fabless; RISC-V; партнёрская карта;
-технологический суверенитет; доверенный ИИ; числовые форматы; балансная
-троичность; открытое железо; GoldenFloat; Trinity; Сетунь; Россия 3.0;
-НСРИИ; импортозамещение; топология ИМС; РИД; ЭПР; КИИ; ФСТЭК № 117;
-патент; ст. 1350 ГК; экспортный контроль; доверенное ПО; СКЗИ;
-стандартизация; ТК 164; бенчмаркинг; IoT; умные устройства; корень
-доверия; EU CRA; eIDAS; Matter; ISO/IEC 30141; FIDO2; экспорт доверенных
-технологий; стратегия 2026--2030; OpenSSF Scorecard; SLSA; Sigstore;
-SBOM; РБПО; ГОСТ Р 56939; реестр отечественного ПО; KPI; единая
-программная модель; золотая эталонная модель; CPU→FPGA→кремний;
-бит-в-бит сверка; HLS; Chisel/FIRRTL; Sail; тандемная верификация; Green
-AI; TOPS/W; трассировка энергии.
+\textbf{Ключевые слова:} доверенный ИИ; проверяемость вычислений;
+технологический суверенитет; числовые форматы (GoldenFloat); балансная
+троичность; открытое железо; топология ИМС и РИД; единая программная
+модель CPU→FPGA→кремний; ФСТЭК № 117; стандартизация (ТК 164).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Суть на одной странице (для занятого
+читателя)}\label{ux441ux443ux442ux44c-ux43dux430-ux43eux434ux43dux43eux439-ux441ux442ux440ux430ux43dux438ux446ux435-ux434ux43bux44f-ux437ux430ux43dux44fux442ux43eux433ux43e-ux447ux438ux442ux430ux442ux435ux43bux44f}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Суть --- зачем, что, как}]{figures/canon/r30_tldr.png}}
+\caption{Суть --- зачем, что, как}
+\end{figure}
+
+\emph{Этот раздел кратко излагает всё предложение. Подробности,
+источники и статусные теги --- в основном тексте.}
+
+\textbf{Проблема.} Государство верно определило приоритетами
+\textbf{доверенность и суверенитет} ИИ (Указ № 490 в ред. № 124), но у
+понятия «доверенная технология» пока нет технической метрики, а гонка за
+производительностью упирается в зависимость от передовой литографии.
+
+\textbf{Идея «Россия 3.0».} Сместить приоритет первого порядка с
+\emph{производительности} на \textbf{проверяемость каждого вычисления}
+--- то, что можно измерить и воспроизвести на отечественной основе уже
+сегодня, без потребности в 5-нм фабриках.
+
+\textbf{Что предлагается конкретно --- стек Trinity S³AI (три опоры):}
+(1) \textbf{GoldenFloat} --- числовые форматы с математически замкнутой
+спецификацией; (2) \textbf{балансная троичность} \{−1, 0, +1\} ---
+отечественная линия троичных машин (Сетунь); (3) \textbf{TRI-27} ---
+открытый инструментарий «один код → CPU-эталон → FPGA → кремний» со
+сверкой бит-в-бит.
+
+\textbf{Что доказано, а что гипотеза (честно):}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{{[}доказано / измерено{]}} опубликованный препринт; рабочий
+  FPGA-кодек (GF16: 35/35 тестов, 323 МГц); открытый каталог 83
+  форматов; открытый код под Apache-2.0/MIT.
+\item
+  \textbf{{[}открытая гипотеза{]}} энергоэффективность на кристалле
+  (кремний \emph{отправлен на изготовление}, не измерен); широкое
+  принятие формата вендорами.
+\end{itemize}
+
+\textbf{О чём просьба к государству (7 мер, § 8):} включить
+«проверяемость» в КПЭ доверенного ИИ; поддержать регистрацию РИД
+(топология ИМС, программа для ЭВМ) для исследователей-физлиц; облегчить
+вход микрокоманд в гранты; пилот доверенного инференса в рамках ЭПР;
+связать публикационный и кадровый треки; ускорить стандартизацию
+форматов через ТК 164; распространить патентную поддержку на
+open-hardware.
+
+\textbf{Встречная отдача государству:} неотчуждаемый отечественный РИД;
+формат-кандидат в национальный стандарт (ПНСТ); учебная платформа для
+кадров; проверяемый компонент доверенного ИИ под уже действующее
+требование п. 61 Приказа ФСТЭК № 117. \textbf{Это инвестиция в актив, а
+не безвозвратная трата.}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{1. Введение: почему «Россия 3.0» и почему
 «Троица»}\label{ux432ux432ux435ux434ux435ux43dux438ux435-ux43fux43eux447ux435ux43cux443-ux440ux43eux441ux441ux438ux44f-3.0-ux438-ux43fux43eux447ux435ux43cux443-ux442ux440ux43eux438ux446ux430}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 1 --- Россия 1.0 / 2.0 / 3.0: от индустриального рывка к доверенному вычислению.}]{figures/canon/r30_sec1_intro.png}}
+\caption{Триптих фиг. 1 --- Россия 1.0 / 2.0 / 3.0: от индустриального
+рывка к доверенному вычислению.}
+\end{figure}
 
 Россия дважды совершала технологические рывки, опираясь на собственную
 научную школу. Условно их можно обозначить как \textbf{Россия 1.0} ---
@@ -269,6 +343,13 @@ FPGA и доступных топологиях; (П3) задел Trinity сог
 
 \subsection{2. Государственная рамка: что уже зафиксировано в
 документах}\label{ux433ux43eux441ux443ux434ux430ux440ux441ux442ux432ux435ux43dux43dux430ux44f-ux440ux430ux43cux43aux430-ux447ux442ux43e-ux443ux436ux435-ux437ux430ux444ux438ux43aux441ux438ux440ux43eux432ux430ux43dux43e-ux432-ux434ux43eux43aux443ux43cux435ux43dux442ux430ux445}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 2с --- Государственная рамка: НСРИИ, экономика данных, микроэлектроника.}]{figures/canon/r30_sec2_state.png}}
+\caption{Триптих фиг. 2с --- Государственная рамка: НСРИИ, экономика
+данных, микроэлектроника.}
+\end{figure}
 
 Предложение «Россия 3.0» не подменяет, а \emph{обслуживает} действующую
 государственную политику. Ниже --- выверенные по официальным источникам
@@ -395,6 +476,12 @@ A: 103 → \textbf{450 в год}.
 \subsubsection{2.4. Микроэлектроника и
 техсуверенитет}\label{ux43cux438ux43aux440ux43eux44dux43bux435ux43aux442ux440ux43eux43dux438ux43aux430-ux438-ux442ux435ux445ux441ux443ux432ux435ux440ux435ux43dux438ux442ux435ux442}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Микроэлектроника --- фаб, суверенитет, цепочка}]{figures/canon/r30_sec24_micro.png}}
+\caption{Микроэлектроника --- фаб, суверенитет, цепочка}
+\end{figure}
+
 \textbf{Стратегия развития электронной промышленности РФ до 2030 года}
 (Распоряжение Правительства № 20-р от 17.01.2020,
 \href{http://government.ru/docs/38795/}{government.ru}) ставит целью
@@ -417,6 +504,13 @@ A: 103 → \textbf{450 в год}.
 
 \subsection{3. Тезис «Россия 3.0»: проверяемость вместо гонки
 производительности}\label{ux442ux435ux437ux438ux441-ux440ux43eux441ux441ux438ux44f-3.0-ux43fux440ux43eux432ux435ux440ux44fux435ux43cux43eux441ux442ux44c-ux432ux43cux435ux441ux442ux43e-ux433ux43eux43dux43aux438-ux43fux440ux43eux438ux437ux432ux43eux434ux438ux442ux435ux43bux44cux43dux43eux441ux442ux438}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 2 --- Смена приоритета: от TOPS-per-dollar к verifiability-per-dollar.}]{figures/canon/r30_sec3_verif.png}}
+\caption{Триптих фиг. 2 --- Смена приоритета: от TOPS-per-dollar к
+verifiability-per-dollar.}
+\end{figure}
 
 Доминирующая мировая парадигма ИИ-инфраструктуры --- наращивание TOPS
 (операций в секунду) и числа параметров моделей. В условиях ограничений
@@ -517,6 +611,13 @@ of Verifiable Inference, Equilibrium}). Полный доверенный сте
 \subsection{3a. Связанные работы и позиционирование в мировой
 литературе}\label{a.-ux441ux432ux44fux437ux430ux43dux43dux44bux435-ux440ux430ux431ux43eux442ux44b-ux438-ux43fux43eux437ux438ux446ux438ux43eux43dux438ux440ux43eux432ux430ux43dux438ux435-ux432-ux43cux438ux440ux43eux432ux43eux439-ux43bux438ux442ux435ux440ux430ux442ux443ux440ux435}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 3а --- Связанные работы: posit/takum/MX, BitNet \{-1,0,+1\}, ZKP/TEE.}]{figures/canon/r30_sec3a_related.png}}
+\caption{Триптих фиг. 3а --- Связанные работы: posit/takum/MX, BitNet
+\{-1,0,+1\}, ZKP/TEE.}
+\end{figure}
+
 Предложение Trinity опирается на три исследовательские линии и честно
 соотносит себя с ними.
 
@@ -552,10 +653,360 @@ Trinity --- пересечение трёх линий: \emph{проверяем
 фундамент} для доверенного ИИ, чего ни один из перечисленных подходов по
 отдельности не закрывает.
 
+\subsubsection{3a.1. Обновление 2026: прямые прецеденты, конкуренты и
+разграничение
+ниши}\label{a.1.-ux43eux431ux43dux43eux432ux43bux435ux43dux438ux435-2026-ux43fux440ux44fux43cux44bux435-ux43fux440ux435ux446ux435ux434ux435ux43dux442ux44b-ux43aux43eux43dux43aux443ux440ux435ux43dux442ux44b-ux438-ux440ux430ux437ux433ux440ux430ux43dux438ux447ux435ux43dux438ux435-ux43dux438ux448ux438}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Прецеденты --- posit, takum, MX}]{figures/canon/r30_sec3a1_precedents.png}}
+\caption{Прецеденты --- posit, takum, MX}
+\end{figure}
+
+К середине 2026 г. вокруг ниши Trinity сформировался плотный научный
+фон, который требует честного разграничения. Ниже --- четыре линии с
+явными статусными тегами.
+
+\textbf{Троичные ускорители на железе (ближайшие конкуренты по нише).}
+Группа FPL/FPGA опубликовала \emph{TerEffic}
+(\href{https://arxiv.org/abs/2502.16473}{arXiv:2502.16473}, FPL 2025)
+--- FPGA-ускоритель троично-квантованного LLM (1,58-бит веса, до 16 300
+ток/с на 370M-модели) и \emph{TeLLMe}
+(\href{https://arxiv.org/abs/2504.16266}{arXiv:2504.16266}, FPGA 2026)
+--- первый edge-FPGA троичный ускоритель prefill+decode (7 Вт).
+\textbf{Принципиальное отличие Trinity:} обе работы используют
+троичность как \emph{квантизацию весов \{−1,0,+1\} поверх IEEE-FP
+арифметики на FPGA}, тогда как Trinity заявляет \emph{балансную троичную
+логику} \{−1,0,+1\} в кастомном кремнии (SKY130, открытое производство
+Tiny Tapeout). Это разные уровни: квантизация модели vs.~троичная
+арифметика устройства \textbf{{[}доказано --- различие методологий{]}}.
+Фундаментальный формат \emph{Tekum}
+(\href{https://arxiv.org/abs/2512.10964}{arXiv:2512.10964}, Hunhold,
+ноябрь 2025) вводит tapered-точность напрямую на балансной троичной
+логике и является ближайшим соседом GoldenFloat по классу форматов.
+\textbf{Разграничение GoldenFloat vs Tekum:} GoldenFloat использует
+\emph{статическое φ-разбиение мантиссы/экспоненты} (фиксированные поля,
+ориентация на ML-инференс и битоточные conformance-векторы), тогда как
+Tekum --- \emph{логарифмическая tapered-кодировка} (класс takum/posit на
+троичной основе, ориентация на общечисленные вычисления широкого
+динамического диапазона). Tekum --- не конкурент-вытеснитель, а союзная
+точка дизайн-пространства в том же классе конических/tapered форматов
+\textbf{{[}доказано --- различие кодировок; возможность цитирования{]}}.
+
+\textbf{Исторический контекст 2026.} В марте 2026 г. опубликован
+\emph{5500FP} --- 24-тритный балансный троичный RISC-процессор на FPGA,
+получивший освещение Hackaday и The Register. Поэтому любые формулировки
+о «первом общедоступном балансном троичном железе 2026 г.» неприменимы;
+Trinity дифференцируется как \emph{ASIC (SKY130) для инференса ИИ}, а не
+general-purpose CPU на FPGA \textbf{{[}открытая гипотеза/проекция ---
+позиционирование{]}}.
+
+\textbf{Проверяемые вычисления созрели до криптографии.} Появились
+\emph{NANOZK}
+(\href{https://arxiv.org/abs/2603.18046}{arXiv:2603.18046}, ICLR 2026
+VerifAI) --- послойные ZK-доказательства вывода LLM (доказательство 5,5
+КБ, верификация 24 мс), \emph{ZK-DeepSeek}
+(\href{https://arxiv.org/abs/2511.19902}{arXiv:2511.19902}) и
+систематический обзор ZKML
+(\href{https://arxiv.org/abs/2502.18535}{arXiv:2502.18535}).
+\textbf{Позиция Trinity:} криптографические ZKP и битоточные
+conformance-векторы --- \emph{разные слои гарантий}, не конкуренты. ZKP
+дают математическую гарантию приватности и корректности ценой больших
+ресурсов; conformance-векторы + Coq-доказательства Trinity дают
+\emph{лёгкую, аппаратно реализуемую гарантию детерминизма и
+воспроизводимости} нижнего арифметического уровня \textbf{{[}доказано
+--- существование векторов; открытая гипотеза --- рыночное
+соотношение{]}}.
+
+\textbf{Spec-first ISA и энергетические бенчмарки.} Прямой
+производственный прецедент для «спецификационно-первичного компилятора»
+TRI-27 --- \emph{CHERIoT-Ibex}
+(\href{https://arxiv.org/abs/2502.04738}{arXiv:2502.04738}): комплексная
+формальная верификация capability-RISC-V относительно эталонной
+Sail-модели (Sail→SystemVerilog→FV); инструмент \emph{Pydrofoil}
+(\href{https://doi.org/10.4230/LIPIcs.ECOOP.2025.3}{ECOOP 2025}) даёт
+быстрый симулятор из Sail-описания. Coq-доказательства Trinity
+позиционируются как надстройка над де-факто стандартом \emph{Flocq}
+(coq-flocq 4.2.1). Для воспроизводимой энергоэффективности созрели
+открытые протоколы: \emph{ML.ENERGY Benchmark}
+(\href{https://arxiv.org/abs/2505.06371}{arXiv:2505.06371}, NeurIPS 2025
+Spotlight), \emph{Watt Counts}
+(\href{https://arxiv.org/abs/2604.09048}{arXiv:2604.09048}) и
+\emph{TokenPowerBench}
+(\href{https://arxiv.org/abs/2512.03024}{arXiv:2512.03024}, AAAI 2026)
+--- Trinity должен заявлять GF16-кодек в координатах J/op и
+throughput/Watt, совместимых хотя бы с одним из них \textbf{{[}открытая
+гипотеза/проекция --- численные результаты до реальных замеров{]}}.
+
+\subsubsection{3a.2. Обновление (июнь 2026): новая волна конкурентов и
+уточнение
+ниши}\label{a.2.-ux43eux431ux43dux43eux432ux43bux435ux43dux438ux435-ux438ux44eux43dux44c-2026-ux43dux43eux432ux430ux44f-ux432ux43eux43bux43dux430-ux43aux43eux43dux43aux443ux440ux435ux43dux442ux43eux432-ux438-ux443ux442ux43eux447ux43dux435ux43dux438ux435-ux43dux438ux448ux438}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Волна 2026 --- NVIDIA, OCP, Φ}]{figures/canon/r30_sec3a2_wave2026.png}}
+\caption{Волна 2026 --- NVIDIA, OCP, Φ}
+\end{figure}
+
+За последние месяцы конкурентный ландшафт троичных вычислений резко
+уплотнился. Ниже --- честное соотнесение со свежими работами; Trinity не
+претендует на превосходство по «голым» цифрам (кремний TTSKY26b
+\emph{отправлен на изготовление}, на кристалле не измерен), а
+дифференцируется по трём осям: \emph{балансная троичная логика
+устройства}, \emph{открытое производство (SKY130)} и
+\emph{верифицируемость арифметики}.
+
+\textbf{Троичные ускорители ASIC/CPU --- планка поднялась.} \emph{TENET}
+от Microsoft Research
+(\href{https://arxiv.org/abs/2509.13765}{arXiv:2509.13765}) ---
+sparse-aware LUT-центричная архитектура троичного LLM-инференса:
+TENET-ASIC заявляет 21,1× энергоэффективности и 2,7× ускорения против
+A100 \textbf{{[}доказано --- у авторов{]}}. \emph{TOM}
+(\href{https://arxiv.org/abs/2602.20662}{arXiv:2602.20662}) синтезирует
+троичные веса как standard-cell ROM (3 306 ток/с на BitNet-2B).
+\emph{T-SAR} (\href{https://arxiv.org/abs/2511.13676}{arXiv:2511.13676},
+DATE 2026) и \emph{Litespark}
+(\href{https://arxiv.org/abs/2605.06485}{arXiv:2605.06485}) показывают
+троичный инференс \textbf{на обычном CPU без спец-железа} (до 52×
+throughput через SIMD). \textbf{Разграничение Trinity:} все они
+используют троичность как \emph{квантизацию весов \{−1,0,+1\} поверх
+бинарной арифметики} (LUT-декомпрессия, ROM, SIMD-эмуляция); Trinity
+заявляет \emph{балансную троичную логику в кастомном открытом кремнии} с
+битоточно верифицируемой арифметикой. Software-троичность на бинарном
+CPU и native-троичный кремний --- не взаимоисключающие: GF16/TRI-27
+остаётся переносимым числовым форматом и эталоном \textbf{{[}доказано
+--- различие методологий; открытая гипотеза --- энергетическое сравнение
+до замеров на кристалле{]}}. \emph{TeLLMe} перешёл из препринта в
+рецензируемую публикацию ACM FPGA 2026
+(\href{https://doi.org/10.1145/3748173.3779191}{DOI
+10.1145/3748173.3779191}), что усиливает его вес как прецедента.
+
+\textbf{ZKML без спец-железа.} \emph{Jolt Atlas}
+(\href{https://arxiv.org/abs/2602.17452}{arXiv:2602.17452}) расширяет
+ZK-доказательства напрямую на ONNX-операции со streaming-доказательством
+на устройствах с ограниченной памятью --- то есть ZK-инференс без ASIC.
+\textbf{Позиция Trinity остаётся в силе:} битоточные conformance-векторы
++ Coq/Flocq дают \emph{детерминированную воспроизводимость нижнего
+арифметического уровня} (лёгкую, аппаратно реализуемую), тогда как ZKP
+(Jolt Atlas, NANOZK) дают \emph{криптографическую приватность и
+корректность исполнения}. Это разные слои гарантий, которые можно
+складывать, а не конкуренты \textbf{{[}доказано --- существование
+conformance-векторов; открытая гипотеза --- рыночное соотношение{]}}.
+
+\textbf{Канонический якорь энергометрики и зрелость Sail.} Позиционная
+работа \emph{«LLM Inference as Energy-to-Token Production»}
+(\href{https://arxiv.org/abs/2605.11733}{arXiv:2605.11733}, май 2026)
+формализует именно те метрики (J/token, PUE-adjusted power, Token
+Production Function), в которых Trinity заявляет energy-harness GF16 ---
+это даёт прямую привязку к актуальному академическому дискурсу
+\textbf{{[}возможность цитирования{]}}. Экосистема \emph{Sail} за
+апрель--май 2026 укрепилась как мейнстрим spec-first ISA: формализация
+RISC-V Hypervisor Extension в Sail (ASPLOS 2026,
+\href{https://doi.org/10.1145/3803525.3804982}{DOI
+10.1145/3803525.3804982}), Interaction-Tree-семантика RISC-V в Rocq и
+фреймворк \emph{ArchSem} (Proceedings of the ACM on Programming
+Languages, POPL 2026, vol.10, \href{https://doi.org/10.1145/3776650}{DOI
+10.1145/3776650}) от кембриджской Sail-группы. Это подтверждает:
+Sail-описание TRI-27 ISA --- корректно позиционированный вклад, а не
+экзотика \textbf{{[}подтверждает позиционирование{]}}. Параллельно
+усиливается линия posit-на-RISC-V (\emph{QVU}, IEEE ISPA 2025,
+\href{https://doi.org/10.1109/ISPA67752.2025.00020}{DOI
+10.1109/ISPA67752.2025.00020}; унифицированный posit/IEEE-754-кодек,
+\href{https://arxiv.org/abs/2505.19096}{arXiv:2505.19096}) --- прямое
+конкурентное давление на нишу «новый числовой формат как
+ISA-расширение»; ответ Trinity --- позиционировать GoldenFloat как
+отдельную точку дизайн-пространства с замкнутой спецификацией и ускорять
+стандартизацию формата через ТК 164 \textbf{{[}открытая
+гипотеза/проекция{]}}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{3a.3. Обновление (июль 2026): ASIC-планка Platinum,
+метрика AUE и зрелость
+Lean/Rocq-верификации}\label{a.3.-ux43eux431ux43dux43eux432ux43bux435ux43dux438ux435-ux438ux44eux43bux44c-2026-asic-ux43fux43bux430ux43dux43aux430-platinum-ux43cux435ux442ux440ux438ux43aux430-aue-ux438-ux437ux440ux435ux43bux43eux441ux442ux44c-leanrocq-ux432ux435ux440ux438ux444ux438ux43aux430ux446ux438ux438}
+
+К июлю 2026 г. фон уплотнился ещё по трём осям. Ниже --- честное
+соотнесение с источниками, не цитированными выше; статусные теги
+сохранены, превосходство по «голым» цифрам не заявляется (кремний
+TTSKY26b \emph{отправлен на изготовление}, на кристалле не измерен).
+
+\textbf{ASIC-планка поднялась снова --- Platinum как новая базовая
+линия.} На ASP-DAC 2026 принят \emph{Platinum}
+(\href{https://arxiv.org/abs/2511.21910}{arXiv:2511.21910},
+\href{https://doi.org/10.1109/ASP-DAC66049.2026.11420289}{DOI
+10.1109/ASP-DAC66049.2026.11420289}, Duke University) --- лёгкий
+LUT-ориентированный ASIC-ускоритель mpGEMM с офлайн-генерируемыми путями
+и адаптивным переключением между bit-serial и троичным режимами; на
+BitNet b1.58-3B авторы заявляют 73,6× ускорения и 32,4× снижения
+энергопотребления против SpikingEyeriss при площади 0,96 мм²
+\textbf{{[}доказано --- у авторов{]}}. \emph{PD-Swap}
+(\href{https://arxiv.org/abs/2512.11550}{arXiv:2512.11550}) добавляет
+давление в FPGA-сегменте: дезагрегированный prefill/decode-ускоритель
+ternary-LLM на динамической частичной реконфигурации (27 ток/с, 1,3-2,1×
+против SOTA на длинных контекстах). \textbf{Разграничение Trinity без
+изменений и теперь с явным ASIC-репером:} все три (Platinum, PD-Swap,
+ранее TeLLMe/TENET) используют троичность как \emph{квантизацию весов
+\{−1,0,+1\} поверх бинарной арифметики}; Trinity заявляет
+\emph{балансную троичную логику в открытом кремнии (SKY130)} с битоточно
+верифицируемой арифметикой. Это разные уровни, а не сравнение «кто
+быстрее»; численное энергетическое сопоставление с Platinum остаётся
+\textbf{{[}открытой гипотезой/проекцией до замеров на кристалле{]}}.
+
+\textbf{Метрика энергоэффективности уточнилась --- AUE поверх J/token.}
+Работа \emph{AUE}
+(\href{https://doi.org/10.1109/ICPADS67057.2025.11323149}{DOI
+10.1109/ICPADS67057.2025.11323149}, ICPADS 2025) показывает, что сырой
+J/token систематически искажает сравнение в пользу малых моделей, и
+предлагает нормированную метрику AUE = Дж / (KToken × GParam),
+нейтральную к масштабу модели. Это прямо релевантно линии § 4a.3:
+энергетические сравнения GF16-кодека Trinity с float-базовыми линиями
+следует приводить \textbf{в координатах AUE}, а не только J/token, чтобы
+сопоставление было честным относительно размера модели
+\textbf{{[}возможность цитирования{]}}. Эмпирическая работа группы
+Luccioni (\href{https://arxiv.org/abs/2601.22362}{arXiv:2601.22362},
+январь 2026, NVIDIA H100) уточняет границу применимости: квантизация
+даёт реальную экономию энергии \emph{только в compute-bound режиме}, а
+на системном уровне scheduling запросов может менять энергию на запрос
+до 100× \textbf{{[}подтверждает позицию{]}}. Вывод для Trinity: троичная
+арифметика выигрывает именно в compute-bound режиме --- это совпадает с
+режимом, где квантизация реально снижает энергию; следовательно, заявку
+об энергоэффективности нужно формулировать как условную («в
+compute-bound нагрузке»), а не безусловную, и измерять в AUE.
+
+\textbf{Верификация арифметики и ISA --- производственная зрелость
+Lean/Rocq.} Появились прямые инструментальные прецеденты для линии § 4a
+(Coq/Flocq-надстройка Trinity): \emph{LeanBET}
+(\href{https://arxiv.org/abs/2605.16169}{arXiv:2605.16169}, май 2026)
+--- исполняемый научный конвейер в Lean 4, который ведёт
+float-вычисление и одновременно доказывает корректность над
+вещественными числами, то есть демонстрирует ту же дуальную стратегию
+«исполнение + вещественное доказательство», что заявляет Trinity
+\textbf{{[}подтверждает позицию{]}}; \emph{NumFuzz}
+(\href{https://arxiv.org/abs/2501.14598}{arXiv:2501.14598}, PACMPL) и
+\emph{VCFloat2} (\href{https://doi.org/10.1145/3636501.3636953}{DOI
+10.1145/3636501.3636953}, CPP 2024) дают тип-системные и Coq-инструменты
+автоматического вывода границ ошибок округления для \emph{нестандартных}
+форматов (настраиваемая ширина мантиссы) --- прямой прецедент для
+верификации форматов каталога Trinity \textbf{{[}возможность
+цитирования{]}}. Линию spec-first ISA расширяет
+\emph{Interaction-Tree-семантика RISC-V на Rocq}
+(\href{https://arxiv.org/abs/2605.04933}{arXiv:2605.04933}, май 2026):
+сквозная bisimulation «LLVM IR → RTL» с case study корректности ALU ---
+тот тип кросс-уровневой верификации, который Trinity позиционирует для
+TRI-27 \textbf{{[}подтверждает позиционирование{]}}.
+
+\textbf{ZKML --- окно ниши продолжает сужаться.} \emph{TeleSparse}
+(\href{https://arxiv.org/abs/2504.19274}{arXiv:2504.19274}) снизил
+память доказателя ZK-верификации трансформеров на 67 \% и время на 46 \%
+(Halo2, проверено на ViT/ResNet/MobileNet) при потере точности
+\textasciitilde1 \% --- то есть ZK-верификация инференса становится
+практичной без спецжелеза. \textbf{Позиция Trinity остаётся прежней и
+проверяемой:} битоточные conformance-векторы + Coq/Flocq дают
+\emph{детерминированную воспроизводимость нижнего арифметического
+уровня} (лёгкую, аппаратно реализуемую), ZKP (TeleSparse, ранее
+ZK-DeepSeek/Jolt Atlas/NANOZK) дают \emph{криптографическую приватность
+и корректность исполнения} --- это складываемые слои, а не конкуренты
+\textbf{{[}доказано --- существование conformance-векторов; открытая
+гипотеза --- рыночное соотношение{]}}.
+
+\subsubsection{3a.4. Обновление (июль 2026, вторая половина):
+Lean-формализация P3109, единая DSE-рамка для троичных ускорителей и
+давление posit/takum на
+RISC-V}\label{a.4.-ux43eux431ux43dux43eux432ux43bux435ux43dux438ux435-ux438ux44eux43bux44c-2026-ux432ux442ux43eux440ux430ux44f-ux43fux43eux43bux43eux432ux438ux43dux430-lean-ux444ux43eux440ux43cux430ux43bux438ux437ux430ux446ux438ux44f-p3109-ux435ux434ux438ux43dux430ux44f-dse-ux440ux430ux43cux43aux430-ux434ux43bux44f-ux442ux440ux43eux438ux447ux43dux44bux445-ux443ux441ux43aux43eux440ux438ux442ux435ux43bux435ux439-ux438-ux434ux430ux432ux43bux435ux43dux438ux435-posittakum-ux43dux430-risc-v}
+
+К середине июля 2026 г. фон уплотнился по четырём осям, ранее не
+отражённым в § 3a.1--3a.3. Разграничение ниши сохраняется; статусные
+теги приводятся; численное превосходство не заявляется (кремний TTSKY26b
+\emph{отправлен на изготовление}, на кристалле не измерен).
+
+\textbf{Формальная верификация узкобитной арифметики: у конкурирующего
+формат-класса появился machine-checked фундамент.} Работа \emph{FLoPS}
+(\href{https://arxiv.org/abs/2602.15965}{arXiv:2602.15965}, v3 май 2026,
+Rutgers) даёт, по заявлению авторов, первую машинно-проверенную
+Lean-формализацию грядущего стандарта \emph{IEEE-P3109} для малоточной
+floating-point арифметики --- параметрического семейства форматов
+(произвольная ширина, точность вплоть до 1-битной мантиссы, stochastic
+rounding, saturation); в ней доказано новое свойство точного
+overflow-error у FastTwoSum при saturation и показан слом свойств
+ExtractScalar при 1 бите точности. \textbf{Соотнесение с Trinity:} это
+одновременно {[}возможность цитирования{]} --- прямой прецедент
+формализации целого стандарта форматов, на который опирается наш
+собственный verification-нарратив (Coq/Flocq над каталогом GoldenFloat),
+--- и {[}конкурент/угроза{]}, поскольку P3109 как класс узкобитных FP
+теперь получает независимый машинно-проверенный базис. Позиционирование
+GoldenFloat корректно формулировать не как «более верифицируемый
+формат», а как \emph{другой класс} (φ-производный статический split
+против параметрического P3109) с \emph{собственным} уровнем аудита ---
+битоточными conformance-векторами и FPGA-кодеком, измеренным на Tier-E
+\textbf{{[}verified SW; измерено CI-synth/FPGA --- для отдельных
+ступеней GF{]}}.
+
+\textbf{Троичные ускорители получают единую систему сравнения
+(DSE-рамку).} Группа KU Leuven
+(\href{https://arxiv.org/abs/2604.25183}{arXiv:2604.25183}, апрель 2026)
+формализует пространство проектирования LUT-based троичных ускорителей
+класса BitNet b1.58, публикует открытый генератор + аналитическую модель
+стоимости, верифицированную синтезом TSMC 16 нм, и заявляет экономию
+площади до 2,2× против multiplier-baseline с коррекцией параметров ряда
+SOTA-дизайнов до 1,2×. \textbf{Значение для Trinity:} это
+{[}конкурент/угроза{]} на уровне \emph{методологии} --- любые будущие
+сравнения троичного железа Trinity с классом BitNet-ускорителей (TENET,
+TeLLMe, VitaLLM) будут, вероятно, оцениваться сквозь эту DSE-рамку.
+Разграничение при этом не меняется: перечисленные работы трактуют
+троичность как \emph{квантизацию весов \{−1,0,+1\} поверх бинарной
+арифметики}, тогда как Trinity заявляет \emph{балансную троичную логику
+в открытом кремнии} с битоточно проверяемой арифметикой. Разумный
+тактический вывод --- привести собственные FPGA-метрики GoldenFloat (LUT
+decode-кодека, Tier-E) в терминах, сопоставимых с осями стоимости этой
+рамки, а не отвечать на неё «голыми» TOPS \textbf{{[}возможность
+цитирования --- как источник инженерных ограничений LUT-ядер{]}}.
+
+\textbf{Posit/takum и spec-first ISA продолжают наращивать инженерное
+давление.} Линия альтернативных числовых форматов на открытой
+RISC-V-интеграции --- прямое референсное поле GoldenFloat ---
+уплотнилась: precision-scalable posit/IEEE-754-кодеки в ядре RISC-V
+(\href{https://arxiv.org/abs/2505.19096}{arXiv:2505.19096}) заявляют
+сокращение LUT на 47,9 \% и FF на 57,4 \% с ускорением GEMM до 2,54×
+относительно прежних posit-RISC-V реализаций; сравнительная эмпирика
+takum vs posit vs OFP8/bfloat16 продолжает накапливаться в пользу
+takum16 как «жизнеспособного кандидата» на замену bfloat16 (по заявлению
+авторов соответствующих работ). На стороне формальной ISA-модели
+\emph{Modular SAIL}
+(\href{https://arxiv.org/abs/2507.12471}{arXiv:2507.12471})
+демонстрирует композициональность golden-модели SAIL-RISCV на уровне
+эмулятора с сохранением функциональной эквивалентности монолиту.
+\textbf{Соотнесение:} takum остаётся \emph{союзником по классу}
+(конические/tapered форматы), а не «врагом»; posit-RISC-V и Modular SAIL
+--- {[}конкурент/угроза{]} и одновременно {[}возможность цитирования{]}
+как прецеденты модульных, проверяемых форматных ISA-расширений, на
+которые может опереться собственный трек ПНСТ GoldenFloat через
+профильный ТК.
+
+\textbf{Энергетическая метрика: от J/token к методологически оговорённым
+осям.} В дополнение к AUE (§ 3a.3) работа \emph{Advocating
+Energy-per-Token}
+(\href{https://arxiv.org/abs/2603.20224}{arXiv:2603.20224}) предлагает
+energy-per-token как метрику-дополнение к accuracy-бенчмаркам и
+показывает, что chain-of-thought способен увеличивать энергозатраты
+малых моделей в 130--150× (величина разрыва --- по методологии авторов,
+требует независимой проверки). \textbf{Вывод для Trinity без изменений и
+теперь с двумя опорами:} заявку об энергоэффективности GF16-кодека
+формулировать \emph{условно} (compute-bound режим) и приводить
+одновременно в координатах AUE и energy-per-token, а не как безусловное
+«49×» --- последнее сохраняет статус \textbf{{[}открытой
+гипотезы/проекции до замеров на кристалле{]}}.
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{3b. Отечественный ландшафт и конкурентный
 бенчмаркинг}\label{b.-ux43eux442ux435ux447ux435ux441ux442ux432ux435ux43dux43dux44bux439-ux43bux430ux43dux434ux448ux430ux444ux442-ux438-ux43aux43eux43dux43aux443ux440ux435ux43dux442ux43dux44bux439-ux431ux435ux43dux447ux43cux430ux440ux43aux438ux43dux433}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 3б --- Отечественный ландшафт: Эльбрус, Байкал, нейроморфные ИС.}]{figures/canon/r30_sec3b_landscape.png}}
+\caption{Триптих фиг. 3б --- Отечественный ландшафт: Эльбрус, Байкал,
+нейроморфные ИС.}
+\end{figure}
 
 Чтобы позиционирование «проверяемость вместо TOPS» не звучало
 абстрактно, ниже честно соотнесём Trinity с \textbf{реальными
@@ -645,11 +1096,11 @@ Neuromorphic}); заявление «примерно в 1000 раз меньш�
 {[}Таблица --- сводная матрица бенчмаркинга:{]}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1765}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1765}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2941}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1765}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1765}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1765}}
+  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2941}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1765}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Проект
@@ -704,6 +1155,13 @@ Trinity --- \emph{один из первых} российских проект�
 мощности для изготовления и
 сотрудничества}\label{c.-ux43fux440ux43eux438ux437ux432ux43eux434ux441ux442ux432ux435ux43dux43dux430ux44f-ux438-ux43fux430ux440ux442ux43dux451ux440ux441ux43aux430ux44f-ux43aux430ux440ux442ux430-ux43eux442ux435ux447ux435ux441ux442ux432ux435ux43dux43dux44bux435-ux43cux43eux449ux43dux43eux441ux442ux438-ux434ux43bux44f-ux438ux437ux433ux43eux442ux43eux432ux43bux435ux43dux438ux44f-ux438-ux441ux43eux442ux440ux443ux434ux43dux438ux447ux435ux441ux442ux432ux430}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 3в --- Производственная карта: «Микрон», «Ангстрем», альянс дизайн-центров.}]{figures/canon/r30_sec3c_fabmap.png}}
+\caption{Триптих фиг. 3в --- Производственная карта: «Микрон»,
+«Ангстрем», альянс дизайн-центров.}
+\end{figure}
+
 Тезис «проверяемость вместо гонки за нанометрами» имеет прямое
 практическое следствие: архитектура Trinity осознанно проектируется под
 \textbf{зрелые отечественные техпроцессы 65--250 нм}, а не под
@@ -743,10 +1201,10 @@ Trinity в том, что \textbf{проверяемость не требует
 {[}Таблица --- фабрики и предприятия-изготовители:{]}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Завод
@@ -821,10 +1279,10 @@ phi \\
 {[}Таблица --- дизайн-центры (fabless):{]}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Компания
@@ -886,12 +1344,25 @@ edge-инференс, видео \\
 фактов и
 гипотез)}\label{ux441ux442ux435ux43a-trinity-suxb3ai-ux43eux442ux435ux447ux435ux441ux442ux432ux435ux43dux43dux44bux439-ux437ux430ux434ux435ux43b-ux441-ux440ux430ux437ux434ux435ux43bux435ux43dux438ux435ux43c-ux444ux430ux43aux442ux43eux432-ux438-ux433ux438ux43fux43eux442ux435ux437}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 3 --- Три опоры Trinity: арифметика, логика, сборка.}]{figures/canon/r30_sec4_pillars.png}}
+\caption{Триптих фиг. 3 --- Три опоры Trinity: арифметика, логика,
+сборка.}
+\end{figure}
+
 Trinity S³AI --- открытый (Apache-2.0 / MIT) исследовательский стек,
 разрабатываемый российским автором. Ниже --- его компоненты со строгим
 указанием статуса каждого утверждения.
 
 \subsubsection{4.1. Опора 1 --- доверенная арифметика:
 GoldenFloat}\label{ux43eux43fux43eux440ux430-1-ux434ux43eux432ux435ux440ux435ux43dux43dux430ux44f-ux430ux440ux438ux444ux43cux435ux442ux438ux43aux430-goldenfloat}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={GoldenFloat --- зерно, замкнутость, ширина}]{figures/canon/r30_sec41_goldenfloat.png}}
+\caption{GoldenFloat --- зерно, замкнутость, ширина}
+\end{figure}
 
 GoldenFloat --- семейство числовых форматов с плавающей точкой, в
 котором разбиение «порядок / мантисса» задаётся единым замкнутым
@@ -953,6 +1424,12 @@ posit/takum/OCP-MX \textbf{не заявляется} --- в самой стат
 \{−1, 0,
 +1\}}\label{ux43eux43fux43eux440ux430-2-ux434ux43eux432ux435ux440ux435ux43dux43dux430ux44f-ux43bux43eux433ux438ux43aux430-ux431ux430ux43bux430ux43dux441ux43dux430ux44f-ux442ux440ux43eux438ux447ux43dux43eux441ux442ux44c-1-0-1}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Троичность --- Сетунь, симметрия, возврат}]{figures/canon/r30_sec42_ternary.png}}
+\caption{Троичность --- Сетунь, симметрия, возврат}
+\end{figure}
+
 Вторая опора --- ось балансной троичности (ассемблер TRI-27, модуль
 RING27, веса в духе BitNet b1.58). Троичная инференция получила свежие
 аппаратные прецеденты (TerEffic, Bitnet.cpp), а исторически прямо
@@ -984,6 +1461,12 @@ Trinity (ориентир «49×») остаётся \textbf{{[}открытой
 \subsubsection{4.3. Опора 3 --- доверенная сборка: TRI-27 и открытое
 железо}\label{ux43eux43fux43eux440ux430-3-ux434ux43eux432ux435ux440ux435ux43dux43dux430ux44f-ux441ux431ux43eux440ux43aux430-tri-27-ux438-ux43eux442ux43aux440ux44bux442ux43eux435-ux436ux435ux43bux435ux437ux43e}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={TRI-27 --- открытое железо}]{figures/canon/r30_sec43_tri27.png}}
+\caption{TRI-27 --- открытое железо}
+\end{figure}
+
 Спецификационно-первичный компилятор \textbf{TRI-27} (репозиторий
 \href{https://github.com/gHashTag/t27}{gHashTag/t27}) генерирует
 Verilog-RTL из именованных \texttt{.t27}-спецификаций и формирует
@@ -1008,6 +1491,13 @@ Verilog-RTL из именованных \texttt{.t27}-спецификаций �
 \subsection{4a. Ключевое преимущество: единая программная модель ---
 один код от CPU-эмуляции до
 кремния}\label{a.-ux43aux43bux44eux447ux435ux432ux43eux435-ux43fux440ux435ux438ux43cux443ux449ux435ux441ux442ux432ux43e-ux435ux434ux438ux43dux430ux44f-ux43fux440ux43eux433ux440ux430ux43cux43cux43dux430ux44f-ux43cux43eux434ux435ux43bux44c-ux43eux434ux438ux43d-ux43aux43eux434-ux43eux442-cpu-ux44dux43cux443ux43bux44fux446ux438ux438-ux434ux43e-ux43aux440ux435ux43cux43dux438ux44f}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 4 --- Спецификация-источник, три воплощения, сверка бит-в-бит.}]{figures/canon/r30_sec4a_unified.png}}
+\caption{Триптих фиг. 4 --- Спецификация-источник, три воплощения,
+сверка бит-в-бит.}
+\end{figure}
 
 Разделы § 4.1--4.3 описали \emph{компоненты} стека. Этот раздел
 описывает \emph{главную отличительную черту} --- то, что превращает
@@ -1065,6 +1555,12 @@ anchor \texttt{0x47C0} заложен как детерминированный 
 
 \subsubsection{4a.2. Почему это не просто HLS: мировой контекст и
 отличие}\label{a.2.-ux43fux43eux447ux435ux43cux443-ux44dux442ux43e-ux43dux435-ux43fux440ux43eux441ux442ux43e-hls-ux43cux438ux440ux43eux432ux43eux439-ux43aux43eux43dux442ux435ux43aux441ux442-ux438-ux43eux442ux43bux438ux447ux438ux435}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={vs HLS --- спецификация-первична, бит-эквивалентность}]{figures/canon/r30_sec4a2_vs_hls.png}}
+\caption{vs HLS --- спецификация-первична, бит-эквивалентность}
+\end{figure}
 
 Сама по себе идея «один исходник → FPGA + ASIC» не нова и хорошо
 обоснована в мировой литературе --- и честное позиционирование требует
@@ -1132,6 +1628,12 @@ golden reference model на CPU как в тандемной верификац�
 гонки за
 TOPS}\label{a.3.-green-ai-ux43fux440ux43eux432ux435ux440ux44fux435ux43cux430ux44f-ux44dux43dux435ux440ux433ux43eux44dux444ux444ux435ux43aux442ux438ux432ux43dux43eux441ux442ux44c-ux432ux43cux435ux441ux442ux43e-ux433ux43eux43dux43aux438-ux437ux430-tops}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Green AI --- измеренная энергоэффективность}]{figures/canon/r30_sec4a3_green.png}}
+\caption{Green AI --- измеренная энергоэффективность}
+\end{figure}
+
 Единый код напрямую работает на Green AI-позиционирование. Общепринятая
 метрика отрасли --- \textbf{TOPS и TOPS/W} --- обычно публикуется как
 пиковое число без воспроизводимого протокола измерения. Trinity занимает
@@ -1145,14 +1647,13 @@ TOPS}\label{a.3.-green-ai-ux43fux440ux43eux432ux435ux440ux44fux435ux43cux430ux44
 Но \emph{конкретная цифра} экономии для чипов Trinity остаётся
 проекцией:
 
-Предлагаемая \textbf{четырёхуровневая трассировка энергии
-\(J/\text{op}\)} --- прямое расширение ключевого преимущества на
-энергометрику:
+Предлагаемая \textbf{четырёхуровневая трассировка энергии (J/\text{op})}
+--- прямое расширение ключевого преимущества на энергометрику:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Уровень
@@ -1165,18 +1666,18 @@ TOPS}\label{a.3.-green-ai-ux43fux440ux43eux432ux435ux440ux44fux435ux43cux430ux44
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\(J/\text{op}\)-spec & аналитика из спецификации & расчётный ориентир \\
-\(J/\text{op}\)-sim & OpenLane2 switching activity & есть проекция
-(75/405 TOPS/W) \textbf{{[}смоделировано{]}} \\
-\(J/\text{op}\)-fpga & измерение на плате (шунт/INA219) & план (harness
-не собран) \textbf{{[}открытая гипотеза{]}} \\
-\(J/\text{op}\)-silicon & измерение на кристалле & после возврата
-кремния \textbf{{[}не измерено{]}} \\
+(J/\text{op})-spec & аналитика из спецификации & расчётный ориентир \\
+(J/\text{op})-sim & OpenLane2 switching activity & есть проекция (75/405
+TOPS/W) \textbf{{[}смоделировано{]}} \\
+(J/\text{op})-fpga & измерение на плате (шунт/INA219) & план (harness не
+собран) \textbf{{[}открытая гипотеза{]}} \\
+(J/\text{op})-silicon & измерение на кристалле & после возврата кремния
+\textbf{{[}не измерено{]}} \\
 \end{longtable}
 
 Честная оговорка: на июнь 2026 года у стека \textbf{нет ни одного
-измеренного \(J/\text{op}\)} --- все TOPS/W-цифры являются
-архитектурными проекциями. Именно поэтому ценность не в самой цифре, а в
+измеренного (J/\text{op})} --- все TOPS/W-цифры являются архитектурными
+проекциями. Именно поэтому ценность не в самой цифре, а в
 \emph{дисциплине её пометки}: единый код позволяет измерить одну и ту же
 операцию на всех четырёх уровнях и честно показать, где проекция, а где
 факт. Это и есть «проверяемый Green AI» --- \textbf{{[}открытая
@@ -1189,11 +1690,11 @@ TOPS}\label{a.3.-green-ai-ux43fux440ux43eux432ux435ux440ux44fux435ux43cux430ux44
 ловит дефект. В ходе подготовки сабмишна была задокументирована
 \textbf{errata 2026-05-31}: в RTL-генераторе регистр произведения
 оказался на 2 бита уже, чем нужно --- и для ряда форматов давал например
-\(1.0 \times 1.0 = 0.5\) вместо \(1.0\). Этот дефект попал в
-отправленный на изготовление кремний TTSKY26b. Именно сверка против
-эталонных биточных векторов позволила обнаружить и задокументировать
-расхождение ещё до возврата кристалла, а исправленный генератор заложен
-в CI-гейт \textbf{{[}доказано --- задокументировано в репозитории{]}}.
+(1.0 \times 1.0 = 0.5) вместо (1.0). Этот дефект попал в отправленный на
+изготовление кремний TTSKY26b. Именно сверка против эталонных биточных
+векторов позволила обнаружить и задокументировать расхождение ещё до
+возврата кристалла, а исправленный генератор заложен в CI-гейт
+\textbf{{[}доказано --- задокументировано в репозитории{]}}.
 
 Этот эпизод --- не слабость, а прямая иллюстрация \emph{зачем нужен
 CPU-эталон}: программная модель и биточные векторы дают возможность
@@ -1222,6 +1723,13 @@ CPU-эталон}: программная модель и биточные ве�
 \subsection{5. Правовой каркас Trinity: от действующих норм к
 регистрируемым
 РИД}\label{ux43fux440ux430ux432ux43eux432ux43eux439-ux43aux430ux440ux43aux430ux441-trinity-ux43eux442-ux434ux435ux439ux441ux442ux432ux443ux44eux449ux438ux445-ux43dux43eux440ux43c-ux43a-ux440ux435ux433ux438ux441ux442ux440ux438ux440ux443ux435ux43cux44bux43c-ux440ux438ux434}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 5 --- Действующие правовые механизмы: ст. 1262 ГК, ст. 1448--1464 ГК, 258-ФЗ ЭПР.}]{figures/canon/r30_sec5_legal.png}}
+\caption{Триптих фиг. 5 --- Действующие правовые механизмы: ст. 1262 ГК,
+ст. 1448--1464 ГК, 258-ФЗ ЭПР.}
+\end{figure}
 
 Ключевой тезис этого раздела: \textbf{доверенность начинается с
 регистрируемого результата интеллектуальной деятельности (РИД), а не с
@@ -1258,6 +1766,12 @@ GoldenFloat, компилятор TRI-27, VIBEE. Совместимо с отк�
 
 \subsubsection{5.2. Реальный вход: экспериментальный правовой режим
 (ЭПР)}\label{ux440ux435ux430ux43bux44cux43dux44bux439-ux432ux445ux43eux434-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430ux43bux44cux43dux44bux439-ux43fux440ux430ux432ux43eux432ux43eux439-ux440ux435ux436ux438ux43c-ux44dux43fux440}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={ЭПР --- песочница, границы, срок}]{figures/canon/r30_sec52_epr.png}}
+\caption{ЭПР --- песочница, границы, срок}
+\end{figure}
 
 ФЗ № 258-ФЗ об ЭПР существенно обновлён: 10 июня 2026 г. Госдума приняла
 закон о расширении применения ЭПР в интересах развития ИИ
@@ -1370,9 +1884,15 @@ IP}, а национальная приписка решается отдель�
 GoldenFloat патентоспособен как \textbf{«способ вычисления в
 тернарной/золотосечённой арифметике»} при доказанном техническом
 результате; чип TRI-27 --- как \textbf{устройство}. Физлицо/самозанятый
-пользуется \textbf{льготными пошлинами} (порядка 2 800 руб. за подачу с
-учётом льгот). \textbf{Важно (снимает мнимое противоречие «открытый код
-против патента»):} лицензия \textbf{Apache 2.0 содержит явную патентную
+пользуется \textbf{пониженными (льготными) пошлинами}; важно понимать,
+что патентные пошлины --- \textbf{поэтапные}, а не один платёж: (1)
+подача заявки и формальная экспертиза → (2) экспертиза по существу → (3)
+регистрация и выдача патента, плюс ежегодные пошлины за поддержание
+(\textbf{ст. 333.30 НК РФ; Постановление Правительства № 1278}
+{[}действующая норма{]}). Конкретные суммы зависят от стадии и числа
+пунктов формулы; единого «итогового» платежа не существует.
+\textbf{Важно (снимает мнимое противоречие «открытый код против
+патента»):} лицензия \textbf{Apache 2.0 содержит явную патентную
 лицензию (patent grant)}, поэтому открытая публикация под Apache
 \textbf{не означает автоматического отказа} от патентных прав на
 способ/устройство --- открытость и патентование совместимы
@@ -1403,6 +1923,13 @@ GoldenFloat патентоспособен как \textbf{«способ выч�
 
 \subsection{6. Матрица соответствия: цели государства ↔ компоненты
 Trinity}\label{ux43cux430ux442ux440ux438ux446ux430-ux441ux43eux43eux442ux432ux435ux442ux441ux442ux432ux438ux44f-ux446ux435ux43bux438-ux433ux43eux441ux443ux434ux430ux440ux441ux442ux432ux430-ux43aux43eux43cux43fux43eux43dux435ux43dux442ux44b-trinity}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 6 --- Цели НСРИИ ↔ компоненты Trinity ↔ регистрируемые РИД.}]{figures/canon/r30_sec6_matrix.png}}
+\caption{Триптих фиг. 6 --- Цели НСРИИ ↔ компоненты Trinity ↔
+регистрируемые РИД.}
+\end{figure}
 
 Ниже --- прямое сопоставление действующих государственных целей и того,
 какой компонент стека их поддерживает. Это ядро согласованности
@@ -1442,8 +1969,10 @@ VIBEE/GoldenFloat в реестре отечественного ПО. Стат�
 Статус: потенциал, требует партнёрства с вузами. - \textbf{Патент на
 способ/устройство (ст. 1350 ГК; Приказ Минэк № 148/2024)} ← GoldenFloat
 как «способ вычисления», чип TRI-27 как устройство; Apache 2.0 patent
-grant совместим с патентом. Статус: к подаче доступно физлицу, льготные
-пошлины (\textasciitilde2 800 руб.); прохождение экспертизы --- открытая
+grant совместим с патентом. Статус: к подаче доступно физлицу,
+пониженные (льготные) пошлины; пошлины поэтапные (подача+формальная →
+экспертиза по существу → регистрация/выдача + поддержание), ст. 333.30
+НК РФ {[}действующая норма{]}; прохождение экспертизы --- открытая
 гипотеза. - \textbf{Авторство ИИ-кода (ст. 1257, 1259 ГК; Пленум ВС № 10
 п. 80)} ← охрана кода/RTL при доказанном творческом вкладе человека;
 ведение журнала авторских решений. Статус: нормы и практика 2024--26 ---
@@ -1467,6 +1996,12 @@ grant совместим с патентом. Статус: к подаче до
 \subsection{7. Дорожная карта «Россия 3.0» (реалистичные
 стадии)}\label{ux434ux43eux440ux43eux436ux43dux430ux44f-ux43aux430ux440ux442ux430-ux440ux43eux441ux441ux438ux44f-3.0-ux440ux435ux430ux43bux438ux441ux442ux438ux447ux43dux44bux435-ux441ux442ux430ux434ux438ux438}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 7 --- Реалистичные стадии 2026 → 2028 → 2030.}]{figures/canon/r30_sec7_roadmap.png}}
+\caption{Триптих фиг. 7 --- Реалистичные стадии 2026 → 2028 → 2030.}
+\end{figure}
+
 Предложение не требует мегабюджетов на старте --- оно построено по
 принципу «доказывай дёшево, масштабируй по результату».
 
@@ -1484,20 +2019,29 @@ grant совместим с патентом. Статус: к подаче до
   патентной заявки на способ вычисления GoldenFloat и устройство TRI-27
   (ст. 1350 ГК РФ, льготные пошлины физлица)}; начало ведения
   \textbf{журнала авторских решений} для доказательства творческого
-  вклада в ИИ-код; возврат измерений с кремния TTSKY26b; пилот
-  «доверенного» инференса на отечественной FPGA в рамках обновлённого
-  ЭПР (258-ФЗ, ред. 10.06.2026 --- срок до 5 лет).
+  вклада в ИИ-код; \textbf{учреждение российского юрлица (ООО) с
+  контрольной российской долей} --- это сделано на данной стадии
+  сознательно рано, поскольку юрлицо является \emph{ключом} к
+  финансированию: большинство федеральных грантовых механизмов (ФСИ,
+  РФРИТ, РНФ) и включение ПО в реестр отечественного (ПП № 1236) требуют
+  статус МСП либо принадлежности прав российскому юрлицу; возврат
+  измерений с кремния TTSKY26b; пилот «доверенного» инференса на
+  отечественной FPGA в рамках обновлённого ЭПР (258-ФЗ, ред. 10.06.2026
+  --- срок до 5 лет).
 \item
-  \textbf{Стадия 2 (2027--2028):} \textbf{учреждение российского юрлица
-  (ИП/ООО)} для доступа к грантовым механизмам (Сколково
-  «Микроэлектроника», «Развитие-НТИ» Нейронет, субсидии Минпромторга по
-  ЭКБ) и к реестру отечественного ПО (ПП № 1236); инициирование
-  \textbf{ПНСТ по формату GoldenFloat через ТК 164} при поддержке
-  отраслевых партнёров; перенос reference-архитектур на отечественные
-  чипы (доступные топологии); сертификационный трек ФСТЭК и трек
-  \textbf{признания ПО доверенным (ПП № 1931)}; вхождение в реестр
-  доверенных моделей ИИ (по мере вступления в силу регулирования 2027
-  г.).
+  \textbf{Стадия 2 (2027--2028):} через уже учреждённое юрлицо ---
+  заявки в грантовые механизмы (Сколково «Микроэлектроника»,
+  «Развитие-НТИ» Нейронет, субсидии Минпромторга по ЭКБ) и включение в
+  реестр отечественного ПО (ПП № 1236); инициирование \textbf{ПНСТ по
+  формату GoldenFloat через ТК 164} при поддержке отраслевых партнёров;
+  перенос reference-архитектур на отечественные чипы (доступные
+  топологии); сертификационный трек ФСТЭК и трек \textbf{признания ПО
+  доверенным (ПП № 1931)}; вхождение в реестр доверенных моделей ИИ (по
+  мере вступления в силу регулирования 2027 г.; в редакции законопроекта
+  2026 г. для статуса «национальной»/«суверенной» модели достаточно
+  российского юрлица --- требование «только граждане РФ» снято,
+  \href{https://pravo.ru/story/263957/}{ПРАВО.ru, дайджест за май 2026})
+  \textbf{{[}законопроект, не действующая норма{]}}.
 \item
   \textbf{Стадия 3 (2028--2030):} масштабирование как доверенного
   edge-стека (умные устройства, автономные системы, КИИ) в рамках НПТЛ;
@@ -1507,18 +2051,84 @@ grant совместим с патентом. Статус: к подаче до
 \begin{quote}
 \textbf{Устойчивость проекта (честно).} На июнь 2026 г. ядро разработки
 держится на одном авторе --- это объективный риск устойчивости (bus
-factor). Поэтому в дорожную карту встроены меры снижения этого риска:
-открытая модель контрибьюторов (Apache-2.0/MIT), институционализация
-через вуз/отраслевого партнёра и стандартизацию (ПНСТ через ТК 164). До
-получения грантов проект развивается по принципу bootstrap --- за счёт
-открытого кода и сервисов вокруг него, с последующим переходом к
-грантовому финансированию через российское юрлицо и лицензированию РИД.
+factor), и мы не маскируем его, а показываем конкретный план снижения.
+\textbf{Что уже сделано как основа для команды:} (1) весь стек
+опубликован под открытой лицензией (Apache-2.0/MIT) --- это снимает
+зависимость от одного человека: код, спецификации и битоточные векторы
+соответствия доступны и воспроизводимы любым участником; (2)
+подготовлена первая научная публикация (в подаче в журнал
+«Программирование») --- формальная точка входа для соавторов; (3)
+международный гуманитарно-научный контур (проф. Скотт Олсен, Emeritus
+Professor, College of Central Florida) уже привлечён к смежной работе о
+математических основаниях формата. \textbf{Что планируется по стадиям:}
+на Стадии 1 --- учреждение ООО как юридической оболочки для найма и
+распределения прав; на Стадии 2 --- институционализация через
+вуз/отраслевого партнёра и стандартизацию (ПНСТ через ТК 164), что
+добавляет к проекту организацию, а не только человека. До получения
+грантов проект развивается по принципу bootstrap --- за счёт открытого
+кода и сервисов вокруг него, с последующим переходом к грантовому
+финансированию через российское юрлицо и лицензированию РИД
+\textbf{{[}доказано --- открытая лицензия и публикация; открытая
+гипотеза --- состав будущей команды{]}}.
 \end{quote}
+
+\subsubsection{7.1. Ресурсы и отдача по
+стадиям}\label{ux440ux435ux441ux443ux440ux441ux44b-ux438-ux43eux442ux434ux430ux447ux430-ux43fux43e-ux441ux442ux430ux434ux438ux44fux43c}
+
+Чтобы предложение не выглядело «просьбой вообще», ниже --- честная
+картина \emph{категорий} затрат и источников по стадиям. Конкретные
+суммы намеренно не фиксируются: патентные и регистрационные пошлины
+поэтапны и зависят от стадии и объёма (ст. 333.30 НК РФ), а грантовые
+суммы определяются конкурсными условиями конкретной очереди.
+
+{[}Таблица --- ресурсы и отдача по стадиям:{]}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Стадия 0--1 (2026--2027) --- задел и РИД.} Затраты: пошлины за
+  регистрацию ПО и топологии ИМС (ст. 1262, 1448--1464 ГК РФ), поэтапные
+  патентные пошлины (ст. 1350 ГК, льготы физлица), FPGA-плата,
+  изготовление кремния (Tiny Tapeout). \textbf{Источник:} личные
+  средства исследователя (bootstrap). \textbf{Отдача:}
+  зарегистрированные РИД как активы. \textbf{{[}план / частично
+  выполнено{]}}
+\item
+  \textbf{Стадия 1 (2026--2027) --- юридическая оболочка.} Затраты:
+  регистрация ООО, базовый бухучёт. \textbf{Источник:} личные средства.
+  \textbf{Отдача:} ООО --- \emph{ключ} к грантам и реестру
+  отечественного ПО. \textbf{{[}план{]}}
+\item
+  \textbf{Стадия 2 (2027--2028) --- грантовое финансирование НИОКР.}
+  Затраты: НИОКР, перенос на отечественные чипы, сертификация.
+  \textbf{Источник:} федеральные гранты через юрлицо (ФСИ
+  СТАРТ-ИИ/Развитие-ИИ, Сколково, субсидии Минпромторга).
+  \textbf{Отдача:} вхождение в реестры, ПНСТ, пилот для КИИ.
+  \textbf{{[}план, зависит от открытия очередей{]}}
+\item
+  \textbf{Стадия 3 (2028--2030) --- масштабирование и выручка.} Затраты:
+  продуктовые работы, поддержка. \textbf{Источник:} лицензирование РИД,
+  госзакупки (приоритет отечественного ПО), сервисы. \textbf{Отдача:}
+  доверенный edge-стек, кадры. \textbf{{[}открытая гипотеза /
+  проекция{]}}
+\end{itemize}
+
+Принцип прост: \textbf{ранние стадии дёшевы и финансируются
+самостоятельно, а государственная поддержка подключается только после
+появления проверяемого результата и юрлица-получателя} --- это снижает
+риск для бюджета.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{8. Открытое обращение к руководству
 страны}\label{ux43eux442ux43aux440ux44bux442ux43eux435-ux43eux431ux440ux430ux449ux435ux43dux438ux435-ux43a-ux440ux443ux43aux43eux432ux43eux434ux441ux442ux432ux443-ux441ux442ux440ux430ux43dux44b}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 8 --- Открытое обращение: слово, семь пунктов, готовность к диалогу.}]{figures/canon/r30_sec8_appeal.png}}
+\caption{Триптих фиг. 8 --- Открытое обращение: слово, семь пунктов,
+готовность к диалогу.}
+\end{figure}
 
 \emph{Настоящий раздел оформлен как открытое обращение в научном
 формате. Он не претендует на нормативную силу и представляет собой
@@ -1605,6 +2215,13 @@ Trinity S³AI.
 доверия: от лампочки до электронного
 ключа}\label{a.-ux433ux43bux43eux431ux430ux43bux44cux43dux44bux439-ux441ux43bux43eux439-ux434ux43eux432ux435ux440ux435ux43dux43dux44bux445-ux443ux441ux442ux440ux43eux439ux441ux442ux432-ux438-ux43eux431ux449ux430ux44f-ux44dux43aux43eux43dux43eux43cux438ux43aux430-ux434ux43eux432ux435ux440ux438ux44f-ux43eux442-ux43bux430ux43cux43fux43eux447ux43aux438-ux434ux43e-ux44dux43bux435ux43aux442ux440ux43eux43dux43dux43eux433ux43e-ux43aux43bux44eux447ux430}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 8 --- От лампочки до электронного ключа: единый слой доверия.}]{figures/canon/r30_sec8a_global.png}}
+\caption{Триптих фиг. 8 --- От лампочки до электронного ключа: единый
+слой доверия.}
+\end{figure}
+
 \emph{Этот раздел --- научно оформленное расширение обращения от
 национального задела к его международному экспортному потенциалу. Он
 сохраняет ту же дисциплину честности: разделяет действующие нормы и
@@ -1666,9 +2283,9 @@ LoRaWAN, ГОСТ Р 70036-2022 --- NB-Fi, ГОСТ Р 59026-2024 --- NB-IoT) и
 {[}Таблица --- международные рамки доверенных устройств:{]}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Рамка
@@ -1777,11 +2394,381 @@ FPGA-кодек (§ 4), а не сертифицированный по Matter/C
 мировую инфраструктуру доверия --- язык, на котором можно договариваться
 даже там, где трудно договориться о другом.
 
+\subsubsection{8a.5. Суверенная доверенная основа: позиционирование
+относительно Bitcoin/PoW {[}открытая гипотеза / стратегическое
+позиционирование{]}}\label{a.5.-ux441ux443ux432ux435ux440ux435ux43dux43dux430ux44f-ux434ux43eux432ux435ux440ux435ux43dux43dux430ux44f-ux43eux441ux43dux43eux432ux430-ux43fux43eux437ux438ux446ux438ux43eux43dux438ux440ux43eux432ux430ux43dux438ux435-ux43eux442ux43dux43eux441ux438ux442ux435ux43bux44cux43dux43e-bitcoinpow-ux43eux442ux43aux440ux44bux442ux430ux44f-ux433ux438ux43fux43eux442ux435ux437ux430-ux441ux442ux440ux430ux442ux435ux433ux438ux447ux435ux441ux43aux43eux435-ux43fux43eux437ux438ux446ux438ux43eux43dux438ux440ux43eux432ux430ux43dux438ux435}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={vs Bitcoin/PoW --- PoW, PoS, Trinity}]{figures/canon/r30_sec8a5_vs_pow.png}}
+\caption{vs Bitcoin/PoW --- PoW, PoS, Trinity}
+\end{figure}
+
+Этот подраздел отвечает на естественный вопрос: \emph{как «Троица»
+соотносится с Bitcoin и другими криптовалютами на блокчейне?} Ответ
+требует аккуратного разграничения, чтобы не подменять понятия.
+
+\textbf{Что Trinity НЕ является.} Trinity --- \emph{не} криптовалюта,
+\emph{не} платёжная система и \emph{не} конкурент Bitcoin как денег. У
+стека нет собственной монеты, эмиссии или механизма расчётов. Прямое
+сравнение «Trinity против Bitcoin» как двух валют было бы некорректным
+{[}методологическая оговорка{]}.
+
+\textbf{В чём осмысленное сопоставление.} Сопоставимы не «деньги против
+денег», а \emph{модели доверия}. Bitcoin предложил миру доверие
+\emph{без доверенного посредника} --- за счёт публичного блокчейна и
+доказательства работы (Proof-of-Work, PoW). Платой за это стали: (а)
+внеюрисдикционность --- система принципиально не привязана к
+национальному правовому полю; (б) высокое энергопотребление PoW ---
+оценки годового потребления сети Bitcoin находятся в диапазоне
+десятков-сотен ТВт·ч (\href{https://ccaf.io/cbnsi/cbeci}{Cambridge
+CBECI};
+\href{https://digiconomist.net/bitcoin-energy-consumption}{Digiconomist})
+{[}измерено третьими сторонами, оценка{]}.
+
+\textbf{Альтернативная модель «Троицы»: суверенная доверенная основа
+(«золотая цепь»).} Trinity предлагает не замену деньгам, а
+\emph{проверяемый фундамент доверия}, на котором суверенная цифровая
+экономика \emph{может} быть построена. Три слоя этой основы: (1)
+доверенный числовой слой --- GoldenFloat с бит-в-бит воспроизводимой
+арифметикой (§ 4.1, 4a); (2) проверяемый корень доверия устройства ---
+чипы «Троица» с открытым RTL и SHA-256-печатями соответствия; (3)
+глобальный контур доверия --- TRI NET как сеть проверяемых устройств (§
+8a). В отличие от PoW, доверие здесь обеспечивается
+\emph{воспроизводимостью и открытой проверкой} (любая сторона
+воспроизводит спецификацию и сверяет векторы), а не сжиганием энергии в
+соревновании за блок {[}архитектурное свойство, не измерение{]}.
+
+\textbf{Ключевые различия (сводно).}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Измерение
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bitcoin / PoW
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Trinity / «золотая цепь» (TRI NET)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Природа объекта & Децентрализованные деньги на блокчейне & Доверенная
+вычислительная основа (не деньги) \\
+Источник доверия & Доказательство работы (энергозатратное) &
+Воспроизводимость + открытая проверка артефактов \\
+Юрисдикция & Внеюрисдикционная по замыслу & Суверенная: совместима с
+правовым полем РФ \\
+Энергомодель & Высокое потребление PoW {[}измерено третьими{]} &
+Проверяемая энергометрика (J/\text{op}) (§ 4a.3) {[}методология{]} \\
+Что строится сверху & Расчёты, средство сбережения & Цифровая экономика
+доверенных устройств и сервисов \\
+\end{longtable}
+
+\textbf{Честная граница тезиса.} Утверждение «Trinity --- суверенная
+доверенная основа, альтернативная модели доверия Bitcoin» --- это
+\emph{стратегическое позиционирование и открытая гипотеза} {[}открытая
+гипотеза{]}, а не доказанный результат и не претензия на вытеснение
+Bitcoin. Доказанная часть на сегодня --- это форматы, FPGA-кодек и
+открытый код (§ 4). Тезис о «суверенной доверенной основе для цифровой
+экономики» относится к видению развития, а не к достигнутому состоянию.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{8a.6. TRI NET как суверенный DePIN-контур: потенциальный
+приток валюты в экономику РФ {[}открытая гипотеза /
+проекция{]}}\label{a.6.-tri-net-ux43aux430ux43a-ux441ux443ux432ux435ux440ux435ux43dux43dux44bux439-depin-ux43aux43eux43dux442ux443ux440-ux43fux43eux442ux435ux43dux446ux438ux430ux43bux44cux43dux44bux439-ux43fux440ux438ux442ux43eux43a-ux432ux430ux43bux44eux442ux44b-ux432-ux44dux43aux43eux43dux43eux43cux438ux43aux443-ux440ux444-ux43eux442ux43aux440ux44bux442ux430ux44f-ux433ux438ux43fux43eux442ux435ux437ux430-ux43fux440ux43eux435ux43aux446ux438ux44f}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 9 --- TRI-NET как суверенный DePIN-контур {[}открытая гипотеза{]}.}]{figures/canon/r30_sec8a6_depin.png}}
+\caption{Триптих фиг. 9 --- TRI-NET как суверенный DePIN-контур
+{[}открытая гипотеза{]}.}
+\end{figure}
+
+Раздел § 8a.5 описал РОЛЬ «золотой цепи» как доверенной основы. Этот
+подраздел отвечает на экономический вопрос: \emph{может ли сеть
+проверяемых устройств TRI NET стать источником притока валюты в
+российскую экономику?} Ответ формулируется строго как \textbf{открытая
+гипотеза / проекция}, а не как обещание дохода.
+
+\textbf{Что такое DePIN (контекст).} DePIN (Decentralized Physical
+Infrastructure Networks) --- модель, при которой владельцы реального
+оборудования (датчики, точки беспроводного доступа, вычислители,
+хранилища) предоставляют инфраструктурные услуги и получают оплату. По
+открытым оценкам третьих сторон, сектор охватывает порядка 40 млн
+устройств в 199 странах с совокупной капитализацией порядка 9--10 млрд
+долл. США (по данным на весну 2026 г.; пиковые оценки доходили до
+\textasciitilde19 млрд долл.)
+(\href{https://cryptoslate.com/cryptos/depin/}{CryptoSlate, DePIN};
+\href{https://www.panewslab.com/zh/articles/019e5e0a-11b2-73d6-af9b-84b67a8c1123}{PANews})
+{[}измерено третьими сторонами, оценка{]}. Реальная выручка от
+некрипто-клиентов (реальный спрос на услуги) оценивалась в
+\textgreater800 млн долл. в годовом выражении на I кв. 2026 г.
+(\href{https://coinfomania.com/blockchain-news-2026-whats-actually-happening-right-now/}{Coinfomania})
+{[}измерено третьими сторонами, оценка{]}.
+
+\textbf{Гипотеза.} TRI NET --- это сеть из узлов с проверяемым корнем
+доверия (§ 8a). Если такая сеть развёрнута как суверенный DePIN-контур с
+отечественным ядром и глобальной оболочкой (§ 8a.2), то зарубежные
+потребители инфраструктурных услуг (связь, вычисления, хранение, данные
+датчиков) могут оплачивать их владельцам-операторам в РФ. В этой модели
+возникает \emph{экспорт инфраструктурной услуги} --- приток валютной
+выручки из-за рубежа, часть которой через налоги (НПД/НДС/налог на
+прибыль) поступает в бюджет {[}открытая гипотеза / проекция{]}.
+
+\textbf{Критическая правовая рамка (действующие нормы РФ 2026).} Эта
+гипотеза обязана учитывать российское регулирование: с 01.07.2026
+торговля криптовалютой легальна только через лицензированных
+посредников; \emph{внутренние} расчёты криптовалютой в РФ запрещены
+(рубль --- единственное законное платёжное средство); однако
+\emph{трансграничные} расчёты российских компаний с иностранными
+контрагентами разрешены
+(\href{https://coinjuice.com/research-hub/russia-crypto-2026-bitcoin-ethereum-cbr}{CoinJuice,
+Russia crypto 2026};
+\href{https://companies.rbc.ru/amp/news/315deb89-e850-4bed-b74a-e50e30731e74/}{РБК})
+{[}действующая норма с 01.07.2026{]}. Это означает: модель «приток
+валюты в казну» допустима именно как \emph{экспорт услуги за рубеж}
+(трансграничная выручка), а не как внутренняя крипто-расчётная система.
+Любая реализация должна быть выстроена строго в этом правовом поле.
+
+\textbf{Честная граница тезиса.} На июнь 2026 г. TRI NET не является ни
+развёрнутой DePIN-сетью, ни источником дохода; чипы «Троица» отправлены
+на изготовление, сеть не построена. Цифры DePIN-рынка относятся к
+\emph{сектору в целом}, а не к Trinity. Оценка потенциальной доли или
+притока в казну не проводилась и не моделировалась. Тезис «TRI NET как
+суверенный DePIN-контур, приводящий валюту в экономику РФ» --- это
+\emph{стратегическая проекция} {[}открытая гипотеза / проекция{]},
+которая опирается на (а) реальный размер мирового DePIN-рынка как
+ориентир и (б) действующее разрешение трансграничных расчётов. Для
+проверки/опровержения гипотезы нужны: пилот развёртывания узлов, модель
+спроса на услуги из-за рубежа и юридическая схема расчётов через
+лицензированных посредников.
+
+\subsubsection{8a.7. Токен \$TRI как ЦФА: легальный финансовый
+инструмент для «Троицы» в правовом поле РФ {[}рабочее
+предложение{]}}\label{a.7.-ux442ux43eux43aux435ux43d-tri-ux43aux430ux43a-ux446ux444ux430-ux43bux435ux433ux430ux43bux44cux43dux44bux439-ux444ux438ux43dux430ux43dux441ux43eux432ux44bux439-ux438ux43dux441ux442ux440ux443ux43cux435ux43dux442-ux434ux43bux44f-ux442ux440ux43eux438ux446ux44b-ux432-ux43fux440ux430ux432ux43eux432ux43eux43c-ux43fux43eux43bux435-ux440ux444-ux440ux430ux431ux43eux447ux435ux435-ux43fux440ux435ux434ux43bux43eux436ux435ux43dux438ux435}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 8a.7 --- \$TRI как ЦФА: 259-ФЗ, оператор, гибридное цифровое право.}]{figures/canon/r30_sec8a7_tri_cfa.png}}
+\caption{Триптих фиг. 8a.7 --- \$TRI как ЦФА: 259-ФЗ, оператор,
+гибридное цифровое право.}
+\end{figure}
+
+Предыдущие подразделы описали \emph{техническую} основу (GoldenFloat +
+чипы «Троица» + TRI NET). Этот подраздел отвечает на финансовый вопрос:
+\emph{как привлечь капитал в проект «Троицы» в действующем правовом поле
+РФ, без оффшорных схем и без выпуска криптовалюты внутри страны?} Ответ
+--- \textbf{через выпуск токена \$TRI как цифрового финансового актива
+(ЦФА) в одной из лицензированных Банком России информационных систем}.
+
+\textbf{Зачем именно ЦФА, а не криптовалюта или акции.} С 1 июля 2026 г.
+в РФ действует обновлённая архитектура цифровых расчётов: внутренние
+расчёты криптовалютой запрещены, использование криптовалют разрешено
+только во внешнеторговых контрактах через лицензированных посредников;
+одновременно ФНС требует обязательное уведомление о зарубежных
+крипто-операциях
+(\href{https://akft.ru/novosti/otkrytyj-vecher-akademii-glavnye-izmeneniya-rynka-czfa-s-1-iyulya-2026-goda/}{Академия
+КФТ --- изменения с 01.07.2026}) {[}действующая норма{]}. Это означает:
+токен «Троицы», выпущенный как «криптовалюта», окажется в крайне узком
+правовом коридоре. \textbf{ЦФА --- наоборот, прямо разрешённый
+внутренний инструмент}, обращающийся через 21 оператора информационных
+систем (ОИС) в реестре ЦБ (\href{https://cbonds.ru/dfa/}{Cbonds, DFA};
+\href{https://procfa.ru/reestr-platform-czfa-popolnilsya-novoj-kompaniej/}{Procfa})
+{[}действующая норма{]}.
+
+\textbf{Состояние рынка ЦФА (I кв. 2026, факты ЦБ РФ).} По данным Банка
+России: суммарная стоимость действующих выпусков ЦФА --- \textbf{1,375
+трлн руб.} (рост в 4,5 раза за 12 месяцев); первичные размещения за
+квартал --- \textbf{1,135 трлн руб.} (≈69\% всего объёма 2025 года);
+количество выпусков --- 1 512; зарегистрированных пользователей платформ
+--- 910 982
+(\href{https://abn.agency/2026/06/11/rynok-czfa-prevysil-1375-trln-rublej/}{Агентство
+Бизнес Новостей};
+\href{https://tenchat.ru/media/5504853-1375-trln-rubley-za-kvartal-rynok-tsfa-udvoilsya-i-prodolzhayet-rasti}{TenChat})
+{[}измерено ЦБ РФ{]}. Прогноз ПСБ --- 3 трлн руб. за весь 2026 г.;
+оценка Минфина --- \textbf{до 10 трлн руб. к 2030 г.}
+(\href{https://rg.ru/amp/2026/05/18/vecherom-dengi.html}{Российская
+газета}) {[}прогноз{]}. Юридические лица обеспечивают 93,9\% денежного
+оборота --- рынок остаётся \textbf{корпоративным}, что прямо подходит
+модели «Троицы»: эмиссия для институциональных инвесторов, не для
+розницы.
+
+\textbf{Меморандум ЦИПР 19.05.2026 --- прямой контекст для \$TRI.} На
+конференции «Цифровая индустрия промышленной России» в Нижнем Новгороде
+Сбер, Ассоциация крупнейших потребителей программного обеспечения и
+оборудования (АКПО), «Ростелеком», ВТБ и «РЖД-Технологии» подписали
+\textbf{меморандум о развитии ЦФА как инструмента для проектов в сфере
+технологической независимости}
+(\href{https://lenta.ru/news/2026/05/19/na-tsipr-podpisan-memorandum-o-tsfa-dlya-proektov-v-sfere-tehnologicheskoy-nezavisimosti/}{Lenta.ru,
+19.05.2026}) {[}меморандум, не закон{]}. Цитата Виталия Трепыхалина
+(«Ростелеком»): «Интеграция цифровых финансовых активов в рамках
+проектов технологической независимости --- это шаг к формированию новой
+цифровой инфраструктуры, обеспечивающей суверенитет нашей страны».
+\textbf{Проект «Троицы» --- прямой кандидат на пилотное применение этой
+рамки}: открытое отечественное железо + проверяемая арифметика + цепочка
+от FPGA до TTGF26a/GF180MCU --- именно тот класс «сложных продуктовых
+конструкций и консорциумов», под который писался меморандум.
+
+\textbf{Прецедент Группы Астра (8 июня 2026) --- ближайший аналог
+\$TRI.} ПАО «Группа Астра» провела \textbf{дебютный выпуск гибридных
+цифровых прав (ГЦП)} на программно-аппаратный комплекс Astra XConnect
+К100 на платформе «Токеон» (ПСБ); сбор заявок 8--22 июня 2026 г.,
+максимальный объём --- 10 шт.; держатели ГЦП могут с 14 сентября по 7
+октября 2026 г. либо получить ПАК физически, либо денежную выплату при
+погашении 21 октября 2026 г.
+(\href{https://www.cnews.ru/news/line/2026-06-05_gruppa_astra_obyavlyaet}{CNews};
+\href{https://www.vedomosti.ru/investments/articles/2026/06/04/1202800-gruppa-astra-debyutiruet-na-rinke-gibridnih-tsifrovih-prav}{Ведомости};
+\href{https://habr.com/ru/companies/astralinux/articles/1043876/}{Habr/Astra
+Linux}) {[}действующий выпуск{]}. Это \textbf{доказательство, что ГЦП на
+отечественный ПАК --- рабочая схема в правовом поле РФ}. Для \$TRI на
+«Троицу» эта механика воспроизводится один-к-одному: эмитент ---
+оператор «Троицы»; базовый актив --- модуль/плата на чипе «Троица»
+(после возврата с фабрики); двойное право держателя --- получить чип
+физически или денежную выплату.
+
+\textbf{Какой именно тип цифрового права подходит \$TRI.} По 259-ФЗ
+существует четыре подтипа ЦФА (денежное требование, право участия в
+капитале, право по эмиссионным ЦБ, право требовать передачи ЦБ) и две
+смежные конструкции --- утилитарные цифровые права (УЦП) и
+\textbf{гибридные цифровые права (ГЦП)}
+(\href{https://alfabank.ru/alfa-investor/posts/t/36b3a704-3866-f111-91c6-0050569e1fd0/}{Альфа-Банк,
+классификация ЦФА};
+\href{https://toveks.ru/\%F0\%9F\%94\%B4-normativnye-trebovaniya-i-regulyatornye-riski-blokchejn-proektov/}{259-ФЗ}).
+Под архитектуру «Троицы» лучше всего ложатся два варианта:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Базовая конструкция --- долговой ЦФА «\$TRI-D» (денежное
+  требование).} Краткосрочное (6--18 мес.) фондирование под
+  фиксированную ставку, аналог квази-облигации; доминирует на рынке
+  (более 80\% выпусков). Преимущество: понятная регуляторам и инвесторам
+  конструкция, простая модель погашения, нет привязки к технической
+  готовности железа. Подходит для финансирования следующего этапа
+  разработки RTL/верификации.
+\item
+  \textbf{Расширенная конструкция --- гибридное цифровое право «\$TRI-H»
+  (ГЦП).} По модели Группы Астра: базовый актив --- модуль на чипе
+  «Троица»; держатель в окне погашения выбирает между физической
+  поставкой модуля и денежной выплатой. Преимущество: токен напрямую
+  связан с производимым продуктом (а не с долгом); вход для
+  институционалов, готовых забрать железо; механика «капитал → железо»,
+  а не «капитал → процент».
+\end{itemize}
+
+\textbf{Платформы-кандидаты для эмиссии \$TRI (с обоснованием).} Реестр
+ЦБ на июнь 2026 г. насчитывает 21 ОИС; для проекта «Троицы» релевантны
+платформы с опытом B2B-выпусков под IT/импортозамещение:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Платформа (ОИС)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Группа
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Профиль
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Подходит для \$TRI
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Атомайз} & Интеррос/Т-Банк & ≈35\% рынка; крупнейший по объёму;
+RWB на 16 млрд руб. & \$TRI-D большого объёма \\
+\textbf{А-Токен} & Альфа-Банк & Лидер по числу выпусков; «Группа Астра»
+выпускала классические ЦФА & \(TRI-D, доступ к юр.лицам-неквалам |
+| **Сбер** | Сбер | Подписант меморандума ЦИПР; ≈20% рынка; партнёрское/сукук-направление | **
+\)TRI-D под меморандум о тех.независимости** --- приоритет \\
+\textbf{Токеон} & ПСБ & \textbf{Платформа дебютного ГЦП Группы Астра на
+ПАК} & \textbf{\$TRI-H --- прямой прецедент модели} \\
+\textbf{ЦФА Хаб} & --- & Дебютные размещения средних эмитентов &
+пилотный \$TRI-D малого объёма \\
+\textbf{Мастерчейн} & НФА & Инфраструктурный игрок, исторический
+оператор & технологический партнёр \\
+\end{longtable}
+
+Две рабочие связки: \textbf{Сбер
+(\(TRI-D) под рамку меморандума ЦИПР** + **Токеон (\)TRI-H) по модели
+Астры} --- параллельные пилоты, разные типы инвесторов.
+
+\textbf{Экспериментальный правовой режим (ЭПР) Банка России --- мост для
+трансграничных расчётов.} Концепция токенизации активов реального
+сектора утверждена Минфином, Банком России и Правительством РФ
+11.02.2026; ЭПР Банка России легализовал трансграничные расчёты в
+стейблкоинах и ЦФА для участников эксперимента
+(\href{https://companies.rbc.ru/amp/news/655dc1c7-2add-4088-96eb-b697b1ceb563/}{РБК
+Компании, ЦФА-расчёты РФ-БРИКС}) {[}действующая норма{]}. Это значит:
+\textbf{\$TRI-H может покупаться зарубежным контрагентом} (в первую
+очередь из стран БРИКС/ЮВА) \textbf{в рамках ЭПР} --- как форма
+предоплаты за модуль на чипе «Троица», поставляемый по экспортному
+контракту. Это связывает токен с §8a.6 (DePIN-экспорт инфраструктурной
+услуги) и с §5.2 (ЭПР как реальный вход в правовое поле).
+
+\textbf{Что выпуск \$TRI даёт проекту «Троицы».} Конкретные эффекты в
+действующей правовой рамке: (1) \textbf{легальный капитал внутри РФ} на
+следующий цикл разработки/верификации RTL и тейп-ин последующих чипов
+--- без оффшоров, без венчурной зависимости, без потери контроля; (2)
+\textbf{ранний рынок} заинтересованных корпоративных заказчиков (банки,
+телеком, промышленность --- те же подписанты меморандума ЦИПР),
+фиксирующих будущие поставки модулей; (3) \textbf{юридическая привязка}
+к рамке технологической независимости --- снимает регуляторный риск и
+облегчает диалог с госзаказчиками; (4) \textbf{трансграничный канал}
+через ЭПР --- реальная схема, по которой иностранный покупатель
+оплачивает доступ к проверяемой арифметике/железу.
+
+\textbf{Честная граница тезиса.} На июнь 2026 г. \textbf{\$TRI как ЦФА
+не выпущен, операторская площадка не выбрана, эмитент не
+зарегистрирован, проспект не подготовлен, шариатское/правовое заключение
+не получено} {[}состояние{]}. Все цифры выше --- параметры рынка ЦФА в
+целом, не Trinity. Прогнозы ПСБ (3 трлн руб. за 2026 г.) и Минфина (10
+трлн руб. к 2030 г.) --- оценки внешних институтов, не обязательства.
+Гипотезы о потенциальном объёме \$TRI, цене токена, доходности и сроке
+окупаемости в этой статье \textbf{не приводятся} и не моделируются ---
+это требует отдельной финансовой проработки с участием выбранного ОИС,
+юридического консультанта и эмитента. Сценарий \$TRI-H с экспортом через
+ЭПР --- \emph{стратегическая проекция}, опирающаяся на (а) действующее
+регулирование и (б) живой прецедент Группы Астра. Реальная эмиссия
+требует: выбор ОИС, регистрация эмитента, подготовка решения о выпуске,
+аудит за 2 последних года, согласование с ЦБ через оператора,
+привлечение якорного инвестора. Срок от старта до размещения --- 3
+недели --- 3 месяца {[}по практике рынка{]}.
+
+\textbf{Слабые места рынка ЦФА, которые важно признать.} Вторичный рынок
+узкий: только 42,9 млрд руб. за квартал против 1,135 трлн руб. первичных
+размещений (3,6\% оборота); ликвидность низкая
+(\href{https://companies.rbc.ru/amp/news/15f19938-a188-4055-a5fe-82e3f1f3a14a/}{РБК
+Компании, Требина}) {[}измерено ЦБ{]}. Уже зафиксирован первый
+корпоративный дефолт ЦФА --- «Группа Магнезит» на платформе А-Токен
+(\href{https://bonteq.ru/blog/defolt-czfa-gruppa-magnezit-chto-delat-investoru}{Bonteq})
+{[}реальный случай{]}. Это значит: \$TRI должен ориентироваться на
+\textbf{держание до погашения} (а не спекулятивный вторичный оборот), а
+эмитент обязан представить аудированную отчётность и прозрачную дорожную
+карту с измеримыми вехами (тейп-ин, возврат пластин, верификация,
+демо-плата).
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{8b. Стратегия 2026--2030: как закрепить за Россией репутацию
 доверенного программного
 обеспечения}\label{b.-ux441ux442ux440ux430ux442ux435ux433ux438ux44f-20262030-ux43aux430ux43a-ux437ux430ux43aux440ux435ux43fux438ux442ux44c-ux437ux430-ux440ux43eux441ux441ux438ux435ux439-ux440ux435ux43fux443ux442ux430ux446ux438ux44e-ux434ux43eux432ux435ux440ux435ux43dux43dux43eux433ux43e-ux43fux440ux43eux433ux440ux430ux43cux43cux43dux43eux433ux43e-ux43eux431ux435ux441ux43fux435ux447ux435ux43dux438ux44f}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 8б --- Стратегия 2026--2030: посев, рост, плод.}]{figures/canon/r30_sec8b_strategy.png}}
+\caption{Триптих фиг. 8б --- Стратегия 2026--2030: посев, рост, плод.}
+\end{figure}
 
 Раздел § 8a описал \emph{видение} --- глобальный контур доверия. Этот
 раздел отвечает на практический вопрос: \emph{что именно делать в
@@ -1974,11 +2961,11 @@ KPI}\label{b.2.-ux447ux435ux442ux44bux440ux435-ux44dux442ux430ux43fux430-2026203
 стратегии}\label{b.3.-ux441ux432ux43eux434ux43dux430ux44f-ux442ux430ux431ux43bux438ux446ux430-ux441ux442ux440ux430ux442ux435ux433ux438ux438}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Этап
@@ -2032,6 +3019,13 @@ FPGA-кодек (§ 4). Стратегия описывает реалистич
 \subsection{8c. Троичность за пределами кремния: классическая Trinity и
 квантовые
 кутриты/кудиты}\label{c.-ux442ux440ux43eux438ux447ux43dux43eux441ux442ux44c-ux437ux430-ux43fux440ux435ux434ux435ux43bux430ux43cux438-ux43aux440ux435ux43cux43dux438ux44f-ux43aux43bux430ux441ux441ux438ux447ux435ux441ux43aux430ux44f-trinity-ux438-ux43aux432ux430ux43dux442ux43eux432ux44bux435-ux43aux443ux442ux440ux438ux442ux44bux43aux443ux434ux438ux442ux44b}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 10 --- Кубит → кутрит → кудит: троичность в квантовом масштабе.}]{figures/canon/r30_sec8c_qutrit.png}}
+\caption{Триптих фиг. 10 --- Кубит → кутрит → кудит: троичность в
+квантовом масштабе.}
+\end{figure}
 
 Здесь уместно честно очертить границу между тем, что делает Trinity, и
 параллельным сюжетом квантовых вычислений, где троичность и
@@ -2097,6 +3091,13 @@ arXiv:1807.01863}) и GKP-кутрит за порогом безубыточн�
 \subsection{9. Риски, ограничения и ответы на
 контраргументы}\label{ux440ux438ux441ux43aux438-ux43eux433ux440ux430ux43dux438ux447ux435ux43dux438ux44f-ux438-ux43eux442ux432ux435ux442ux44b-ux43dux430-ux43aux43eux43dux442ux440ux430ux440ux433ux443ux43cux435ux43dux442ux44b}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 9 --- Риски и контраргументы: сомнение, ответ, страховка.}]{figures/canon/r30_sec9_risks.png}}
+\caption{Триптих фиг. 9 --- Риски и контраргументы: сомнение, ответ,
+страховка.}
+\end{figure}
+
 Честное обращение обязано само назвать свои слабые места. Ниже ---
 основные возражения и наши ответы.
 
@@ -2153,6 +3154,12 @@ factor).} Признаём риск устойчивости. Ответ --- о�
 
 \subsection{10.
 Заключение}\label{ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Триптих фиг. 11 --- Доверенная основа, троица, продолжение.}]{figures/canon/r30_sec10_conclusion.png}}
+\caption{Триптих фиг. 11 --- Доверенная основа, троица, продолжение.}
+\end{figure}
 
 Рамка «Россия 3.0 --- Троица» предлагает не альтернативу государственной
 стратегии, а способ её \emph{усиления}: сместить приоритет первого
@@ -2324,6 +3331,114 @@ https://www.tadviser.ru/index.php/Компания:Группа\_Кремний\
 https://ru.wikipedia.org/wiki/Приборостроительный\_завод\_Росатома 59.
 Заводы «Интеграл», «Микрон», «Ангстрем» --- Habr. URL:
 https://habr.com/ru/companies/first/articles/680224/
+
+\textbf{Обновление 2026: конкуренты, прецеденты и бенчмарки (§ 3a.1):}
+62. Yin C. et al.~TerEffic: Highly Efficient Ternary LLM Inference on
+FPGA. arXiv:2502.16473 (FPL 2025). URL: https://arxiv.org/abs/2502.16473
+63. Qiao Y. et al.~TeLLMe: Energy-Efficient Ternary LLM Accelerator for
+Edge FPGAs. arXiv:2504.16266 (FPGA 2026). URL:
+https://arxiv.org/abs/2504.16266 64. Hunhold L. Tekum: Balanced Ternary
+Tapered Precision Real Arithmetic. arXiv:2512.10964 (2025). URL:
+https://arxiv.org/abs/2512.10964 65. La Rosa C. L. 5500FP: 24-Trit
+Balanced Ternary RISC Processor (FPGA, март 2026). URL:
+https://hackaday.com/2026/03/16/ternary-risc-processor-achieves-non-binary-computing-via-fpga/
+66. Wang Z. G. NANOZK: Layerwise Zero-Knowledge Proofs for Verifiable
+LLM Inference. arXiv:2603.18046 (ICLR 2026 VerifAI). URL:
+https://arxiv.org/abs/2603.18046 67. Wang Y. Zero-Knowledge Proof Based
+Verifiable Inference (ZK-DeepSeek). arXiv:2511.19902 (2025). URL:
+https://arxiv.org/abs/2511.19902 68. Peng Z. et al.~A Survey of
+Zero-Knowledge Proof Based Verifiable ML. arXiv:2502.18535 (AI Review,
+Springer). URL: https://arxiv.org/abs/2502.18535 69. Ploix L.-E. et
+al.~CHERIoT-Ibex: Formal Verification of Observational Correctness
+vs.~Sail Model. arXiv:2502.04738 (2025). URL:
+https://arxiv.org/abs/2502.04738 70. Bolz-Tereick C. F. et
+al.~Pydrofoil: Accelerating Sail-Based ISA Simulators. ECOOP 2025. DOI:
+10.4230/LIPIcs.ECOOP.2025.3. URL:
+https://doi.org/10.4230/LIPIcs.ECOOP.2025.3 71. Chung J.-W. et al.~The
+ML.ENERGY Benchmark. arXiv:2505.06371 (NeurIPS 2025 Datasets \&
+Benchmarks, Spotlight). URL: https://arxiv.org/abs/2505.06371 72.
+Argerich M. F. et al.~Watt Counts: Energy-Aware Benchmark for
+Sustainable LLM Inference. arXiv:2604.09048 (2026). URL:
+https://arxiv.org/abs/2604.09048 73. Niu C. et al.~TokenPowerBench:
+Benchmarking Power Consumption of LLM Inference. arXiv:2512.03024 (AAAI
+2026). URL: https://arxiv.org/abs/2512.03024 74. Flocq team. coq-flocq
+4.2.1 (Rocq Package, янв. 2025). URL:
+https://rocq-prover.org/p/coq-flocq/4.2.1
+
+\textbf{Обновление (июнь 2026): новая волна конкурентов и прецедентов (§
+3a.2):} 75. Huang Z. et al.~TENET: An Efficient Sparsity-Aware
+LUT-Centric Architecture for Ternary LLM Inference On Edge.
+arXiv:2509.13765 (Microsoft Research, 2025). URL:
+https://arxiv.org/abs/2509.13765 76. Guan H. et al.~TOM: A Ternary
+Read-only Memory Accelerator for LLM-powered Edge Intelligence.
+arXiv:2602.20662 (2026). URL: https://arxiv.org/abs/2602.20662 77. Oh H.
+et al.~T-SAR: A Full-Stack Co-design for CPU-Only Ternary LLM Inference
+via In-Place SIMD ALU Reorganization. arXiv:2511.13676 (DATE 2026). URL:
+https://arxiv.org/abs/2511.13676 78. Dade N. O. O. et al.~Litespark
+Inference on Consumer CPUs: Custom SIMD Kernels for Ternary Neural
+Networks. arXiv:2605.06485 (2026). URL: https://arxiv.org/abs/2605.06485
+79. Qiao Y. et al.~TeLLMe (финальная версия). ACM FPGA 2026. DOI:
+10.1145/3748173.3779191. URL: https://doi.org/10.1145/3748173.3779191
+80. Benno W. et al.~Jolt Atlas: Verifiable Inference via Lookup
+Arguments in Zero Knowledge. arXiv:2602.17452 (2026). URL:
+https://arxiv.org/abs/2602.17452 81. Liu X. et al.~Position: LLM
+Inference Should Be Evaluated as Energy-to-Token Production.
+arXiv:2605.11733 (2026). URL: https://arxiv.org/abs/2605.11733 82.
+Deferme L. et al.~Formalizing the RISC-V Hypervisor Extension in Sail.
+ACM ASPLOS 2026. DOI: 10.1145/3803525.3804982. URL:
+https://doi.org/10.1145/3803525.3804982 83. Pérami T. et al.~ArchSem:
+Reusable Rigorous Semantics of Relaxed Architectures. Proc. ACM Program.
+Lang. (PACMPL), POPL 2026, vol.10. DOI: 10.1145/3776650. URL:
+https://doi.org/10.1145/3776650 84. Wu X. et al.~QVU: A RISC-V
+Vector-Extended Quantization Vector Unit for IEEE 754 and Posit Formats.
+IEEE ISPA 2025. DOI: 10.1109/ISPA67752.2025.00020. URL:
+https://doi.org/10.1109/ISPA67752.2025.00020 85. Li Q. et
+al.~Lightweight and Precision-Scalable Posit/IEEE-754 Arithmetic in
+RISC-V Cores. arXiv:2505.19096 (2025). URL:
+https://arxiv.org/abs/2505.19096 86. Gül F. Energy Efficiency of AI
+Hardware: A Systematic Review of GPU, TPU, and NPU Architectures in the
+LLM Era. Springer, 2026. DOI: 10.1007/s44443-026-00900-6. URL:
+https://doi.org/10.1007/s44443-026-00900-6 87. Cankaya B. et
+al.~Bit-Exact AI Inference Verification. arXiv:2606.00279 (2026). URL:
+https://arxiv.org/abs/2606.00279
+
+\textbf{Обновление (июль 2026): ASIC-планка, AUE-метрика,
+Lean/Rocq-верификация (§ 3a.3):} 88. Shan H. et al.~Platinum:
+Path-Adaptable LUT-Based Accelerator for Low-Bit Weight Matrix
+Multiplication. arXiv:2511.21910 (ASP-DAC 2026). DOI:
+10.1109/ASP-DAC66049.2026.11420289. URL:
+https://arxiv.org/abs/2511.21910 89. Zhang Y. et al.~PD-Swap:
+Prefill-Decode Logic Swapping for End-to-End LLM Inference on Edge FPGAs
+via Dynamic Partial Reconfiguration. arXiv:2512.11550 (2025). URL:
+https://arxiv.org/abs/2512.11550 90. Zhang Y. et al.~AUE: A Normalized
+Energy Efficiency Metric for AI Servers Under LLM Workloads. ICPADS
+2025. DOI: 10.1109/ICPADS67057.2025.11323149. URL:
+https://doi.org/10.1109/ICPADS67057.2025.11323149 91. Delavande J.,
+Pierrard R., Luccioni S. Understanding Efficiency: Quantization,
+Batching, and Serving Strategies in LLM Energy Use. arXiv:2601.22362
+(2026). URL: https://arxiv.org/abs/2601.22362 92. Ugwuanyi E. D. et
+al.~LeanBET: Formally-Verified Scientific Computing Pipeline in Lean 4.
+arXiv:2605.16169 (2026). URL: https://arxiv.org/abs/2605.16169 93.
+Kellison A. E. NumFuzz / Type-Based Approaches to Rounding Error
+Analysis. arXiv:2501.14598 (PACMPL). URL:
+https://arxiv.org/abs/2501.14598 94. Appel A., Kellison A. E. VCFloat2:
+Floating-Point Error Analysis in Coq. CPP 2024. DOI:
+10.1145/3636501.3636953. URL: https://doi.org/10.1145/3636501.3636953
+95. Kan S., Ertel S. Interaction Tree Semantics for RISC-V: Bridging
+Compiler and Hardware Verification (Rocq). arXiv:2605.04933 (2026). URL:
+https://arxiv.org/abs/2605.04933 96. Maheri M. M., Haddadi H., Davidson
+A. TeleSparse: Practical Privacy-Preserving Verification of Deep Neural
+Networks. arXiv:2504.19274 (2025). URL: https://arxiv.org/abs/2504.19274
+97. FLoPS: Semantics, Operations, and Properties of P3109 Floating-Point
+Representations in Lean. arXiv:2602.15965 (2026). URL:
+https://arxiv.org/abs/2602.15965 98. Advocating Energy-per-Token in LLM
+Inference. arXiv:2603.20224 (2026). URL:
+https://arxiv.org/abs/2603.20224 99. Geens R. et al.~Hardware Generation
+and Exploration of Lookup Table-Based Accelerators for 1.58-bit LLM
+Inference (KU Leuven). arXiv:2604.25183 (2026). URL:
+https://arxiv.org/abs/2604.25183 100. Kourzanov P., Anmol. Modular SAIL:
+dream or reality? arXiv:2507.12471 (2025). URL:
+https://arxiv.org/abs/2507.12471
 
 \textbf{Исторический контекст (троичность):} 60. Брусенцов Н. П. ЭВМ
 «Сетунь» (МГУ, 1958). URL:
