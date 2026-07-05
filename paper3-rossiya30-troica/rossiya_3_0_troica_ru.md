@@ -949,15 +949,15 @@ GoldenFloat — семейство числовых форматов с плав
 87. Cankaya B. et al. Bit-Exact AI Inference Verification. arXiv:2606.00279 (2026). URL: https://arxiv.org/abs/2606.00279
 
 **Обновление (июль 2026): ASIC-планка, AUE-метрика, Lean/Rocq-верификация (§ 3a.3):**
-87. Shan H. et al. Platinum: Path-Adaptable LUT-Based Accelerator for Low-Bit Weight Matrix Multiplication. arXiv:2511.21910 (ASP-DAC 2026). DOI: 10.1109/ASP-DAC66049.2026.11420289. URL: https://arxiv.org/abs/2511.21910
-88. Zhang Y. et al. PD-Swap: Prefill-Decode Logic Swapping for End-to-End LLM Inference on Edge FPGAs via Dynamic Partial Reconfiguration. arXiv:2512.11550 (2025). URL: https://arxiv.org/abs/2512.11550
-89. Zhang Y. et al. AUE: A Normalized Energy Efficiency Metric for AI Servers Under LLM Workloads. ICPADS 2025. DOI: 10.1109/ICPADS67057.2025.11323149. URL: https://doi.org/10.1109/ICPADS67057.2025.11323149
-90. Delavande J., Pierrard R., Luccioni S. Understanding Efficiency: Quantization, Batching, and Serving Strategies in LLM Energy Use. arXiv:2601.22362 (2026). URL: https://arxiv.org/abs/2601.22362
-91. Ugwuanyi E. D. et al. LeanBET: Formally-Verified Scientific Computing Pipeline in Lean 4. arXiv:2605.16169 (2026). URL: https://arxiv.org/abs/2605.16169
-92. Kellison A. E. NumFuzz / Type-Based Approaches to Rounding Error Analysis. arXiv:2501.14598 (PACMPL). URL: https://arxiv.org/abs/2501.14598
-93. Appel A., Kellison A. E. VCFloat2: Floating-Point Error Analysis in Coq. CPP 2024. DOI: 10.1145/3636501.3636953. URL: https://doi.org/10.1145/3636501.3636953
-94. Kan S., Ertel S. Interaction Tree Semantics for RISC-V: Bridging Compiler and Hardware Verification (Rocq). arXiv:2605.04933 (2026). URL: https://arxiv.org/abs/2605.04933
-95. Maheri M. M., Haddadi H., Davidson A. TeleSparse: Practical Privacy-Preserving Verification of Deep Neural Networks. arXiv:2504.19274 (2025). URL: https://arxiv.org/abs/2504.19274
+88. Shan H. et al. Platinum: Path-Adaptable LUT-Based Accelerator for Low-Bit Weight Matrix Multiplication. arXiv:2511.21910 (ASP-DAC 2026). DOI: 10.1109/ASP-DAC66049.2026.11420289. URL: https://arxiv.org/abs/2511.21910
+89. Zhang Y. et al. PD-Swap: Prefill-Decode Logic Swapping for End-to-End LLM Inference on Edge FPGAs via Dynamic Partial Reconfiguration. arXiv:2512.11550 (2025). URL: https://arxiv.org/abs/2512.11550
+90. Zhang Y. et al. AUE: A Normalized Energy Efficiency Metric for AI Servers Under LLM Workloads. ICPADS 2025. DOI: 10.1109/ICPADS67057.2025.11323149. URL: https://doi.org/10.1109/ICPADS67057.2025.11323149
+91. Delavande J., Pierrard R., Luccioni S. Understanding Efficiency: Quantization, Batching, and Serving Strategies in LLM Energy Use. arXiv:2601.22362 (2026). URL: https://arxiv.org/abs/2601.22362
+92. Ugwuanyi E. D. et al. LeanBET: Formally-Verified Scientific Computing Pipeline in Lean 4. arXiv:2605.16169 (2026). URL: https://arxiv.org/abs/2605.16169
+93. Kellison A. E. NumFuzz / Type-Based Approaches to Rounding Error Analysis. arXiv:2501.14598 (PACMPL). URL: https://arxiv.org/abs/2501.14598
+94. Appel A., Kellison A. E. VCFloat2: Floating-Point Error Analysis in Coq. CPP 2024. DOI: 10.1145/3636501.3636953. URL: https://doi.org/10.1145/3636501.3636953
+95. Kan S., Ertel S. Interaction Tree Semantics for RISC-V: Bridging Compiler and Hardware Verification (Rocq). arXiv:2605.04933 (2026). URL: https://arxiv.org/abs/2605.04933
+96. Maheri M. M., Haddadi H., Davidson A. TeleSparse: Practical Privacy-Preserving Verification of Deep Neural Networks. arXiv:2504.19274 (2025). URL: https://arxiv.org/abs/2504.19274
 
 **Исторический контекст (троичность):**
 60. Брусенцов Н. П. ЭВМ «Сетунь» (МГУ, 1958). URL: https://www.computer-museum.ru/articles/galglory/3226/
