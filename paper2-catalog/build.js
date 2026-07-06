@@ -144,7 +144,9 @@ children.push(new Paragraph({ spacing: { after: 40 }, alignment: AlignmentType.C
     new ExternalHyperlink({ children: [new TextRun({ text: '0009-0008-4294-6159', style: 'Hyperlink', font: 'Consolas', size: 20 })], link: 'https://orcid.org/0009-0008-4294-6159' }),
   ] }));
 children.push(new Paragraph({ spacing: { after: 240 }, alignment: AlignmentType.CENTER,
-  children: [new TextRun({ text: 'Препринт v4 · 8 июня 2026 г.', font: FONT, size: 20, italics: true })] }));
+  children: [new TextRun({ text: 'Препринт v5 · 6 июля 2026 г.', font: FONT, size: 20, italics: true })] }));
+children.push(new Paragraph({ spacing: { after: 200 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'Эволюция покрытия v4→v5: в v4 (8 июня 2026 г.) набор пакетов делился как 49 битоточных / 34 структурных. К v5 покрытие пересчитано по живому SSOT-индексу INDEX_all_formats.json: шесть широких GF-форматов (GF48, GF96, GF128, GF256, GF512, GF1024), ранее самосогласованных, подняты до строгой битоточности независимым вторым декодером (dyadic-exact, abs_error=0), а прочие переклассифицированы; текущее деление — 75 битоточных / 0 самосогласованных / 8 структурных (всего 83).', font: FONT, size: 18, italics: true })] }));
 
 // ---- Abstract ----
 children.push(new Paragraph({ spacing: { before: 120, after: 100 }, alignment: AlignmentType.CENTER,
