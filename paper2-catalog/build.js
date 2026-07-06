@@ -121,10 +121,12 @@ children.push(new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 4
 children.push(hr());
 
 // ---- Title ----
-children.push(new Paragraph({ spacing: { after: 80, before: 200 }, alignment: AlignmentType.CENTER,
-  children: [new TextRun({ text: 'Каталог из 83 численных форматов с битоточными векторами соответствия:', font: FONT, size: 32, bold: true })] }));
+children.push(new Paragraph({ spacing: { after: 60, before: 200 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'Trinity Golden Vectors (TGV) / Золотые векторы Trinity:', font: FONT, size: 34, bold: true })] }));
+children.push(new Paragraph({ spacing: { after: 60 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'каталог из 83 численных форматов с битоточными векторами соответствия', font: FONT, size: 28, bold: true })] }));
 children.push(new Paragraph({ spacing: { after: 240 }, alignment: AlignmentType.CENTER,
-  children: [new TextRun({ text: 'вендор-нейтральный справочник для FP8, BF16, MXFP4 и микромасштабируемых форматов', font: FONT, size: 30, bold: true })] }));
+  children: [new TextRun({ text: 'вендор-нейтральный аудируемый кандидат-справочник для FP8, BF16, MXFP4 и микромасштабируемых форматов', font: FONT, size: 24, bold: true })] }));
 
 // ---- Author ----
 children.push(new Paragraph({ spacing: { after: 40 }, alignment: AlignmentType.CENTER,
@@ -173,10 +175,12 @@ children.push(body([
 
 
 // === ENGLISH BLOCK (journal requirement: title/author/abstract/keywords in English) ===
-children.push(new Paragraph({ spacing: { before: 200, after: 80 }, alignment: AlignmentType.CENTER,
-  children: [new TextRun({ text: 'An 83-format numeric catalog with catalog-wide conformance vectors:', font: FONT, size: 28, bold: true })] }));
+children.push(new Paragraph({ spacing: { before: 200, after: 60 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'Trinity Golden Vectors (TGV):', font: FONT, size: 30, bold: true })] }));
+children.push(new Paragraph({ spacing: { after: 60 }, alignment: AlignmentType.CENTER,
+  children: [new TextRun({ text: 'an 83-format numeric catalog with catalog-wide conformance vectors', font: FONT, size: 24, bold: true })] }));
 children.push(new Paragraph({ spacing: { after: 160 }, alignment: AlignmentType.CENTER,
-  children: [new TextRun({ text: 'a vendor-neutral reference for FP8, BF16, MXFP4 and microscaling formats', font: FONT, size: 26, bold: true })] }));
+  children: [new TextRun({ text: 'a vendor-neutral, auditable candidate reference for FP8, BF16, MXFP4 and microscaling formats', font: FONT, size: 22, bold: true })] }));
 children.push(new Paragraph({ spacing: { after: 40 }, alignment: AlignmentType.CENTER,
   children: [new TextRun({ text: 'Dmitrii Vasilev', font: FONT, size: 24, bold: true })] }));
 children.push(new Paragraph({ spacing: { after: 160 }, alignment: AlignmentType.CENTER,
@@ -520,6 +524,20 @@ children.push(body([
 children.push(H1('6. Кросс-уолк к IEEE P3109'));
 children.push(body([
   t('IEEE P3109 — активная рабочая группа, стандартизирующая арифметику с плавающей точкой для приложений ИИ. Её промежуточный отчёт v3.2.0 определяет семейство конфигурируемых форматов, параметризованных тройкой (E, M, насыщение). Более широкое обоснование явного побитового тестирования соответствия в промышленной практике с плавающей точкой приводит Винтерстайгер (Wintersteiger) на ARITH 2025; пакеты в этой статье — конкретный пример такого подхода, нацеленный именно на реестр численных форматов ИИ. Там, где существует машинно-проверяемая семантика, например разработка P3109 FLoPS на Lean 4, кросс-уолк в таблице 6 служит мостом между доказательно проверенной спецификацией и битоточными тестовыми данными.'),
+]));
+children.push(body([
+  b('Отсутствие официальных reference-векторов P3109 до 2027 г. — окно для аудируемого кандидата. '),
+  t('К середине 2026 г. у грядущего стандарта IEEE P3109 пока нет официального, привязанного к финальному тексту набора эталонных (reference) векторов соответствия. Главный редактор рабочей группы (Jeffrey Sarnoff, презентация июня 2026 г.) прямо констатирует, что референсные реализации существуют лишь «внутри» у отдельных участников и не могут быть предоставлены как официальный эталон, пока стандарт не утверждён («nobody can provide them as a reference implementation»). Срок действия PAR продлён, стандарт не финализирован до конца 2027 г. (IEEE NesCom, 18.06.2025). Это не означает отсутствия любого материала: существуют Lean-формализация FLoPS и параметрические реализации, но не вендор-нейтральный широкоохватный набор с аппаратным witness. '),
+]));
+children.push(body([
+  b('Позиция Trinity (аудируемый кандидат, НЕ официальный эталон). '),
+  t('Набор пакетов этой работы обозначается как '),
+  b('«Trinity Golden Vectors» / «Золотые векторы Trinity» (TGV)'),
+  t(' — по устоявшемуся инженерному термину golden reference vectors из аппаратной верификации (DO-254 и практика ASIC-QA). Сами векторы порождаются и перепроверяются инструментом-оракулом '),
+  b('«Trinity Golden Oracle» (TGO)'),
+  t(' — эталонной («золотой») моделью-оракулом: в нашем случае это Corona-оракул в связке со вторым независимым свидетелем (ml_dtypes). То есть TGV — это продукт (набор векторов), а TGO — инструмент, их порождающий и заверяющий. TGV заполняет описанный пробел реестра '),
+  b('как открытый, независимый, аудируемый кандидат-эталон'),
+  t(', а не как «официальный» или «единственный». Квалификатор «Trinity» вводится сознательно: сами термины «golden vectors» / «golden oracle» — родовые и уже используются в отрасли, поэтому Trinity претендует не на термин, а на конкретный воспроизводимый артефакт. Заявление формулируется без превосходства над P3109 или вендорами: TGV — другой класс артефакта, временно заполняющий вакуум до появления официальных векторов P3109.'),
 ]));
 children.push(body([ t('Таблица 6 сопоставляет шесть пакетов с конфигурируемыми форматами P3109 v3.2.0.') ]));
 

@@ -37,8 +37,9 @@ children.push(new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 4
 children.push(hr());
 
 // --- русский блок ---
-children.push(center([run('Каталог из 83 численных форматов с битоточными векторами соответствия:', { bold: true, size: 28 })], { after: 0 }));
-children.push(center([run('вендор-нейтральный справочник для FP8, BF16, MXFP4 и микромасштабируемых форматов', { bold: true, size: 28 })], { after: 160 }));
+children.push(center([run('Trinity Golden Vectors (TGV) / Золотые векторы Trinity:', { bold: true, size: 30 })], { after: 0 }));
+children.push(center([run('каталог из 83 численных форматов с битоточными векторами соответствия', { bold: true, size: 26 })], { after: 60 }));
+children.push(center([run('вендор-нейтральный аудируемый кандидат-справочник для FP8, BF16, MXFP4 и микромасштабируемых форматов', { bold: true, size: 24 })], { after: 160 }));
 children.push(center([run('© 2026 г.   Д. В. Васильев', { bold: true, size: 24 })], { after: 60 }));
 children.push(center([run('Независимый исследователь (Trinity S³AI), Ко Самуи, Королевство Таиланд', { italics: true, size: 22 })], { after: 40 }));
 children.push(center([run('e-mail: admin@t27.ai   |   ORCID: 0009-0008-4294-6159', { size: 22 })], { after: 160 }));
@@ -51,8 +52,9 @@ children.push(body([run('Ключевые слова: ', { bold: true }),
 children.push(hr());
 
 // --- английский блок ---
-children.push(center([run('An 83-format numeric catalog with bit-exact conformance vectors:', { bold: true, size: 28 })], { after: 0 }));
-children.push(center([run('a vendor-neutral reference for FP8, BF16, MXFP4 and microscaling formats', { bold: true, size: 28 })], { after: 160 }));
+children.push(center([run('Trinity Golden Vectors (TGV):', { bold: true, size: 30 })], { after: 0 }));
+children.push(center([run('an 83-format numeric catalog with bit-exact conformance vectors', { bold: true, size: 26 })], { after: 60 }));
+children.push(center([run('a vendor-neutral, auditable candidate reference for FP8, BF16, MXFP4 and microscaling formats', { bold: true, size: 24 })], { after: 160 }));
 children.push(center([run('© 2026   D. V. Vasilev', { bold: true, size: 24 })], { after: 60 }));
 children.push(center([run('Independent researcher (Trinity S³AI), Ko Samui, Kingdom of Thailand', { italics: true, size: 22 })], { after: 40 }));
 children.push(center([run('e-mail: admin@t27.ai   |   ORCID: 0009-0008-4294-6159', { size: 22 })], { after: 160 }));
