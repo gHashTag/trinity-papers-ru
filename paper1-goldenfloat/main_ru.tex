@@ -1093,6 +1093,47 @@ Castor 2026, \texttt{arXiv:2602.05712})~\cite{greenaidecoding2026} --- мето�
 Ни одна из трёх работ не заявляет построчный выбор \emph{формата}
 из каталога; мы приводим их как ссылки на актуальный ландшафт.
 
+\paragraph{Обновление обзора: выбор формата, верифицируемость, тернарное железо (2026).}
+Ближайшая по духу к четвёртому компоненту нашего поиска (Парето-оптимизатору
+выбора формата) --- работа \emph{dMX} (Franco и др.\ 2026,
+\texttt{arXiv:2606.04115})~\cite{dmx2026}: дифференцируемое обучение
+побитовой ширины для семейства MXFP с одним обучаемым скалярным сдвигом на
+слой и температурным отжигом к дискретным форматам. Разграничение
+(превосходство не заявляется): dMX --- это \emph{непрерывный, градиентный}
+поиск \emph{внутри одного} семейства MXFP (микромасштаб + block-scaling);
+лестница GoldenFloat с адаптивным контейнером GF+A --- это \emph{дискретный}
+построчный выбор кармана из \emph{разнородного} \(\varphi\)-каталога
+(float/int/posit/LNS). Оси комплементарны: dMX-подобный градиентный отжиг
+разрядности может действовать \emph{внутри} кармана, отобранного GF+A, а не
+вместо него. Смежно \emph{MoR} (Su и др.\ 2025,
+\texttt{arXiv:2512.22804})~\cite{mor2026} --- потензорный выбор между FP8 и
+BF16 --- эмпирически подтверждает тезис <<нет единого победителя>>: даже
+бинарный выбор формата даёт выигрыш, что мотивирует более широкий каталог
+кандидатов, но не устанавливает превосходства какого-либо конкретного
+формата.
+
+По линии \emph{верифицируемости} две независимые работы 2026
+подтверждают, что детерминизм малобитных вычислений --- признанная
+отраслью ценность, а не нишевый интерес: \emph{NANOZK} (Wang 2026,
+\texttt{arXiv:2603.18046})~\cite{nanozk2026} --- послойные
+ZK-доказательства инференса, нацеленные на выявление скрытой подмены
+квантизации провайдером (криптографический слой); и \emph{Bit-Exact
+Inference Verification} (Cankaya 2026,
+\texttt{arXiv:2606.00279})~\cite{bitexact2026}, показывающая побитово
+точное перевычисление инференса на разном GPU-железе для целей аудита.
+Наш путь --- детерминизм на \emph{кремнии} через conformance-векторы ---
+это аппаратный слой той же задачи; ZK-доказательства и bit-exact
+перевычисление --- смежные слои, не заменяющие проверку на плате.
+По линии \emph{тернарного железа} отметим \emph{TOM} (Guan и др.\ 2026,
+\texttt{arXiv:2602.20662})~\cite{tom2026} --- гибридный ROM-SRAM ASIC для
+тернарных весов (память-как-логика, устраняющая умножение), и открытый
+генератор LUT-ускорителей 1.58-бит с аналитической cost-моделью (Geens и
+др., KU Leuven, \texttt{arXiv:2604.25183})~\cite{kuleuven2026}. Оба
+ортогональны GoldenFloat по классу формата (тернарный против
+\(\varphi\)-float), но второй независимо подтверждает ценность
+\emph{систематического каталога} пространства решений --- ту же идею, что и
+наш SSOT-каталог из 83 форматов --- в смежной области LUT-железа.
+
 \begin{table}[t]
 \centering
 \caption{Лестница GoldenFloat против takum (Hunhold 2024) --- структурированное
@@ -1868,6 +1909,28 @@ quantization,'' \texttt{arXiv:2601.19213}, 2026 (ASPLOS 2026).
 \bibitem{flops2026} Authors of FLoPS, ``FLoPS: a Lean~4 formalization of
 IEEE~P3109 low-precision floating-point,'' arXiv:2602.15965, 2026.
 \url{https://arxiv.org/abs/2602.15965}.
+
+\bibitem{dmx2026} G. Franco, I. Colbert, P. Monteagudo-Lago, F. Marty, and
+N. Fraser, ``dMX: differentiable mixed-precision assignment for low-precision
+floating-point formats,'' \texttt{arXiv:2606.04115}, 2026.
+
+\bibitem{mor2026} B.-Y. Su et al., ``MoR: mixture of representations for
+mixed-precision training,'' \texttt{arXiv:2512.22804}, 2025.
+
+\bibitem{nanozk2026} Z. G. Wang, ``NANOZK: layerwise zero-knowledge proofs for
+LLM inference,'' \texttt{arXiv:2603.18046}, 2026 (VerifAI Workshop, ICLR 2026).
+
+\bibitem{bitexact2026} N. Cankaya, ``Bit-exact AI inference verification
+without performance tradeoffs,'' \texttt{arXiv:2606.00279}, 2026
+(ICML 2026 TAIGR Workshop).
+
+\bibitem{tom2026} Y. Guan, Z. Zhang, Y. Wang, X. Gao, S. Cao, X. Chen, and
+P. Xu, ``TOM: a ternary read-only memory accelerator for LLM-powered edge
+intelligence,'' \texttt{arXiv:2602.20662}, 2026.
+
+\bibitem{kuleuven2026} S. Geens, S. Heldens, J. Dumoulin, and M. Verhelst,
+``Hardware generation and exploration of lookup table-based accelerators for
+1.58-bit LLM inference,'' \texttt{arXiv:2604.25183}, 2026.
 
 \end{thebibliography}
 
