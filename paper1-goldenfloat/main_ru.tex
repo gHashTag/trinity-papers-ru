@@ -1180,6 +1180,50 @@ ZK-доказательство инференса на связанные по�
 не float-семейство, поэтому лежит на другом уровне стека, чем
 \(\varphi\)-каталог и открытый троичный кремний Trinity.
 
+\paragraph{Обновление обзора: внутриформатное распределение бит против межформатного выбора каталога (июль 2026).}
+Свежая волна работ 2026 сосредоточена на \emph{внутриформатной} оси ---
+адаптивном распределении разрядности внутри одного семейства ---
+и потому комплементарна, а не конкурентна нашей \emph{межформатной}
+оси выбора формата из аудируемого каталога (GF+A). Мы фиксируем
+пять ориентиров, разграничивая оси и не заявляя превосходства.
+\emph{PolyQ} (Oh и др.\ 2026,
+\texttt{arXiv:2607.14618})~\cite{polyq2026} назначает поканальную
+разрядность из \(\{2,3,4,8,16\}\) под средним битовым бюджетом с
+компиляторной перестановкой каналов (улучшение перплексии
+\(2.4\text{--}32.1\%\) при цели 3 бита на CPU) --- это выигрыш
+\emph{downstream} на \emph{собственной} оси поканального бюджета,
+тогда как GF+A даёт детерминированный построчный выбор кармана из
+каталога, downstream-\emph{нейтральный} при равном битовом бюджете
+(наш замер: \(\Delta\)BPT \(\approx 0\) на 29M-модели, инв.~\S3a.6);
+мы честно не выдаём отсутствие прямого конкурента по нашей оси за
+превосходство по downstream. \emph{KronQ} (Lee и др.\ 2026,
+\texttt{arXiv:2607.07964})~\cite{kronq2026} вводит
+Кронекер-факторизованный гессиан для inter-layer mixed-precision
+(2-битная LLaMA-3-70B: перплексия 7.93 там, где GPTQ расходится),
+а \emph{KroQuant} (Bouquet и др.\ 2026,
+\texttt{arXiv:2607.21446})~\cite{kroquant2026} применяет
+Кронекер-структурированное блочное преобразование \emph{поверх}
+MXFP4 для W4A4 диффузионных трансформеров --- оба усиливают
+выбор \emph{важности}/преобразования, ортогонально самому кодированию
+полей, и оба цитируемы как метод построчной/послойной важности,
+родственный нашему downstream-aware выбору кармана (вектор~2, \S3a.6).
+\emph{Harmonia} (Wang и др.\ 2026,
+\texttt{arXiv:2602.04595})~\cite{harmonia2026} --- алгоритм-железо
+co-design BFP по всем слоям (\(3.84\times\) площадь, \(2.03\times\)
+энергия) --- смежная BFP-ниша single-family, не каталог форматов.
+\emph{ExTernD} (Chethan Reddy 2026,
+\texttt{arXiv:2607.13511})~\cite{externd2026} даёт расширенно-ранговую
+тернарную факторизацию с непрерывной шкалой точности
+(\(A \approx B\,\mathrm{diag}(D)\,C\), остаток монотонно убывает по
+рангу \(k\), \(5.2\text{--}5.5\) эфф.\ бит/вес) --- это иной механизм
+(факторизация ранга), НЕ параметризация полей одного слова, поэтому
+лежит на другом уровне стека, чем \(\varphi\)-правило раскладки полей.
+Общий вывод обзора: ни одна из пяти работ не адресует \emph{выбор}
+формата над синтезируемым, conformance-аудированным каталогом ---
+это по-прежнему открытая ниша GF+A, при том что наш собственный
+замер downstream-нейтральности удерживает нас от заявлений о
+превосходстве.
+
 \paragraph{Методологический якорь для честного energy-harness (2026).}
 Оценка энергоэффективности порядка \(49\times\) остаётся в нашей работе
 [Открытой гипотезой] без измерения на кремнии; чтобы будущее измерение
@@ -2028,6 +2072,25 @@ framework for LLM inference carbon estimation (SEAL),'' \texttt{arXiv:2603.02949
 \bibitem{llm42_2026} A. Gond, S. Kamath, P. Ramji, and A. Panwar, ``LLM-42:
 enabling determinism in LLM inference with verified speculation,''
 \texttt{arXiv:2601.17768}, 2026.
+
+\bibitem{polyq2026} H. Oh, S. Jang, H. Chen, K. Nam, S. Yun, R. Masukawa, and
+M. Imani, ``PolyQ: codesigning end-to-end quantization framework for scalable
+edge CPU LLM inference,'' \texttt{arXiv:2607.14618}, 2026.
+
+\bibitem{kronq2026} D. Lee, Y. Li, R. Yin, and P. Panda, ``KronQ: LLM
+quantization via Kronecker-factored Hessian,'' \texttt{arXiv:2607.07964}, 2026.
+
+\bibitem{kroquant2026} Y. Bouquet, A. Khodamoradi, K. Denolf, and M. Salzmann,
+``KroQuant: Kronecker-structured block transforms for efficient post-training
+quantization of diffusion transformers,'' \texttt{arXiv:2607.21446}, 2026.
+
+\bibitem{harmonia2026} X. Wang, J. Li, Y. Sun, and W. He, ``Harmonia:
+algorithm-hardware co-design for memory- and compute-efficient BFP-based LLM
+inference,'' \texttt{arXiv:2602.04595}, 2026.
+
+\bibitem{externd2026} Chethan Reddy G.\,P, ``ExTernD: expanded-rank ternary
+decomposition --- ternary LLM PTQ with accuracy approaching any quantization
+level,'' \texttt{arXiv:2607.13511}, 2026.
 
 \end{thebibliography}
 
