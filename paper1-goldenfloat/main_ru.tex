@@ -1052,6 +1052,47 @@ MX-SAFE переключается между \emph{двумя} предзада
 как каталог-параметризованного обобщения бинарного переключения
 --- [Открытая гипотеза], требующая downstream-замера на обучении.
 
+\paragraph{Соседняя ось адаптивности: M\textsuperscript{2}XFP (ASPLOS 2026).}
+Работа M\textsuperscript{2}XFP (Hu и др.\ 2026, \texttt{arXiv:2601.19213})~\cite{m2xfp2026}
+вводит \emph{метаданные-дополнение} к microscaling-формату в рамке
+OCP-MX: поверх разделяемого поблочного порядка (степень двойки)
+добавляется лёгкая флекс-метадата, восстанавливающая точность,
+теряемую при малобитной квантизации (авторы сообщают сокращение
+разрыва точности относительно MXFP4 и NVFP4), с онлайн-квантизацией
+и аппаратным блоком в ускорителе. Мы явно разграничиваем её с GF+A:
+M\textsuperscript{2}XFP уточняет \emph{метаданные внутри одного}
+MX-семейства (дополнение к масштабу фиксированного формата), тогда
+как GF+A построчно выбирает \emph{сам карман} из каталога
+\(\varphi\)-раскладок \emph{разных} форматов. Это разные уровни
+адаптивности --- параметр-уточнение внутри формата против селекции
+между форматами каталога; оси взаимодополняющие, а не конкуренты за
+одну ячейку. Как и с MX-SAFE, важно разграничение по
+доказательствам: M\textsuperscript{2}XFP сообщает downstream-точность
+и энергию/ускорение на ускорителе, тогда как гарантия GF+A дана на
+метрике \emph{выбора} (MSE), а не на downstream; превосходства GF+A
+мы не заявляем.
+
+\paragraph{Смежный ландшафт 2026 (контекст, не конкуренты за ячейку).}
+Для полноты картины отметим три свежие работы из смежных линий, не
+покушающиеся на нишу построчной селекции формата, но полезные как
+контекст. \emph{TWLA} (Zhao и др.\ 2026, \texttt{arXiv:2606.13054},
+ICML~2026)~\cite{twla2026} --- программный PTQ-фреймворк \texttt{W1.58A4}
+(тернарные веса + 4-битные активации) с межслойным распределением
+бит; концептуально близок к идее неоднородного распределения
+точности, но на уровне \emph{разрядности}, а не выбора
+\(\varphi\)-кармана, и без аппаратной реализации.
+\emph{TorchLean} (George и др.\ 2026, \texttt{arXiv:2602.22631})~\cite{torchlean2026} ---
+фреймворк Lean~4 для формализации нейросетей с побитовой моделью
+IEEE754 binary32 и Flocq-подобными оценками ошибки округления;
+инфраструктурная опора для линии формальной верификации численных
+пайплайнов, дополняющая наш conformance-подход, но не заменяющая
+детерминизм на кремнии. \emph{Green AI Decoding} (Solovyeva и
+Castor 2026, \texttt{arXiv:2602.05712})~\cite{greenaidecoding2026} --- методологический
+прецедент пофазного (prefill/decode) энергоизмерения инференса,
+полезный ориентир для будущего честного energy-harness GoldenFloat.
+Ни одна из трёх работ не заявляет построчный выбор \emph{формата}
+из каталога; мы приводим их как ссылки на актуальный ландшафт.
+
 \begin{table}[t]
 \centering
 \caption{Лестница GoldenFloat против takum (Hunhold 2024) --- структурированное
@@ -1806,6 +1847,23 @@ video talk, June 2026. \url{https://www.youtube.com/watch?v=iLmCThkkEtQ}.
 \bibitem{nescom2025} IEEE Standards Association, ``NesCom recommendations,''
 18 June 2025.
 \url{https://standards.ieee.org/wp-content/uploads/2025/06/nescom-06182025rec.pdf}.
+
+\bibitem{twla2026} Z. Zhao, Z. Xu, Z. Chen, X. Hu, Z. Jiang, and D. Yang,
+``TWLA: achieving ternary weights and low-bit activations for LLMs via
+post-training quantization,'' \texttt{arXiv:2606.13054}, 2026 (ICML 2026).
+
+\bibitem{torchlean2026} R. J. George, J. Cruden, W. Adkisson, X. Zhong,
+H. Zhang, and A. Anandkumar, ``TorchLean: formalizing neural networks in
+Lean,'' \texttt{arXiv:2602.22631}, 2026.
+
+\bibitem{greenaidecoding2026} L. Solovyeva and F. Castor, ``Towards Green AI:
+decoding the energy of LLM inference in software development,''
+\texttt{arXiv:2602.05712}, 2026.
+
+\bibitem{m2xfp2026} W. Hu, Z. Zhang, H. Zhang, C. Zhang, C. Guo, Y. Feng,
+T. Hu, G. Li, G. Hu, J. Wang, and J. Leng, ``M\textsuperscript{2}XFP: a
+metadata-augmented microscaling data format for efficient low-bit
+quantization,'' \texttt{arXiv:2601.19213}, 2026 (ASPLOS 2026).
 
 \bibitem{flops2026} Authors of FLoPS, ``FLoPS: a Lean~4 formalization of
 IEEE~P3109 low-precision floating-point,'' arXiv:2602.15965, 2026.
