@@ -798,11 +798,11 @@ children.push(body([
 // =================== ОБ АВТОРЕ / ABOUT THE AUTHOR (требование журнала) ===================
 children.push(H1('Об авторе'));
 children.push(body([
-  b('Васильев Дмитрий Владимирович '),
+  b('Васильев Дмитрий '),
   t('— независимый исследователь (Trinity S³AI), г. Ко Самуи, Королевство Таиланд. Область научных интересов: численные форматы, арифметика пониженной точности, нейросимвольный ИИ, верифицируемые вычисления. ORCID: 0009-0008-4294-6159. Эл. почта: admin@t27.ai.'),
 ], { noindent: true }));
 children.push(body([
-  b('Vasilev Dmitrii Vladimirovich '),
+  b('Vasilev Dmitrii '),
   t('— independent researcher (Trinity S³AI), Ko Samui, Kingdom of Thailand. Research interests: numeric formats, low-precision arithmetic, neurosymbolic AI, verifiable computing. ORCID: 0009-0008-4294-6159. E-mail: admin@t27.ai.'),
 ], { noindent: true }));
 
