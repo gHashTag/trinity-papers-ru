@@ -73,6 +73,7 @@ microscaling; IEEE P3109; vendor-neutral reference.
 
 3. **Scope note (unchanged, restated for honesty).** This paper covers
    *software representation-level* conformance (encode/decode bit-exactness)
-   only. FPGA hardware Tier-E status (decode-HW / compute-HW on silicon) is out
+   only. FPGA hardware Tier-E status (decode-HW / compute-HW on the AX7203
+   board) is out
    of scope here and is reported in the companion GoldenFloat paper
    (arXiv:2606.05017). No model-accuracy or vendor-superiority claim is made.

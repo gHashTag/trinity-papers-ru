@@ -39,9 +39,9 @@ alongside posit (Posit Standard 2022), takum (Hunhold 2024, 2025), OCP-MX
 (Rouhani et al. 2023) and the IEEE P3109 multi-width floating-point draft. The
 breadth/toolchain-coherence thesis is registered as an open conjecture with a
 pre-registered falsification path (ledger FL-002); we make no per-step accuracy
-or superiority claim. An RTL correctness erratum (2026-05-31) is reported: the
-fabricated TTSKY26b dies carry a defective multiplier portfolio, and the
-corrected generator is the baseline for regeneration.
+or superiority claim. An RTL correctness erratum (2026-05-31) is reported: an
+early RTL multiplier generator carried a defect; the corrected generator is the
+design baseline.
 
 ## Keywords
 
@@ -56,7 +56,7 @@ All edits keep the binding honesty rules (no "first/only/best/beats"; separate
 encoding ≠ compute ≠ FPGA; catalog = 83; Tier-E = full 4/4 chain only).
 
 1. **Hardware Tier-E status refreshed to the live #199 count (2026-07-13).**
-   decode-HW 47 → **53** formats; on-silicon union of both axes 49 → **55**
+   decode-HW 47 → **53** formats; FPGA (AX7203) union of both axes 49 → **55**
    unique formats; compute-HW stays **10** GF (gf4/6/8/10/12/14/16/20/24/32),
    both-axes overlap stays **8** (gf4/6/8/10/12/14/16/20). gf24/gf32 decode is
    `[routing-pending]` (horizon B), so they are not "both axes" even with the
