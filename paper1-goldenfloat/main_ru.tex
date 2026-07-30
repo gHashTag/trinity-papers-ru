@@ -1162,6 +1162,15 @@ ZK-доказательство инференса на связанные по�
 \emph{программный} wire-формат сериализации, а не аппаратный ускоритель и
 не float-семейство, поэтому лежит на другом уровне стека, чем
 \(\varphi\)-каталог и открытые троичные RTL-дизайны Trinity.
+Четвёртое наблюдение усиливает именно \emph{внутриформатную} ось: \emph{MXSens}
+(Harma и др.\ 2026, \texttt{arXiv:2607.17733})~\cite{mxsens2026} назначает
+смешанную разрядность мантиссы (4/6/8) по столбцово- и послойно-оценённой
+чувствительности внутри блочной структуры MXINT --- это обучаемый эмпирический
+подбор бит внутри одного микромасштабного семейства, тогда как наша ось GF+A ---
+детерминированный \(\varphi\)-выбор кармана \emph{между} форматами каталога;
+оси комплементарны (превосходство ни одной не заявляется), и MXSens
+подтверждает практическую ценность внутриформатной адаптивности, которую наша
+измеренная ортогональность рассматривает как отдельную ось.
 
 \paragraph{Обновление обзора: внутриформатное распределение бит против межформатного выбора каталога (июль 2026).}
 Свежая волна работ 2026 сосредоточена на \emph{внутриформатной} оси ---
@@ -2066,6 +2075,11 @@ models,'' \texttt{arXiv:2601.19026}, 2026 (IBM Research).
 \bibitem{nativeternary2026} A. Savdhariya, ``NativeTernary: a self-delimiting
 binary encoding for ternary neural network weights,'' \texttt{arXiv:2604.03336},
 2026.
+
+\bibitem{mxsens2026} S. B. Harma, D. Mishin, Z. Su, A. Chakraborty,
+E. Kostenok, D. Ha, B. Falsafi, M. Jaggi, Y. Oh, and A. Yazdanbakhsh,
+``MXSens: sensitivity-aware mixed-precision quantization for efficient LLM
+inference,'' \texttt{arXiv:2607.17733}, 2026.
 
 \bibitem{joules2026} J. Chung, C.-J. Wu, X. Ma, and M. Chowdhury, ``Where do the
 joules go? Diagnosing inference energy consumption,'' \texttt{arXiv:2601.22076},
