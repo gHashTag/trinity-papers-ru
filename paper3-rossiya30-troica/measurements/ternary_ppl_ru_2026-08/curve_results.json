@@ -1,0 +1,68 @@
+[
+ {
+  "model": "Bonsai-1.7B-Q2_0 (ternary)",
+  "bytes": 463290464,
+  "bpw": 1.825,
+  "en": 21.2119,
+  "en_err": 0.69302,
+  "ru": 6.8611,
+  "ru_err": 0.17512,
+  "en_vs_q6k_pct": 29.5,
+  "ru_vs_q6k_pct": 25.63
+ },
+ {
+  "model": "Qwen3-1.7B-Q2_K",
+  "bytes": 777796160,
+  "bpw": 3.064,
+  "en": 21.7566,
+  "en_err": 0.68516,
+  "ru": 6.6817,
+  "ru_err": 0.17448,
+  "en_vs_q6k_pct": 32.83,
+  "ru_vs_q6k_pct": 22.34
+ },
+ {
+  "model": "Qwen3-1.7B-Q3_K_M",
+  "bytes": 939539008,
+  "bpw": 3.701,
+  "en": 17.3925,
+  "en_err": 0.5417,
+  "ru": 5.7318,
+  "ru_err": 0.15185,
+  "en_vs_q6k_pct": 6.19,
+  "ru_vs_q6k_pct": 4.95
+ },
+ {
+  "model": "Qwen3-1.7B-Q4_K_M",
+  "bytes": 1107409472,
+  "bpw": 4.362,
+  "en": 16.536,
+  "en_err": 0.51957,
+  "ru": 5.5113,
+  "ru_err": 0.14769,
+  "en_vs_q6k_pct": 0.96,
+  "ru_vs_q6k_pct": 0.91
+ },
+ {
+  "model": "Qwen3-1.7B-Q6_K",
+  "bytes": 1417755200,
+  "bpw": 5.584,
+  "en": 16.3794,
+  "en_err": 0.51749,
+  "ru": 5.4614,
+  "ru_err": 0.14672,
+  "en_vs_q6k_pct": 0.0,
+  "ru_vs_q6k_pct": 0.0
+ },
+ {
+  "model": "Qwen3-1.7B-Q8_0 (official)",
+  "bytes": 1834426016,
+  "bpw": 7.226,
+  "en": 16.6104,
+  "en_err": 0.53106,
+  "ru": 5.4776,
+  "ru_err": 0.14849,
+  "en_vs_q6k_pct": 1.41,
+  "ru_vs_q6k_pct": 0.3
+ }
+]
