@@ -1,0 +1,47 @@
+{
+  "measurement": "ternary vs 8-bit perplexity, Russian and English corpora",
+  "date_utc": "2026-08-18",
+  "runtime": {"repo": "https://github.com/PrismML-Eng/llama.cpp", "commit": "9ca265a",
+              "binary": "llama-perplexity", "build": "cmake Release, GGML_NATIVE=ON"},
+  "host": {"cpu": "2 vCPU Intel Xeon 2.90 GHz", "ram_gb": 8, "threads": 2},
+  "settings": {"ctx": 512, "seed": 42, "batch_size": 2048, "n_seq": 4},
+  "models": {
+    "ternary": {"name": "Ternary-Bonsai-1.7B-Q2_0", "bits_per_weight": 2.125,
+                "sha256_prefix": "d97d94eb5645", "file_bytes": 463290464,
+                "note": "values are ternary; container holds 4 codes (-1,0,+1,+2); code +2 occurs 0 times in 1719904256 weights"},
+    "baseline": {"name": "Qwen3-1.7B-Q8_0", "bits_per_weight": 8.5,
+                 "sha256_prefix": "061b54daade0", "file_bytes": 1834426016,
+                 "source": "https://huggingface.co/Qwen/Qwen3-1.7B-GGUF"}
+  },
+  "tokenizer_check": {"merges_sha256_16_both": "bf731b62088078b8",
+                      "vocab_ternary": 151669, "vocab_baseline": 151936,
+                      "difference": "267 trailing PAD tokens, absent from real text"},
+  "corpora": {
+    "en": {"file": "/tmp/eval_en.txt", "bytes": 307470,
+           "sha256": "36466976e5dbe1a73574feaf245aeaeac3f0216714be65a5967d2e897d2fb774",
+           "source": "https://www.gutenberg.org/cache/epub/2600/pg2600.txt", "slice": "300000 chars from 'CHAPTER I'"},
+    "ru_v2": {"file": "/tmp/eval_ru_v2.txt", "bytes": 267572,
+              "sha256": "ddfe21420680e115fe055070a2ac42038733910d9d9cec635d96195b627df733",
+              "source": "12 Russian Wikipedia articles, CC BY-SA 4.0", "note": "first part is corpus v1 verbatim"}
+  },
+  "runs": [
+    {"corpus": "en", "windows": 40, "tokens": 20480, "ppl_ternary": 21.2119, "err_ternary": 0.69302,
+     "ppl_baseline": 16.6104, "err_baseline": 0.53106, "ratio": 1.2770, "ratio_err": 0.0584,
+     "penalty_pct": 27.70, "penalty_pct_err": 5.84, "bits_per_token": 0.3528, "status": "measured"},
+    {"corpus": "ru_v2", "windows": 40, "tokens": 20480, "ppl_ternary": 6.8611, "err_ternary": 0.17512,
+     "ppl_baseline": 5.4776, "err_baseline": 0.14849, "ratio": 1.2526, "ratio_err": 0.0466,
+     "penalty_pct": 25.26, "penalty_pct_err": 4.66, "bits_per_token": 0.3249, "status": "measured"},
+    {"corpus": "en", "windows": 16, "ppl_ternary": 15.7985, "ppl_baseline": 12.8639, "penalty_pct": 22.81,
+     "status": "measured, superseded prefix of the 40-window run, reproduced bit-exactly at window 16"},
+    {"corpus": "ru_v1", "windows": 10, "ppl_ternary": 5.7293, "ppl_baseline": 4.3812, "penalty_pct": 30.77,
+     "status": "measured, superseded prefix of the 40-window run, reproduced bit-exactly at window 10"}
+  ],
+  "retracted_claim": {
+    "text": "ternarity costs more on Russian than on English",
+    "based_on": "RU 10 windows (+30.77%) vs EN 16 windows (+22.81%)",
+    "refuted_by": "40-window runs: EN +27.70 +/- 5.84 pp vs RU +25.26 +/- 4.66 pp, intervals overlap; the ordering reverses",
+    "conclusion": "no per-language difference in the ternary penalty can be claimed from this data"
+  },
+  "not_evaluated": ["full wikitext-2 (336 windows)", "fp16 baseline (only Q8_0 measured)",
+                    "downstream task quality", "anything on FPGA hardware"]
+}
