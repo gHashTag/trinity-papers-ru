@@ -1,0 +1,123 @@
+{
+ "fixed16_exact": {
+  "style": "exact",
+  "E": 0,
+  "M": 16,
+  "ecodes": 1,
+  "internal_width": 17,
+  "cells": 111,
+  "wire_bits": 148,
+  "cellmap": {},
+  "seconds": 0.13
+ },
+ "float_e2m13_exact": {
+  "style": "exact",
+  "E": 2,
+  "M": 13,
+  "ecodes": 4,
+  "internal_width": 18,
+  "cells": 342,
+  "wire_bits": 493,
+  "cellmap": {},
+  "seconds": 0.18
+ },
+ "float_e2m13_round": {
+  "style": "round",
+  "E": 2,
+  "M": 13,
+  "ecodes": 4,
+  "internal_width": 17,
+  "cells": 824,
+  "wire_bits": 1215,
+  "cellmap": {},
+  "seconds": 0.36
+ },
+ "float_e3m12_exact": {
+  "style": "exact",
+  "E": 3,
+  "M": 12,
+  "ecodes": 8,
+  "internal_width": 21,
+  "cells": 429,
+  "wire_bits": 602,
+  "cellmap": {},
+  "seconds": 0.19
+ },
+ "float_e3m12_round": {
+  "style": "round",
+  "E": 3,
+  "M": 12,
+  "ecodes": 8,
+  "internal_width": 16,
+  "cells": 817,
+  "wire_bits": 1189,
+  "cellmap": {},
+  "seconds": 0.35
+ },
+ "float_e5m10_exact": {
+  "style": "exact",
+  "E": 5,
+  "M": 10,
+  "ecodes": 32,
+  "internal_width": 43,
+  "cells": 939,
+  "wire_bits": 1332,
+  "cellmap": {},
+  "seconds": 0.27
+ },
+ "float_e5m10_round": {
+  "style": "round",
+  "E": 5,
+  "M": 10,
+  "ecodes": 32,
+  "internal_width": 14,
+  "cells": 815,
+  "wire_bits": 1257,
+  "cellmap": {},
+  "seconds": 0.33
+ },
+ "float_e6m9_exact": {
+  "style": "exact",
+  "E": 6,
+  "M": 9,
+  "ecodes": 64,
+  "internal_width": 74,
+  "cells": 1631,
+  "wire_bits": 2406,
+  "cellmap": {},
+  "seconds": 0.36
+ },
+ "float_e6m9_round": {
+  "style": "round",
+  "E": 6,
+  "M": 9,
+  "ecodes": 64,
+  "internal_width": 13,
+  "cells": 784,
+  "wire_bits": 1222,
+  "cellmap": {},
+  "seconds": 0.33
+ },
+ "tnf16_t4m8_exact": {
+  "style": "exact",
+  "E": 7,
+  "M": 8,
+  "ecodes": 81,
+  "internal_width": 90,
+  "cells": 2080,
+  "wire_bits": 3091,
+  "cellmap": {},
+  "seconds": 0.42
+ },
+ "tnf16_t4m8_round": {
+  "style": "round",
+  "E": 7,
+  "M": 8,
+  "ecodes": 81,
+  "internal_width": 12,
+  "cells": 765,
+  "wire_bits": 1195,
+  "cellmap": {},
+  "seconds": 0.33
+ }
+}

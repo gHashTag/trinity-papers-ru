@@ -1,0 +1,415 @@
+{
+ "exp_a04_fma": [
+  {
+   "rung": 8,
+   "triples": 3000,
+   "disagreements": 740,
+   "disagreement_rate": 0.24666666666666667,
+   "worst_extra_error_of_split": 1.0
+  },
+  {
+   "rung": 16,
+   "triples": 3000,
+   "disagreements": 619,
+   "disagreement_rate": 0.20633333333333334,
+   "worst_extra_error_of_split": 0.12697247706422018
+  },
+  {
+   "rung": 32,
+   "triples": 3000,
+   "disagreements": 459,
+   "disagreement_rate": 0.153,
+   "worst_extra_error_of_split": 8.763633097847405e-05
+  },
+  {
+   "rung": 64,
+   "triples": 3000,
+   "disagreements": 100,
+   "disagreement_rate": 0.03333333333333333,
+   "worst_extra_error_of_split": 4.3695016039519235e-16
+  }
+ ],
+ "exp_a05_accumulator": {
+  "vectors": 80,
+  "length": 512,
+  "rung": 16,
+  "weights": "ternary p(0)=0.5",
+  "reference": "exact rational dot product of stored activations",
+  "modes": {
+   "A_fp16": {
+    "rel_rms_error": 0.0022647132121933885,
+    "sqnr_db": 52.89973572509944
+   },
+   "B_int32_int8act": {
+    "rel_rms_error": 0.006600183979313605,
+    "sqnr_db": 43.60887916768671
+   },
+   "C_tnf_acc": {
+    "rel_rms_error": 0.00495016622459327,
+    "sqnr_db": 46.10760434774665
+   },
+   "D_hybrid_block32": {
+    "rel_rms_error": 0.0009223636883517866,
+    "sqnr_db": 60.701956053964885
+   }
+  }
+ },
+ "exp_a06_packing": {
+  "table_head": [
+   {
+    "trits": 1,
+    "bits": 2,
+    "loss": 1,
+    "loss_odd": true,
+    "utilisation": 0.75,
+    "bits_per_trit": 2.0
+   },
+   {
+    "trits": 2,
+    "bits": 4,
+    "loss": 7,
+    "loss_odd": true,
+    "utilisation": 0.5625,
+    "bits_per_trit": 2.0
+   },
+   {
+    "trits": 3,
+    "bits": 5,
+    "loss": 5,
+    "loss_odd": true,
+    "utilisation": 0.84375,
+    "bits_per_trit": 1.6666666666666667
+   },
+   {
+    "trits": 4,
+    "bits": 7,
+    "loss": 47,
+    "loss_odd": true,
+    "utilisation": 0.6328125,
+    "bits_per_trit": 1.75
+   },
+   {
+    "trits": 5,
+    "bits": 8,
+    "loss": 13,
+    "loss_odd": true,
+    "utilisation": 0.94921875,
+    "bits_per_trit": 1.6
+   },
+   {
+    "trits": 6,
+    "bits": 10,
+    "loss": 295,
+    "loss_odd": true,
+    "utilisation": 0.7119140625,
+    "bits_per_trit": 1.6666666666666667
+   },
+   {
+    "trits": 7,
+    "bits": 12,
+    "loss": 1909,
+    "loss_odd": true,
+    "utilisation": 0.533935546875,
+    "bits_per_trit": 1.7142857142857142
+   },
+   {
+    "trits": 8,
+    "bits": 13,
+    "loss": 1631,
+    "loss_odd": true,
+    "utilisation": 0.8009033203125,
+    "bits_per_trit": 1.625
+   },
+   {
+    "trits": 9,
+    "bits": 15,
+    "loss": 13085,
+    "loss_odd": true,
+    "utilisation": 0.600677490234375,
+    "bits_per_trit": 1.6666666666666667
+   },
+   {
+    "trits": 10,
+    "bits": 16,
+    "loss": 6487,
+    "loss_odd": true,
+    "utilisation": 0.9010162353515625,
+    "bits_per_trit": 1.6
+   },
+   {
+    "trits": 11,
+    "bits": 18,
+    "loss": 84997,
+    "loss_odd": true,
+    "utilisation": 0.6757621765136719,
+    "bits_per_trit": 1.6363636363636365
+   },
+   {
+    "trits": 12,
+    "bits": 20,
+    "loss": 517135,
+    "loss_odd": true,
+    "utilisation": 0.5068216323852539,
+    "bits_per_trit": 1.6666666666666667
+   }
+  ],
+  "best_utilisation": [
+   {
+    "trits": 41,
+    "bits": 65,
+    "loss": 420491770248316829,
+    "loss_odd": true,
+    "utilisation": 0.9886025477296125,
+    "bits_per_trit": 1.5853658536585367
+   },
+   {
+    "trits": 29,
+    "bits": 46,
+    "loss": 1738366812781,
+    "loss_odd": true,
+    "utilisation": 0.9752963217818404,
+    "bits_per_trit": 1.5862068965517242
+   },
+   {
+    "trits": 17,
+    "bits": 27,
+    "loss": 5077565,
+    "loss_odd": true,
+    "utilisation": 0.9621691927313805,
+    "bits_per_trit": 1.588235294117647
+   },
+   {
+    "trits": 58,
+    "bits": 92,
+    "loss": 241631459895276264674893207,
+    "loss_odd": true,
+    "utilisation": 0.9512029152811873,
+    "bits_per_trit": 1.5862068965517242
+   },
+   {
+    "trits": 5,
+    "bits": 8,
+    "loss": 13,
+    "loss_odd": true,
+    "utilisation": 0.94921875,
+    "bits_per_trit": 1.6
+   }
+  ],
+  "theoretical_bits_per_trit": 1.584962500721156,
+  "decode_ns_per_trit_base3_lut": 2.430718799587339,
+  "decode_ns_per_trit_2bit": 3.7672501988708973,
+  "model_bytes_2bit": 507750000.0,
+  "model_bytes_base3": 406200000.0,
+  "model_bytes_theoretical": 402382354.8705835
+ },
+ "exp_a07_selector": {
+  "uniform": {
+   "formats": {
+    "ternary_1.585b": {
+     "bits": 1.584962500721156,
+     "sqnr_db": 7.891404114331671
+    },
+    "int4": {
+     "bits": 4.0,
+     "sqnr_db": 22.736421309870202
+    },
+    "int8": {
+     "bits": 8.0,
+     "sqnr_db": 48.004402244826665
+    },
+    "fp8_e4m3": {
+     "bits": 8.0,
+     "sqnr_db": 32.43465545530647
+    },
+    "fp8_e5m2": {
+     "bits": 8.0,
+     "sqnr_db": 26.52781998323984
+    },
+    "bfloat16": {
+     "bits": 16.0,
+     "sqnr_db": 56.724030764515916
+    },
+    "float16": {
+     "bits": 16.0,
+     "sqnr_db": 74.71685506545339
+    },
+    "tnf16_true_4_8": {
+     "bits": 16.0,
+     "sqnr_db": 62.611401911806155
+    },
+    "tnf17_named16_4_9": {
+     "bits": 17.0,
+     "sqnr_db": 68.691245051764
+    },
+    "int16": {
+     "bits": 16.0,
+     "sqnr_db": 96.31264765579367
+    }
+   },
+   "pareto_front": [
+    "ternary_1.585b",
+    "int4",
+    "int8",
+    "int16"
+   ],
+   "winner_at_8b": "int8",
+   "winner_at_16b": "int16"
+  },
+  "gaussian": {
+   "formats": {
+    "ternary_1.585b": {
+     "bits": 1.584962500721156,
+     "sqnr_db": 5.724460027673897
+    },
+    "int4": {
+     "bits": 4.0,
+     "sqnr_db": 15.709992471129144
+    },
+    "int8": {
+     "bits": 8.0,
+     "sqnr_db": 40.927750493449906
+    },
+    "fp8_e4m3": {
+     "bits": 8.0,
+     "sqnr_db": 31.606865656624933
+    },
+    "fp8_e5m2": {
+     "bits": 8.0,
+     "sqnr_db": 25.68511787815682
+    },
+    "bfloat16": {
+     "bits": 16.0,
+     "sqnr_db": 55.703040916723765
+    },
+    "float16": {
+     "bits": 16.0,
+     "sqnr_db": 73.83872862078657
+    },
+    "tnf16_true_4_8": {
+     "bits": 16.0,
+     "sqnr_db": 61.45099866263764
+    },
+    "tnf17_named16_4_9": {
+     "bits": 17.0,
+     "sqnr_db": 67.65731872199497
+    },
+    "int16": {
+     "bits": 16.0,
+     "sqnr_db": 89.12027734960701
+    }
+   },
+   "pareto_front": [
+    "ternary_1.585b",
+    "int4",
+    "int8",
+    "int16"
+   ],
+   "winner_at_8b": "int8",
+   "winner_at_16b": "int16"
+  },
+  "heavy_t3": {
+   "formats": {
+    "ternary_1.585b": {
+     "bits": 1.584962500721156,
+     "sqnr_db": 2.367925108052273
+    },
+    "int4": {
+     "bits": 4.0,
+     "sqnr_db": 3.3986179864948722
+    },
+    "int8": {
+     "bits": 8.0,
+     "sqnr_db": 24.304859315810532
+    },
+    "fp8_e4m3": {
+     "bits": 8.0,
+     "sqnr_db": 32.22039099890642
+    },
+    "fp8_e5m2": {
+     "bits": 8.0,
+     "sqnr_db": 25.502469477194225
+    },
+    "bfloat16": {
+     "bits": 16.0,
+     "sqnr_db": 55.83998735957856
+    },
+    "float16": {
+     "bits": 16.0,
+     "sqnr_db": 73.54100808795648
+    },
+    "tnf16_true_4_8": {
+     "bits": 16.0,
+     "sqnr_db": 61.63332012027949
+    },
+    "tnf17_named16_4_9": {
+     "bits": 17.0,
+     "sqnr_db": 68.31237606855717
+    },
+    "int16": {
+     "bits": 16.0,
+     "sqnr_db": 72.37921496020977
+    }
+   },
+   "pareto_front": [
+    "ternary_1.585b",
+    "int4",
+    "fp8_e4m3",
+    "float16"
+   ],
+   "winner_at_8b": "fp8_e4m3",
+   "winner_at_16b": "float16"
+  },
+  "laplace_weightlike": {
+   "formats": {
+    "ternary_1.585b": {
+     "bits": 1.584962500721156,
+     "sqnr_db": 4.138305854484134
+    },
+    "int4": {
+     "bits": 4.0,
+     "sqnr_db": 14.805799338486649
+    },
+    "int8": {
+     "bits": 8.0,
+     "sqnr_db": 39.805840352786056
+    },
+    "fp8_e4m3": {
+     "bits": 8.0,
+     "sqnr_db": 31.19139566436145
+    },
+    "fp8_e5m2": {
+     "bits": 8.0,
+     "sqnr_db": 25.465694357829697
+    },
+    "bfloat16": {
+     "bits": 16.0,
+     "sqnr_db": 55.40499535751459
+    },
+    "float16": {
+     "bits": 16.0,
+     "sqnr_db": 73.49562005158887
+    },
+    "tnf16_true_4_8": {
+     "bits": 16.0,
+     "sqnr_db": 61.662554325343926
+    },
+    "tnf17_named16_4_9": {
+     "bits": 17.0,
+     "sqnr_db": 67.21315015110028
+    },
+    "int16": {
+     "bits": 16.0,
+     "sqnr_db": 88.13211822440084
+    }
+   },
+   "pareto_front": [
+    "ternary_1.585b",
+    "int4",
+    "int8",
+    "int16"
+   ],
+   "winner_at_8b": "int8",
+   "winner_at_16b": "int16"
+  }
+ }
+}

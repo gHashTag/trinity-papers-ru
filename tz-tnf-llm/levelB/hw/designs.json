@@ -1,0 +1,101 @@
+[
+ {
+  "name": "fixed16_exact",
+  "style": "exact",
+  "E": 0,
+  "M": 16,
+  "ecodes": 1,
+  "internal_width": 17,
+  "note": "two's complement 16-bit, block scale outside"
+ },
+ {
+  "name": "float_e2m13_exact",
+  "style": "exact",
+  "E": 2,
+  "M": 13,
+  "ecodes": 4,
+  "internal_width": 18,
+  "note": "accuracy winner for the block-scaled ternary dot product"
+ },
+ {
+  "name": "float_e2m13_round",
+  "style": "round",
+  "E": 2,
+  "M": 13,
+  "ecodes": 4,
+  "internal_width": 17,
+  "note": "accuracy winner for the block-scaled ternary dot product"
+ },
+ {
+  "name": "float_e3m12_exact",
+  "style": "exact",
+  "E": 3,
+  "M": 12,
+  "ecodes": 8,
+  "internal_width": 21,
+  "note": "one exponent bit more"
+ },
+ {
+  "name": "float_e3m12_round",
+  "style": "round",
+  "E": 3,
+  "M": 12,
+  "ecodes": 8,
+  "internal_width": 16,
+  "note": "one exponent bit more"
+ },
+ {
+  "name": "float_e5m10_exact",
+  "style": "exact",
+  "E": 5,
+  "M": 10,
+  "ecodes": 32,
+  "internal_width": 43,
+  "note": "binary16 reference"
+ },
+ {
+  "name": "float_e5m10_round",
+  "style": "round",
+  "E": 5,
+  "M": 10,
+  "ecodes": 32,
+  "internal_width": 14,
+  "note": "binary16 reference"
+ },
+ {
+  "name": "float_e6m9_exact",
+  "style": "exact",
+  "E": 6,
+  "M": 9,
+  "ecodes": 64,
+  "internal_width": 74,
+  "note": "phi split: e = round((N-1)/phi^2) = 6"
+ },
+ {
+  "name": "float_e6m9_round",
+  "style": "round",
+  "E": 6,
+  "M": 9,
+  "ecodes": 64,
+  "internal_width": 13,
+  "note": "phi split: e = round((N-1)/phi^2) = 6"
+ },
+ {
+  "name": "tnf16_t4m8_exact",
+  "style": "exact",
+  "E": 7,
+  "M": 8,
+  "ecodes": 81,
+  "internal_width": 90,
+  "note": "ternary-coded exponent, 4 trits (81 codes) in a 7-bit field"
+ },
+ {
+  "name": "tnf16_t4m8_round",
+  "style": "round",
+  "E": 7,
+  "M": 8,
+  "ecodes": 81,
+  "internal_width": 12,
+  "note": "ternary-coded exponent, 4 trits (81 codes) in a 7-bit field"
+ }
+]

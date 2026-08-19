@@ -1,0 +1,422 @@
+[
+ {
+  "n_trits": 200000,
+  "reps": 7,
+  "results": [
+   {
+    "kernel": "unpack_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.0362,
+    "mean_ns_per_trit": 0.0902,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.3812,
+    "mean_ns_per_trit": 0.3817,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.714,
+    "mean_ns_per_trit": 0.7595,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.14,
+    "mean_ns_per_trit": 0.1405,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_41w",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.3789,
+    "mean_ns_per_trit": 1.3893,
+    "correct": true
+   },
+   {
+    "kernel": "dot_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.2144,
+    "mean_ns_per_trit": 0.2156,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.1298,
+    "mean_ns_per_trit": 0.1313,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.6859,
+    "mean_ns_per_trit": 0.7022,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.0595,
+    "mean_ns_per_trit": 1.0794,
+    "correct": true
+   }
+  ],
+  "build": "tb_O2"
+ },
+ {
+  "n_trits": 4000000,
+  "reps": 7,
+  "results": [
+   {
+    "kernel": "unpack_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.0918,
+    "mean_ns_per_trit": 0.1475,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.3996,
+    "mean_ns_per_trit": 0.4064,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.7323,
+    "mean_ns_per_trit": 0.7407,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.1581,
+    "mean_ns_per_trit": 0.1591,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_41w",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.3995,
+    "mean_ns_per_trit": 1.4377,
+    "correct": true
+   },
+   {
+    "kernel": "dot_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.2228,
+    "mean_ns_per_trit": 0.2318,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.1333,
+    "mean_ns_per_trit": 0.1355,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.6876,
+    "mean_ns_per_trit": 0.8172,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.0617,
+    "mean_ns_per_trit": 1.0644,
+    "correct": true
+   }
+  ],
+  "build": "tb_O2"
+ },
+ {
+  "n_trits": 64000000,
+  "reps": 7,
+  "results": [
+   {
+    "kernel": "unpack_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.1127,
+    "mean_ns_per_trit": 0.7475,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.4138,
+    "mean_ns_per_trit": 0.4213,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.7552,
+    "mean_ns_per_trit": 0.7616,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.196,
+    "mean_ns_per_trit": 0.1997,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_41w",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.4182,
+    "mean_ns_per_trit": 1.4387,
+    "correct": true
+   },
+   {
+    "kernel": "dot_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.2507,
+    "mean_ns_per_trit": 0.2614,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.1599,
+    "mean_ns_per_trit": 0.1643,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.689,
+    "mean_ns_per_trit": 0.7013,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.064,
+    "mean_ns_per_trit": 1.1568,
+    "correct": true
+   }
+  ],
+  "build": "tb_O2"
+ },
+ {
+  "n_trits": 200000,
+  "reps": 7,
+  "results": [
+   {
+    "kernel": "unpack_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.0364,
+    "mean_ns_per_trit": 0.0988,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.0701,
+    "mean_ns_per_trit": 0.0705,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.6804,
+    "mean_ns_per_trit": 0.6905,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.118,
+    "mean_ns_per_trit": 0.1237,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_41w",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.4127,
+    "mean_ns_per_trit": 1.4132,
+    "correct": true
+   },
+   {
+    "kernel": "dot_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.2145,
+    "mean_ns_per_trit": 0.2165,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.1296,
+    "mean_ns_per_trit": 0.1299,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.3527,
+    "mean_ns_per_trit": 0.3529,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.8651,
+    "mean_ns_per_trit": 0.8701,
+    "correct": true
+   }
+  ],
+  "build": "tb_O3"
+ },
+ {
+  "n_trits": 4000000,
+  "reps": 7,
+  "results": [
+   {
+    "kernel": "unpack_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.0928,
+    "mean_ns_per_trit": 0.1508,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.0882,
+    "mean_ns_per_trit": 0.0894,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.6991,
+    "mean_ns_per_trit": 0.7016,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.136,
+    "mean_ns_per_trit": 0.1367,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_41w",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.4353,
+    "mean_ns_per_trit": 1.5469,
+    "correct": true
+   },
+   {
+    "kernel": "dot_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.216,
+    "mean_ns_per_trit": 0.2242,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.1295,
+    "mean_ns_per_trit": 0.1306,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.3513,
+    "mean_ns_per_trit": 0.355,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.8657,
+    "mean_ns_per_trit": 0.8686,
+    "correct": true
+   }
+  ],
+  "build": "tb_O3"
+ },
+ {
+  "n_trits": 64000000,
+  "reps": 7,
+  "results": [
+   {
+    "kernel": "unpack_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.1104,
+    "mean_ns_per_trit": 0.2025,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.1532,
+    "mean_ns_per_trit": 0.1635,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.7261,
+    "mean_ns_per_trit": 0.7558,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.1748,
+    "mean_ns_per_trit": 0.2018,
+    "correct": true
+   },
+   {
+    "kernel": "unpack_tq1_41w",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 1.4788,
+    "mean_ns_per_trit": 1.5059,
+    "correct": true
+   },
+   {
+    "kernel": "dot_int8",
+    "bits_per_trit": 8.0,
+    "best_ns_per_trit": 0.2506,
+    "mean_ns_per_trit": 0.2663,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq2",
+    "bits_per_trit": 2.0,
+    "best_ns_per_trit": 0.1617,
+    "mean_ns_per_trit": 0.1712,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_lut",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.3618,
+    "mean_ns_per_trit": 0.3808,
+    "correct": true
+   },
+   {
+    "kernel": "dot_tq1_div",
+    "bits_per_trit": 1.6,
+    "best_ns_per_trit": 0.8998,
+    "mean_ns_per_trit": 0.9246,
+    "correct": true
+   }
+  ],
+  "build": "tb_O3"
+ }
+]

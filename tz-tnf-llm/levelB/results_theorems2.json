@@ -1,0 +1,256 @@
+{
+ "T7": {
+  "cls": "a",
+  "statement": "Wfx(N,E)=N-E+2^E-1 strictly increasing in E>=1 => argmin E=1",
+  "counterexamples": [],
+  "monotone_2E_minus_E": true,
+  "verdict": "PASS",
+  "example_N16": [
+   {
+    "E": 1,
+    "Wfx": 16
+   },
+   {
+    "E": 2,
+    "Wfx": 17
+   },
+   {
+    "E": 3,
+    "Wfx": 20
+   },
+   {
+    "E": 5,
+    "Wfx": 42
+   },
+   {
+    "E": 6,
+    "Wfx": 73
+   }
+  ]
+ },
+ "T8": {
+  "cls": "c",
+  "lut_round": {
+   "e2m13": 197,
+   "e3m12": 197,
+   "e5m10": 244,
+   "e6m9_phi": 273,
+   "tnf16_t4m8": 195
+  },
+  "lut_exact": {
+   "fixed16": 16,
+   "e2m13": 78,
+   "e3m12": 183,
+   "e5m10": 252,
+   "e6m9_phi": 461,
+   "tnf16_t4m8": 548
+  },
+  "round_spread_ratio": 1.4,
+  "tnf_round_saving_pct": 1.02,
+  "exact_growth_tnf_over_e2m13": 7.03,
+  "exact_growth_phi_over_e2m13": 5.91,
+  "gate_20pct_threshold_met": false,
+  "verdict": "PASS (measured); the 20% cheapness gate is NOT met"
+ },
+ "T9": {
+  "cls": "a",
+  "traffic_ratio_unpack": 0.96,
+  "max_bandwidth_gain_unpack_pct": 4.0,
+  "traffic_ratio_fused": 0.8,
+  "max_bandwidth_gain_fused_pct": 20.0,
+  "note": "any measured unpack speed gap beyond 4% is instruction-bound, not bandwidth-bound",
+  "verdict": "PASS"
+ },
+ "T10": {
+  "cls": "a",
+  "table": [
+   {
+    "trits": 1,
+    "bits": 2,
+    "codes": 3,
+    "capacity": 4,
+    "bits_per_trit": 2.0,
+    "table_entries": 4
+   },
+   {
+    "trits": 2,
+    "bits": 4,
+    "codes": 9,
+    "capacity": 16,
+    "bits_per_trit": 2.0,
+    "table_entries": 16
+   },
+   {
+    "trits": 3,
+    "bits": 5,
+    "codes": 27,
+    "capacity": 32,
+    "bits_per_trit": 1.6667,
+    "table_entries": 32
+   },
+   {
+    "trits": 4,
+    "bits": 7,
+    "codes": 81,
+    "capacity": 128,
+    "bits_per_trit": 1.75,
+    "table_entries": 128
+   },
+   {
+    "trits": 5,
+    "bits": 8,
+    "codes": 243,
+    "capacity": 256,
+    "bits_per_trit": 1.6,
+    "table_entries": 256
+   },
+   {
+    "trits": 6,
+    "bits": 10,
+    "codes": 729,
+    "capacity": 1024,
+    "bits_per_trit": 1.6667,
+    "table_entries": 1024
+   },
+   {
+    "trits": 7,
+    "bits": 12,
+    "codes": 2187,
+    "capacity": 4096,
+    "bits_per_trit": 1.7143,
+    "table_entries": 4096
+   },
+   {
+    "trits": 8,
+    "bits": 13,
+    "codes": 6561,
+    "capacity": 8192,
+    "bits_per_trit": 1.625,
+    "table_entries": 8192
+   },
+   {
+    "trits": 9,
+    "bits": 15,
+    "codes": 19683,
+    "capacity": 32768,
+    "bits_per_trit": 1.6667,
+    "table_entries": 32768
+   },
+   {
+    "trits": 10,
+    "bits": 16,
+    "codes": 59049,
+    "capacity": 65536,
+    "bits_per_trit": 1.6,
+    "table_entries": 65536
+   },
+   {
+    "trits": 11,
+    "bits": 18,
+    "codes": 177147,
+    "capacity": 262144,
+    "bits_per_trit": 1.6364,
+    "table_entries": 262144
+   }
+  ],
+  "max_trits_in_one_byte": 5,
+  "pow3_5": 243,
+  "pow3_6": 729,
+  "verdict": "PASS"
+ },
+ "T11": {
+  "cls": "a+b",
+  "mse_grid_argmin": 1.225,
+  "fixed_point_a": 1.223726,
+  "fixed_point_over_E_abs": 1.5328,
+  "E_abs": 0.798372,
+  "bitnet_absmean_ratio": 1.0,
+  "phi_half_ratio": 0.809,
+  "mse_at_fixed_point": 0.190066,
+  "mse_at_E_abs": 0.263156,
+  "mse_at_phi_half": 0.333204,
+  "alphabet_scale_invariance_max_abs_diff": 7.105427357601002e-14,
+  "verdict": "PASS"
+ },
+ "T12": {
+  "cls": "a",
+  "table": [
+   {
+    "trits": 1,
+    "bits": 2,
+    "codes": 3,
+    "capacity": 4,
+    "unreachable": 1,
+    "wasted_pct": 25.0
+   },
+   {
+    "trits": 2,
+    "bits": 4,
+    "codes": 9,
+    "capacity": 16,
+    "unreachable": 7,
+    "wasted_pct": 43.75
+   },
+   {
+    "trits": 3,
+    "bits": 5,
+    "codes": 27,
+    "capacity": 32,
+    "unreachable": 5,
+    "wasted_pct": 15.62
+   },
+   {
+    "trits": 4,
+    "bits": 7,
+    "codes": 81,
+    "capacity": 128,
+    "unreachable": 47,
+    "wasted_pct": 36.72
+   },
+   {
+    "trits": 5,
+    "bits": 8,
+    "codes": 243,
+    "capacity": 256,
+    "unreachable": 13,
+    "wasted_pct": 5.08
+   },
+   {
+    "trits": 6,
+    "bits": 10,
+    "codes": 729,
+    "capacity": 1024,
+    "unreachable": 295,
+    "wasted_pct": 28.81
+   },
+   {
+    "trits": 7,
+    "bits": 12,
+    "codes": 2187,
+    "capacity": 4096,
+    "unreachable": 1909,
+    "wasted_pct": 46.61
+   },
+   {
+    "trits": 8,
+    "bits": 13,
+    "codes": 6561,
+    "capacity": 8192,
+    "unreachable": 1631,
+    "wasted_pct": 19.91
+   }
+  ],
+  "always_wastes": true,
+  "t4_wasted_pct": 36.72,
+  "verdict": "PASS"
+ },
+ "T13": {
+  "cls": "b",
+  "widths_checked": 125,
+  "phi_optimal_count": 1,
+  "phi_optimal_widths": [
+   4
+  ],
+  "verdict": "PARTIAL"
+ }
+}

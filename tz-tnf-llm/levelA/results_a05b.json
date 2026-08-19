@@ -1,0 +1,34 @@
+{
+ "tnf17_4_9_block0": {
+  "rel_rms": 0.00495016622459327,
+  "sqnr_db": 46.10760434774665
+ },
+ "tnf17_4_9_block32": {
+  "rel_rms": 0.0009223636883517866,
+  "sqnr_db": 60.701956053964885
+ },
+ "tnf17_4_9_activations_fp16acc_block0": {
+  "rel_rms": 0.0022647132121933885,
+  "sqnr_db": 52.89973572509944
+ },
+ "tnf17_4_9_activations_fp16acc_block32": {
+  "rel_rms": 0.0009596636467682968,
+  "sqnr_db": 60.357619129806835
+ },
+ "tnf16_true_4_8_block0": {
+  "rel_rms": 0.007586330576736899,
+  "sqnr_db": 42.39936473404966
+ },
+ "tnf16_true_4_8_block32": {
+  "rel_rms": 0.002627614737899097,
+  "sqnr_db": 51.60876621808968
+ },
+ "tnf16_true_4_8_activations_fp16acc_block0": {
+  "rel_rms": 0.002416067868911578,
+  "sqnr_db": 52.3378174053244
+ },
+ "tnf16_true_4_8_activations_fp16acc_block32": {
+  "rel_rms": 0.0005025457254341175,
+  "sqnr_db": 65.9764883338604
+ }
+}

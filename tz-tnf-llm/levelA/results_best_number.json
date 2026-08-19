@@ -1,0 +1,377 @@
+{
+ "N=4": {
+  "phi_rule_e": 1,
+  "per_distribution": {
+   "gaussian": {
+    "sqnr_db": {
+     "fixed_per_tensor": 16.186839626412677,
+     "fixed_block32": 19.119987167023872,
+     "float_e2_m1": 19.266699352019064,
+     "float_e2_m1_block32": 18.6486616506358,
+     "float_e1_m2_PHI": 16.186839626412677,
+     "float_e1_m2_block32_PHI": 19.119987167023872
+    },
+    "winner": "float_e2_m1",
+    "phi_variant_gap_db": 0.14671218499519156
+   },
+   "relu_halfnorm": {
+    "sqnr_db": {
+     "fixed_per_tensor": 17.525359152415906,
+     "fixed_block32": 20.29349466393302,
+     "float_e2_m1": 19.07179642891491,
+     "float_e2_m1_block32": 18.853867023043197,
+     "float_e1_m2_PHI": 17.525359152415906,
+     "float_e1_m2_block32_PHI": 20.29349466393302
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 0.0
+   },
+   "laplace": {
+    "sqnr_db": {
+     "fixed_per_tensor": 12.56993051433107,
+     "fixed_block32": 18.257074370042034,
+     "float_e2_m1": 17.28874002126103,
+     "float_e2_m1_block32": 20.06999824059737,
+     "float_e1_m2_PHI": 12.56993051433107,
+     "float_e1_m2_block32_PHI": 18.257074370042034
+    },
+    "winner": "float_e2_m1_block32",
+    "phi_variant_gap_db": 1.8129238705553377
+   },
+   "heavy_t3": {
+    "sqnr_db": {
+     "fixed_per_tensor": 8.168479237336296,
+     "fixed_block32": 16.70054303971952,
+     "float_e2_m1": 10.852134535645103,
+     "float_e2_m1_block32": 18.303748851025997,
+     "float_e1_m2_PHI": 8.168479237336296,
+     "float_e1_m2_block32_PHI": 16.70054303971952
+    },
+    "winner": "float_e2_m1_block32",
+    "phi_variant_gap_db": 1.603205811306477
+   },
+   "logit_outlier": {
+    "sqnr_db": {
+     "fixed_per_tensor": 14.417081059848996,
+     "fixed_block32": 22.576369251385874,
+     "float_e2_m1": 13.706700869730714,
+     "float_e2_m1_block32": 21.85820664677535,
+     "float_e1_m2_PHI": 14.417081059848996,
+     "float_e1_m2_block32_PHI": 22.576369251385874
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 0.0
+   }
+  }
+ },
+ "N=6": {
+  "phi_rule_e": 2,
+  "per_distribution": {
+   "gaussian": {
+    "sqnr_db": {
+     "fixed_per_tensor": 29.879765541632537,
+     "fixed_block32": 33.28064410316103,
+     "float_e2_m3_PHI": 30.06190114114469,
+     "float_e2_m3_block32_PHI": 32.6397986847006,
+     "float_e3_m2": 25.57259996155528,
+     "float_e3_m2_block32": 25.704115027525805,
+     "float_e4_m1": 19.950937653785168,
+     "float_e4_m1_block32": 19.098275277359175
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 0.6408454184604295
+   },
+   "relu_halfnorm": {
+    "sqnr_db": {
+     "fixed_per_tensor": 30.70144407007513,
+     "fixed_block32": 34.586643756003134,
+     "float_e2_m3_PHI": 29.810895560070833,
+     "float_e2_m3_block32_PHI": 31.941715419063613,
+     "float_e3_m2": 26.103800567267996,
+     "float_e3_m2_block32": 26.2809558303022,
+     "float_e4_m1": 19.45423089592417,
+     "float_e4_m1_block32": 18.93395973166243
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 2.644928336939522
+   },
+   "laplace": {
+    "sqnr_db": {
+     "fixed_per_tensor": 26.778161893653753,
+     "fixed_block32": 31.374536097667338,
+     "float_e2_m3_PHI": 29.240742899308483,
+     "float_e2_m3_block32_PHI": 31.272940032736628,
+     "float_e3_m2": 25.535696743489765,
+     "float_e3_m2_block32": 26.81057220194125,
+     "float_e4_m1": 18.945832580169373,
+     "float_e4_m1_block32": 21.137149401282702
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 0.10159606493071038
+   },
+   "heavy_t3": {
+    "sqnr_db": {
+     "fixed_per_tensor": 18.702873814659327,
+     "fixed_block32": 28.83219192091446,
+     "float_e2_m3_PHI": 22.38240657289388,
+     "float_e2_m3_block32_PHI": 32.28914635136852,
+     "float_e3_m2": 25.517638693679203,
+     "float_e3_m2_block32": 27.80471237281492,
+     "float_e4_m1": 20.469037664136792,
+     "float_e4_m1_block32": 21.190458835832025
+    },
+    "winner": "float_e2_m3_block32_PHI",
+    "phi_variant_gap_db": 0.0
+   },
+   "logit_outlier": {
+    "sqnr_db": {
+     "fixed_per_tensor": 16.43032896936285,
+     "fixed_block32": 30.628437971510532,
+     "float_e2_m3_PHI": 21.22489061161769,
+     "float_e2_m3_block32_PHI": 33.54776741104804,
+     "float_e3_m2": 29.17635623651568,
+     "float_e3_m2_block32": 29.635499064262987,
+     "float_e4_m1": 23.04908021457821,
+     "float_e4_m1_block32": 23.060258595090033
+    },
+    "winner": "float_e2_m3_block32_PHI",
+    "phi_variant_gap_db": 0.0
+   }
+  }
+ },
+ "N=8": {
+  "phi_rule_e": 3,
+  "per_distribution": {
+   "gaussian": {
+    "sqnr_db": {
+     "fixed_per_tensor": 41.491221289561615,
+     "fixed_block32": 44.508891252610496,
+     "float_e2_m5": 42.47312302582359,
+     "float_e2_m5_block32": 42.98590523549638,
+     "float_e3_m4_PHI": 37.60403568289901,
+     "float_e3_m4_block32_PHI": 38.46255503928614,
+     "float_e4_m3": 30.67912742858924,
+     "float_e4_m3_block32": 32.90951217738088
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 6.046336213324359
+   },
+   "relu_halfnorm": {
+    "sqnr_db": {
+     "fixed_per_tensor": 41.29493483680163,
+     "fixed_block32": 45.50860997520778,
+     "float_e2_m5": 41.73517030586649,
+     "float_e2_m5_block32": 43.50656727732667,
+     "float_e3_m4_PHI": 36.894083123371644,
+     "float_e3_m4_block32_PHI": 38.619753687526554,
+     "float_e4_m3": 30.64102340470118,
+     "float_e4_m3_block32": 32.093270601486964
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 6.888856287681229
+   },
+   "laplace": {
+    "sqnr_db": {
+     "fixed_per_tensor": 38.95305579781129,
+     "fixed_block32": 43.25106972569024,
+     "float_e2_m5": 41.61642781568739,
+     "float_e2_m5_block32": 43.776976289298815,
+     "float_e3_m4_PHI": 37.670411195516095,
+     "float_e3_m4_block32_PHI": 38.77943321706711,
+     "float_e4_m3": 31.897366117336002,
+     "float_e4_m3_block32": 32.13987828280489
+    },
+    "winner": "float_e2_m5_block32",
+    "phi_variant_gap_db": 4.997543072231707
+   },
+   "heavy_t3": {
+    "sqnr_db": {
+     "fixed_per_tensor": 29.786607244969453,
+     "fixed_block32": 41.20057993524436,
+     "float_e2_m5": 37.31480640579097,
+     "float_e2_m5_block32": 44.34421313381247,
+     "float_e3_m4_PHI": 37.513856980316696,
+     "float_e3_m4_block32_PHI": 39.484209443833514,
+     "float_e4_m3": 31.89930501026994,
+     "float_e4_m3_block32": 34.01589160967678
+    },
+    "winner": "float_e2_m5_block32",
+    "phi_variant_gap_db": 4.860003689978953
+   },
+   "logit_outlier": {
+    "sqnr_db": {
+     "fixed_per_tensor": 27.366825694169698,
+     "fixed_block32": 42.171413768381505,
+     "float_e2_m5": 32.935203014149536,
+     "float_e2_m5_block32": 44.24769979954482,
+     "float_e3_m4_PHI": 40.38253061561733,
+     "float_e3_m4_block32_PHI": 40.760198035102,
+     "float_e4_m3": 35.562313148736465,
+     "float_e4_m3_block32": 35.78519268687868
+    },
+    "winner": "float_e2_m5_block32",
+    "phi_variant_gap_db": 3.4875017644428183
+   }
+  }
+ },
+ "N=12": {
+  "phi_rule_e": 4,
+  "per_distribution": {
+   "gaussian": {
+    "sqnr_db": {
+     "fixed_per_tensor": 65.79097170981024,
+     "fixed_block32": 69.57879878284818,
+     "float_e2_m9": 66.2537425702466,
+     "float_e2_m9_block32": 68.09325694516276,
+     "float_e3_m8": 61.75132123683542,
+     "float_e3_m8_block32": 62.37988556827047,
+     "float_e4_m7_PHI": 55.05678057202506,
+     "float_e4_m7_block32_PHI": 56.26706586464465
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 13.311732918203532
+   },
+   "relu_halfnorm": {
+    "sqnr_db": {
+     "fixed_per_tensor": 65.99988454617105,
+     "fixed_block32": 69.55515127762052,
+     "float_e2_m9": 66.24000361344268,
+     "float_e2_m9_block32": 68.17822846186306,
+     "float_e3_m8": 61.74940421120788,
+     "float_e3_m8_block32": 62.36919296850628,
+     "float_e4_m7_PHI": 55.17816020972941,
+     "float_e4_m7_block32_PHI": 57.23399127390516
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 12.321160003715363
+   },
+   "laplace": {
+    "sqnr_db": {
+     "fixed_per_tensor": 62.73778814837759,
+     "fixed_block32": 67.199786093059,
+     "float_e2_m9": 65.34922008233511,
+     "float_e2_m9_block32": 68.4451108768468,
+     "float_e3_m8": 60.76174328765778,
+     "float_e3_m8_block32": 62.557124616036255,
+     "float_e4_m7_PHI": 55.88361878512886,
+     "float_e4_m7_block32_PHI": 56.60853833370069
+    },
+    "winner": "float_e2_m9_block32",
+    "phi_variant_gap_db": 11.836572543146104
+   },
+   "heavy_t3": {
+    "sqnr_db": {
+     "fixed_per_tensor": 56.31827468586459,
+     "fixed_block32": 66.18377557912999,
+     "float_e2_m9": 59.812353411166434,
+     "float_e2_m9_block32": 67.44199797132617,
+     "float_e3_m8": 62.4688985217678,
+     "float_e3_m8_block32": 63.84973304005556,
+     "float_e4_m7_PHI": 55.48828244127061,
+     "float_e4_m7_block32_PHI": 58.114386276991006
+    },
+    "winner": "float_e2_m9_block32",
+    "phi_variant_gap_db": 9.327611694335168
+   },
+   "logit_outlier": {
+    "sqnr_db": {
+     "fixed_per_tensor": 50.91576448056536,
+     "fixed_block32": 66.57169631614714,
+     "float_e2_m9": 57.34820851630651,
+     "float_e2_m9_block32": 70.34156277092583,
+     "float_e3_m8": 64.59686854508251,
+     "float_e3_m8_block32": 64.71672277917693,
+     "float_e4_m7_PHI": 58.98503865071642,
+     "float_e4_m7_block32_PHI": 58.922303284777456
+    },
+    "winner": "float_e2_m9_block32",
+    "phi_variant_gap_db": 11.356524120209414
+   }
+  }
+ },
+ "N=16": {
+  "phi_rule_e": 6,
+  "per_distribution": {
+   "gaussian": {
+    "sqnr_db": {
+     "fixed_per_tensor": 90.24325605273441,
+     "fixed_block32": 93.06583563015462,
+     "float_e2_m13": 91.24036501528931,
+     "float_e2_m13_block32": 91.15017694130843,
+     "float_e3_m12": 85.01421748709946,
+     "float_e3_m12_block32": 85.45954402635773,
+     "float_e4_m11": 79.48190294824622,
+     "float_e4_m11_block32": 80.54959010284028,
+     "float_e6_m9_PHI": 66.63918096928379,
+     "float_e6_m9_block32_PHI": 68.47890453425674
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 24.58693109589788
+   },
+   "relu_halfnorm": {
+    "sqnr_db": {
+     "fixed_per_tensor": 90.29467722579355,
+     "fixed_block32": 93.4556757640652,
+     "float_e2_m13": 89.74466936937516,
+     "float_e2_m13_block32": 92.72616686548463,
+     "float_e3_m12": 86.31086135685898,
+     "float_e3_m12_block32": 86.33446958307907,
+     "float_e4_m11": 78.83161507891607,
+     "float_e4_m11_block32": 80.51108803877811,
+     "float_e6_m9_PHI": 66.59818299588692,
+     "float_e6_m9_block32_PHI": 68.4175726987838
+    },
+    "winner": "fixed_block32",
+    "phi_variant_gap_db": 25.038103065281405
+   },
+   "laplace": {
+    "sqnr_db": {
+     "fixed_per_tensor": 85.71946937176014,
+     "fixed_block32": 91.25947891712991,
+     "float_e2_m13": 89.75634131078496,
+     "float_e2_m13_block32": 91.70274597679132,
+     "float_e3_m12": 85.87065146895515,
+     "float_e3_m12_block32": 86.50136576349398,
+     "float_e4_m11": 80.8773265398743,
+     "float_e4_m11_block32": 80.79416641771627,
+     "float_e6_m9_PHI": 66.67049205797318,
+     "float_e6_m9_block32_PHI": 68.81601177069821
+    },
+    "winner": "float_e2_m13_block32",
+    "phi_variant_gap_db": 22.88673420609311
+   },
+   "heavy_t3": {
+    "sqnr_db": {
+     "fixed_per_tensor": 78.38088814396043,
+     "fixed_block32": 89.40072418677391,
+     "float_e2_m13": 84.64311041416775,
+     "float_e2_m13_block32": 92.7068677377361,
+     "float_e3_m12": 85.3337071588659,
+     "float_e3_m12_block32": 88.06504718556911,
+     "float_e4_m11": 80.8189192721004,
+     "float_e4_m11_block32": 82.37920859036001,
+     "float_e6_m9_PHI": 67.44398684672299,
+     "float_e6_m9_block32_PHI": 69.13593780779127
+    },
+    "winner": "float_e2_m13_block32",
+    "phi_variant_gap_db": 23.57092992994484
+   },
+   "logit_outlier": {
+    "sqnr_db": {
+     "fixed_per_tensor": 75.81371209875306,
+     "fixed_block32": 89.64045006454168,
+     "float_e2_m13": 80.50775469024123,
+     "float_e2_m13_block32": 93.91436120755715,
+     "float_e3_m12": 89.99618969919646,
+     "float_e3_m12_block32": 89.86540822742404,
+     "float_e4_m11": 83.83653953284829,
+     "float_e4_m11_block32": 83.91199642877596,
+     "float_e6_m9_PHI": 71.92180427472054,
+     "float_e6_m9_block32_PHI": 71.90703989657622
+    },
+    "winner": "float_e2_m13_block32",
+    "phi_variant_gap_db": 21.992556932836607
+   }
+  }
+ }
+}
