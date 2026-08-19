@@ -1,0 +1,134 @@
+{
+ "mobydick_act_only": {
+  "base_ppl": 42.2093,
+  "spearman_sqnr_vs_absdelta": -0.936,
+  "inversions": 5,
+  "pairs": 55,
+  "inversion_pct": 9.1,
+  "rows": [
+   {
+    "fmt": "e2m13_b32",
+    "sqnr_db": 73.84,
+    "delta_pct": 0.0005
+   },
+   {
+    "fmt": "fixed16_b32",
+    "sqnr_db": 73.51,
+    "delta_pct": 0.0014
+   },
+   {
+    "fmt": "e3m12_b32",
+    "sqnr_db": 69.18,
+    "delta_pct": 0.0002
+   },
+   {
+    "fmt": "e5m10",
+    "sqnr_db": 52.26,
+    "delta_pct": 0.0017
+   },
+   {
+    "fmt": "e6m9_b32_PHI",
+    "sqnr_db": 50.86,
+    "delta_pct": 0.0047
+   },
+   {
+    "fmt": "tnf16_t4m8_b32",
+    "sqnr_db": 48.39,
+    "delta_pct": -0.0121
+   },
+   {
+    "fmt": "e6m9_PHI",
+    "sqnr_db": 45.24,
+    "delta_pct": -0.0142
+   },
+   {
+    "fmt": "e2m5_b32",
+    "sqnr_db": 27.62,
+    "delta_pct": 0.621
+   },
+   {
+    "fmt": "int8_b32",
+    "sqnr_db": 25.13,
+    "delta_pct": 0.2393
+   },
+   {
+    "fmt": "e3m4_b32_PHI8",
+    "sqnr_db": 22.23,
+    "delta_pct": 0.031
+   },
+   {
+    "fmt": "e4m3",
+    "sqnr_db": 11.77,
+    "delta_pct": 3.2725
+   }
+  ]
+ },
+ "mobydick_ternary_weights": {
+  "base_ppl": 772782.1595,
+  "spearman_sqnr_vs_absdelta": -1.0,
+  "inversions": 0,
+  "pairs": 10,
+  "inversion_pct": 0.0,
+  "rows": [
+   {
+    "fmt": "e2m13_b32",
+    "sqnr_db": 101.88,
+    "delta_pct": -0.0023
+   },
+   {
+    "fmt": "e6m9_b32_PHI",
+    "sqnr_db": 82.45,
+    "delta_pct": 0.003
+   },
+   {
+    "fmt": "tnf16_t4m8_b32",
+    "sqnr_db": 76.53,
+    "delta_pct": 0.0216
+   },
+   {
+    "fmt": "e2m5_b32",
+    "sqnr_db": 53.13,
+    "delta_pct": 0.8591
+   },
+   {
+    "fmt": "int8_b32",
+    "sqnr_db": 48.76,
+    "delta_pct": 3.5283
+   }
+  ]
+ },
+ "shakespeare_act_only": {
+  "base_ppl": 81.997,
+  "spearman_sqnr_vs_absdelta": -0.9,
+  "inversions": 1,
+  "pairs": 10,
+  "inversion_pct": 10.0,
+  "rows": [
+   {
+    "fmt": "e2m13_b32",
+    "sqnr_db": 77.13,
+    "delta_pct": 0.0011
+   },
+   {
+    "fmt": "e6m9_b32_PHI",
+    "sqnr_db": 53.72,
+    "delta_pct": 0.015
+   },
+   {
+    "fmt": "tnf16_t4m8_b32",
+    "sqnr_db": 49.56,
+    "delta_pct": 0.0062
+   },
+   {
+    "fmt": "e2m5_b32",
+    "sqnr_db": 30.09,
+    "delta_pct": 1.7724
+   },
+   {
+    "fmt": "int8_b32",
+    "sqnr_db": 28.85,
+    "delta_pct": -3.2665
+   }
+  ]
+ }
+}

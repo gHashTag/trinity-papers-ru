@@ -1,0 +1,241 @@
+{
+ "fixed16_exact": {
+  "luts": 16,
+  "carry4": 5,
+  "muxf7": 0,
+  "muxf8": 0,
+  "cells": {
+   "wires": 23,
+   "ports": 3,
+   "cells": 70,
+   "CARRY4": 5,
+   "IBUF": 32,
+   "LUT2": 16,
+   "OBUF": 17
+  }
+ },
+ "float_e2m13_exact": {
+  "luts": 78,
+  "carry4": 15,
+  "muxf7": 4,
+  "muxf8": 0,
+  "cells": {
+   "wires": 52,
+   "ports": 3,
+   "cells": 148,
+   "CARRY4": 15,
+   "IBUF": 32,
+   "LUT1": 4,
+   "LUT2": 7,
+   "LUT3": 16,
+   "LUT4": 6,
+   "LUT5": 10,
+   "LUT6": 35,
+   "MUXF7": 4,
+   "OBUF": 19
+  }
+ },
+ "float_e2m13_round": {
+  "luts": 197,
+  "carry4": 15,
+  "muxf7": 21,
+  "muxf8": 4,
+  "cells": {
+   "wires": 149,
+   "ports": 3,
+   "cells": 286,
+   "CARRY4": 15,
+   "IBUF": 32,
+   "INV": 1,
+   "LUT1": 9,
+   "LUT2": 25,
+   "LUT3": 92,
+   "LUT4": 8,
+   "LUT5": 21,
+   "LUT6": 42,
+   "MUXF7": 21,
+   "MUXF8": 4,
+   "OBUF": 16
+  }
+ },
+ "float_e3m12_exact": {
+  "luts": 183,
+  "carry4": 18,
+  "muxf7": 62,
+  "muxf8": 13,
+  "cells": {
+   "wires": 191,
+   "ports": 3,
+   "cells": 330,
+   "CARRY4": 18,
+   "IBUF": 32,
+   "LUT1": 4,
+   "LUT2": 44,
+   "LUT3": 31,
+   "LUT4": 59,
+   "LUT5": 13,
+   "LUT6": 32,
+   "MUXF7": 62,
+   "MUXF8": 13,
+   "OBUF": 22
+  }
+ },
+ "float_e3m12_round": {
+  "luts": 197,
+  "carry4": 18,
+  "muxf7": 18,
+  "muxf8": 3,
+  "cells": {
+   "wires": 158,
+   "ports": 3,
+   "cells": 286,
+   "CARRY4": 18,
+   "IBUF": 32,
+   "INV": 2,
+   "LUT1": 5,
+   "LUT2": 31,
+   "LUT3": 54,
+   "LUT4": 17,
+   "LUT5": 19,
+   "LUT6": 71,
+   "MUXF7": 18,
+   "MUXF8": 3,
+   "OBUF": 16
+  }
+ },
+ "float_e5m10_exact": {
+  "luts": 252,
+  "carry4": 33,
+  "muxf7": 30,
+  "muxf8": 5,
+  "cells": {
+   "wires": 135,
+   "ports": 3,
+   "cells": 396,
+   "CARRY4": 33,
+   "IBUF": 32,
+   "LUT1": 10,
+   "LUT2": 31,
+   "LUT3": 58,
+   "LUT4": 28,
+   "LUT5": 39,
+   "LUT6": 86,
+   "MUXF7": 30,
+   "MUXF8": 5,
+   "OBUF": 44
+  }
+ },
+ "float_e5m10_round": {
+  "luts": 244,
+  "carry4": 20,
+  "muxf7": 35,
+  "muxf8": 9,
+  "cells": {
+   "wires": 206,
+   "ports": 3,
+   "cells": 358,
+   "CARRY4": 20,
+   "IBUF": 32,
+   "INV": 2,
+   "LUT1": 4,
+   "LUT2": 57,
+   "LUT3": 61,
+   "LUT4": 30,
+   "LUT5": 27,
+   "LUT6": 65,
+   "MUXF7": 35,
+   "MUXF8": 9,
+   "OBUF": 16
+  }
+ },
+ "float_e6m9_exact": {
+  "luts": 461,
+  "carry4": 57,
+  "muxf7": 132,
+  "muxf8": 20,
+  "cells": {
+   "wires": 346,
+   "ports": 3,
+   "cells": 777,
+   "CARRY4": 57,
+   "IBUF": 32,
+   "LUT1": 32,
+   "LUT2": 39,
+   "LUT3": 88,
+   "LUT4": 67,
+   "LUT5": 103,
+   "LUT6": 132,
+   "MUXF7": 132,
+   "MUXF8": 20,
+   "OBUF": 75
+  }
+ },
+ "float_e6m9_round": {
+  "luts": 273,
+  "carry4": 19,
+  "muxf7": 58,
+  "muxf8": 24,
+  "cells": {
+   "wires": 254,
+   "ports": 3,
+   "cells": 423,
+   "CARRY4": 19,
+   "IBUF": 32,
+   "INV": 1,
+   "LUT1": 29,
+   "LUT2": 62,
+   "LUT3": 69,
+   "LUT4": 38,
+   "LUT5": 19,
+   "LUT6": 56,
+   "MUXF7": 58,
+   "MUXF8": 24,
+   "OBUF": 16
+  }
+ },
+ "tnf16_t4m8_exact": {
+  "luts": 548,
+  "carry4": 69,
+  "muxf7": 173,
+  "muxf8": 24,
+  "cells": {
+   "wires": 443,
+   "ports": 3,
+   "cells": 937,
+   "CARRY4": 69,
+   "IBUF": 32,
+   "LUT1": 64,
+   "LUT2": 63,
+   "LUT3": 69,
+   "LUT4": 52,
+   "LUT5": 122,
+   "LUT6": 178,
+   "MUXF7": 173,
+   "MUXF8": 24,
+   "OBUF": 91
+  }
+ },
+ "tnf16_t4m8_round": {
+  "luts": 195,
+  "carry4": 20,
+  "muxf7": 12,
+  "muxf8": 4,
+  "cells": {
+   "wires": 155,
+   "ports": 3,
+   "cells": 280,
+   "CARRY4": 20,
+   "IBUF": 32,
+   "INV": 1,
+   "LUT1": 6,
+   "LUT2": 46,
+   "LUT3": 55,
+   "LUT4": 29,
+   "LUT5": 19,
+   "LUT6": 40,
+   "MUXF7": 12,
+   "MUXF8": 4,
+   "OBUF": 16
+  }
+ }
+}

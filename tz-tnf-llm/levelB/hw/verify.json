@@ -1,0 +1,68 @@
+{
+ "fixed16_exact": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "float_e2m13_exact": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "float_e2m13_round": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "float_e3m12_exact": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "float_e3m12_round": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "float_e5m10_exact": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "float_e5m10_round": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "float_e6m9_exact": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "float_e6m9_round": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "tnf16_t4m8_exact": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ },
+ "tnf16_t4m8_round": {
+  "ok": true,
+  "n": 400,
+  "mismatches": 0,
+  "first_bad": []
+ }
+}
