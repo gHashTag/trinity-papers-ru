@@ -1,0 +1,71 @@
+{
+ "bound": {
+  "8": {
+   "sqrt_B": 2.8284,
+   "max_observed": 2.828427,
+   "holds": true
+  },
+  "16": {
+   "sqrt_B": 4.0,
+   "max_observed": 4.0,
+   "holds": true
+  },
+  "32": {
+   "sqrt_B": 5.6569,
+   "max_observed": 5.656854,
+   "holds": true
+  },
+  "64": {
+   "sqrt_B": 8.0,
+   "max_observed": 8.0,
+   "holds": true
+  },
+  "128": {
+   "sqrt_B": 11.3137,
+   "max_observed": 11.313708,
+   "holds": true
+  }
+ },
+ "thresholds": {
+  "8 bit INT/FP (2510.25602)": {
+   "threshold": 7.55,
+   "vacuous_up_to_block": 57,
+   "active_from_block": 58,
+   "vacuous_at_mx_block_32": true
+  },
+  "6 bit": {
+   "threshold": 1.96,
+   "vacuous_up_to_block": 3,
+   "active_from_block": 4,
+   "vacuous_at_mx_block_32": false
+  },
+  "MXFP4": {
+   "threshold": 2.04,
+   "vacuous_up_to_block": 4,
+   "active_from_block": 5,
+   "vacuous_at_mx_block_32": false
+  },
+  "NVFP4": {
+   "threshold": 2.39,
+   "vacuous_up_to_block": 5,
+   "active_from_block": 6,
+   "vacuous_at_mx_block_32": false
+  }
+ },
+ "measured_gpt2": {
+  "n_blocks": 12673411,
+  "block": 32,
+  "mean": 3.3076,
+  "median": 3.0809,
+  "p1": 1.4232,
+  "p5": 1.8342,
+  "p25": 2.4159,
+  "p50": 3.0809,
+  "p75": 4.0792,
+  "p95": 5.5283,
+  "p99": 5.6569,
+  "frac_below_7_55": 1.0,
+  "frac_below_1_96": 0.0744,
+  "kappa_max_possible": 5.6569
+ }
+}

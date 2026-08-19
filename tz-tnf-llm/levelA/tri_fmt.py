@@ -83,10 +83,88 @@ def cmd_pack(args):
     print(f'2 bits per trit  : 2.0000 bits/trit  -> {p * 2 / 8 / 1e6:.1f} MB')
     print(f'best t<=64       : t={best[0]} in {best[1]} bits, utilisation {3**best[0]/2**best[1]:.4f}')
 
-LUT_XC7 = {   # measured 19.08.2026, yosys synth_xilinx -family xc7, verified RTL, single add
- 'exact': {'fixed16': 16, 'e2m13': 78, 'e3m12': 183, 'e5m10': 252, 'e6m9_PHI': 461, 'tnf16_t4m8': 548},
- 'round': {'e2m13': 197, 'e3m12': 197, 'e5m10': 244, 'e6m9_PHI': 273, 'tnf16_t4m8': 195},
+LUT_XC7 = {   # measured 19.08.2026 (RE-SYNTHESISED after the cancellation fix), yosys synth_xilinx -family xc7
+ 'exact': {'fixed16': 17, 'e2m13': 78, 'e3m12': 241, 'e5m10': 272, 'e6m9_PHI': 561, 'tnf16_t4m8': 657,
+           'fixed8': 9, 'e2m5': 46, 'e3m4_PHI': 78, 'e4m3': 127, 'e5m2': 219, 'tnf8_t2m5': 87,
+           'fixed6': 7, 'e2m3': 42, 'fixed4': 5, 'e2m1': 22},
+ 'round': {'e2m13': 218, 'e3m12': 220, 'e5m10': 282, 'e6m9_PHI': 288, 'tnf16_t4m8': 216,
+           'e2m5': 123, 'e3m4_PHI': 146, 'e4m3': 127, 'e5m2': 115, 'tnf8_t2m5': 127,
+           'e2m3': 73, 'e2m1': 29},
 }
+# longest topological path after xc7 mapping -- latency PROXY, not Fmax [modelled]
+LTP_XC7 = {'fixed16': 8, 'e2m13': 12, 'e3m12': 14, 'e5m10': 21, 'e6m9_PHI': 29, 'tnf16_t4m8': 33,
+           'fixed8': 6, 'e2m5': 10, 'e3m4_PHI': 12, 'e4m3': 14, 'e5m2': 17, 'tnf8_t2m5': 12,
+           'fixed6': 5, 'e2m3': 11, 'fixed4': 5, 'e2m1': 9}
+LEVB = '/home/user/workspace/levelB'
+# format name in the measurement files -> datapath name in the hardware tables
+FMT2HW = {'int8_b16': 'fixed8', 'int8_b32': 'fixed8', 'int8_b128': 'fixed8', 'int8_pt': 'fixed8',
+          'e2m5_b16': 'e2m5', 'e2m5_b32': 'e2m5', 'e2m5_b128': 'e2m5', 'e2m5_pt': 'e2m5',
+          'e3m4_b16_PHI8': 'e3m4_PHI', 'e3m4_b32_PHI8': 'e3m4_PHI',
+          'e4m3': 'e4m3', 'e4m3_b32': 'e4m3', 'e5m2_b32': 'e5m2', 'tnf8_t2m5_b32': 'tnf8_t2m5',
+          'e2m4_b32': None, 'fixed7_b32': None, 'e2m3_b32': 'e2m3', 'fixed6_b32': 'fixed6',
+          'e2m2_b32': None, 'fixed5_b32': None, 'e2m1_b32': 'e2m1', 'fixed4_b32': 'fixed4'}
+
+def _jload(name):
+    f = os.path.join(LEVB, name)
+    return json.load(open(f)) if os.path.exists(f) else None
+
+def cmd_pareto(args):
+    """Pareto frontier: paired downstream damage against measured LUT cost."""
+    an = _jload('results_8bit_analysis.json')
+    if an is None:
+        print('no analysis file yet: results_8bit_analysis.json'); return
+    rows = []
+    for r in an.get(args.group, []):
+        hw = FMT2HW.get(r['fmt'])
+        lut = LUT_XC7[args.datapath].get(hw) if hw else None
+        rows.append(dict(fmt=r['fmt'], d=r['d_ppl_pct'], ci=r['ci95_d_ppl_pct'], n=r['n'],
+                         lut=lut, ltp=LTP_XC7.get(hw), sig=r['significant'], hw=hw))
+    have = [r for r in rows if r['lut'] is not None]
+    front = [r for r in have if not any(o['lut'] <= r['lut'] and o['d'] < r['d'] for o in have)]
+    fset = {id(r) for r in front}
+    print(f"group={args.group}  datapath={args.datapath}  (x = LUT xc7 [измерено], y = paired dPPL % [измерено])")
+    print(f"{'format':16s}{'dPPL %':>9s}{'95% CI':>19s}{'LUT':>6s}{'depth':>7s}{'sig':>5s}  frontier")
+    for r in sorted(have, key=lambda r: r['lut']):
+        ci = f"[{r['ci'][0]:+.2f};{r['ci'][1]:+.2f}]"
+        print(f"{r['fmt']:16s}{r['d']:+9.3f}{ci:>19s}{r['lut']:6d}{r['ltp']:7d}{'YES' if r['sig'] else '-':>5s}"
+              f"  {'*** non-dominated' if id(r) in fset else 'dominated'}")
+    miss = [r['fmt'] for r in rows if r['lut'] is None]
+    if miss: print('no synthesised datapath [not-evaluated]:', ', '.join(miss))
+    print('block-scale multiply is NOT in these LUT counts; it is identical for every blocked format, so it cancels')
+    print('depth = longest topological path after xc7 mapping [смоделировано - proxy], NOT Fmax')
+
+def cmd_codes(args):
+    d = _jload('results_codes.json')
+    if d is None: print('no results_codes.json'); return
+    print('reachable exponent codes per block, real GPT-2 activations [измерено]')
+    print(f"{'block':>8s}{'mean':>7s}{'p50':>5s}{'p99':>5s}{'<=4':>8s}{'<=9':>8s}{'<=16':>8s}")
+    for k, v in d.items():
+        print(f"{k:>8s}{v['mean_codes']:7.2f}{v['p50']:5.0f}{v['p99']:5.0f}"
+              f"{100*v['frac_within_4']:7.1f}%{100*v['frac_within_9']:7.1f}%{100*v['frac_within_16']:7.1f}%")
+    print('9 codes = a 2-trit exponent; 4 = 2-bit; 16 = 4-bit')
+
+def cmd_ladder(args):
+    an = _jload('results_8bit_analysis.json')
+    if an is None or 'ladder_act' not in an: print('no ladder measurement'); return
+    print('activation-only bit ladder, block 32, paired [измерено]')
+    for r in sorted(an['ladder_act'], key=lambda r: r['fmt']):
+        print(f"   {r['fmt']:14s} dPPL {r['d_ppl_pct']:+9.3f} %  CI [{r['ci95_d_ppl_pct'][0]:+.2f};{r['ci95_d_ppl_pct'][1]:+.2f}]")
+    print('crossover [измерено]: fixed point wins at 8 bits, float wins at 7 bits and below')
+
+def cmd_freeze(args):
+    d = _jload('freeze.json')
+    if d is None: print('no freeze.json -- run levelB/freeze.py before any measurement'); return
+    print(json.dumps(d, indent=1, ensure_ascii=False))
+
+LESSONS = os.path.join(LEVB, 'LESSONS.md')
+
+def cmd_lesson(args):
+    import datetime
+    if args.text:
+        line = f"- {datetime.date.today().isoformat()} [{args.tag}] {args.text}\n"
+        open(LESSONS, 'a').write(line); print('appended:', line.strip())
+    else:
+        print(open(LESSONS).read() if os.path.exists(LESSONS) else 'no lessons yet')
 
 def cmd_hwcost(args):
     N = args.bits; codes = args.codes
@@ -146,13 +224,56 @@ def cmd_downstream(args):
             print(f"   {k:18s} ppl {v['ppl']:9.4f}  delta {dp:+7.3f} %   logit SQNR "
                   f"{v['logit_sqnr_db'] if v['logit_sqnr_db'] is not None else 'baseline'} dB")
 
+def cmd_kappa(args):
+    """T21: crest-factor threshold is vacuous when kappa* >= sqrt(block).
+
+    kappa = max|x|/rms(x) <= sqrt(B) for every real block of size B, equality iff
+    one nonzero entry. So a rule "INT wins while kappa < kappa*" cannot fail for
+    B <= floor(kappa*^2). [доказано]
+    """
+    import math
+    B, k = args.block, args.threshold
+    lim = math.sqrt(B)
+    print(f"block B = {B}   kappa_max = sqrt(B) = {lim:.4f}   threshold kappa* = {k}")
+    if k >= lim:
+        print(f"VACUOUS: no block of size {B} can exceed {lim:.4f}, so the rule is always true.")
+        print(f"  it becomes active only from B = {int(math.floor(k*k))+1}")
+    else:
+        print(f"active: blocks with kappa in [{k}, {lim:.4f}] can violate the rule.")
+
+def cmd_tnfwidth(args):
+    """Width audit of a TNF rung under both definitions in trinity-fpga."""
+    import math
+    t, m = args.trits, args.mant
+    ob = 0
+    while (1 << ob) < 3 ** t: ob += 1
+    slots, phys = 1 + t + m, 1 + ob + m
+    print(f"E_t={t} trits ({3**t} exponent codes), M={m} mantissa bits")
+    print(f"  slot rule 1+E_t+M            = {slots}")
+    print(f"  physical 1+ceil(E_t*log2 3)+M = {phys}   (offset field {ob} bits, "
+          f"{(1<<ob)-3**t} codes unreachable)")
+    if args.width:
+        print(f"  nominal N = {args.width}: slot {'ok' if slots==args.width else 'VIOL'}, "
+              f"physical {'ok' if phys==args.width else 'VIOL'}")
+    print("  physically exact alternatives at this nominal width:" if args.width else "")
+    if args.width:
+        for tt in range(1, 14):
+            o = 0
+            while (1 << o) < 3 ** tt: o += 1
+            mm = args.width - 1 - o
+            if mm >= 1: print(f"    E_t={tt} (codes {3**tt}) M={mm}")
+
 def main():
     ap = argparse.ArgumentParser(prog='tri-fmt')
     sub = ap.add_subparsers(dest='cmd', required=True)
     for name, fn, needs_bits in (('select', cmd_select, True), ('sweep', cmd_sweep, True),
                                  ('crest', cmd_crest, False), ('pack', cmd_pack, False),
                                  ('hwcost', cmd_hwcost, True), ('alphabet', cmd_alphabet, False),
-                                 ('pack3', cmd_pack3, False), ('downstream', cmd_downstream, False)):
+                                 ('pack3', cmd_pack3, False), ('downstream', cmd_downstream, False),
+                                 ('pareto', cmd_pareto, False), ('codes', cmd_codes, False),
+                                 ('ladder', cmd_ladder, False), ('freeze', cmd_freeze, False),
+                                 ('lesson', cmd_lesson, False), ('kappa', cmd_kappa, False),
+                                 ('tnfwidth', cmd_tnfwidth, False)):
         p = sub.add_parser(name)
         p.set_defaults(fn=fn)
         if needs_bits: p.add_argument('--bits', type=int, required=True)
@@ -163,6 +284,18 @@ def main():
         if name == 'hwcost':
             p.add_argument('--codes', type=int, default=0,
                            help='reachable exponent codes, e.g. 81 for a 4-trit exponent')
+        if name == 'pareto':
+            p.add_argument('--group', default='act8', choices=['act8', 'w8a8', 'ladder_act', 'weights_only'])
+            p.add_argument('--datapath', default='exact', choices=['exact', 'round'])
+        if name == 'lesson':
+            p.add_argument('text', nargs='?'); p.add_argument('--tag', default='измерено')
+        if name == 'kappa':
+            p.add_argument('--block', type=int, default=32)
+            p.add_argument('--threshold', type=float, required=True)
+        if name == 'tnfwidth':
+            p.add_argument('--trits', type=int, required=True)
+            p.add_argument('--mant', type=int, required=True)
+            p.add_argument('--width', type=int, default=0)
         if name == 'pack3':
             p.add_argument('--max-trits', dest='max_trits', type=int, default=10)
     a = ap.parse_args(); a.fn(a)
